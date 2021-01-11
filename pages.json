@@ -1,0 +1,92 @@
+{
+	"easycom": {
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		    "path" : "pages/logins/logins",//登录
+		    "style" :{
+		       "navigationStyle":"custom"
+		    }
+		},{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle":"custom",
+				"enablePullDownRefresh":true
+			}
+		},{
+            "path" : "pages/handicap/handicap",//盘口
+            "style" :{
+				"navigationBarTitleText": "盘口"
+			}
+        },{
+            "path" : "pages/setup/setup",//设置
+            "style" :{
+				"navigationBarTitleText": "设置"
+			}
+        },{
+            "path" : "pages/setup/set_odds",//赔率设置
+            "style" :{
+				"navigationBarTitleText": "赔率设置"
+			}
+        },{
+            "path" : "pages/setup/up_down",//上下分记录
+            "style" :{
+				"navigationBarTitleText": "上下分"
+			}
+        },{
+            "path" : "pages/setup/orders",//订单中心
+            "style" :{
+				"navigationBarTitleText": "订单中心"
+			}
+        },{
+            "path" : "pages/bindqun/bindqun",//绑定群聊
+            "style" : {
+                "navigationBarTitleText": "绑定群聊"
+            }
+        },{
+            "path" : "pages/setup/to_block",//拉黑列表
+            "style" : {
+                "navigationBarTitleText": "拉黑列表"
+            }
+        },{
+            "path" : "pages/report_form/report_form",//报表分析
+            "style" : {
+                "navigationBarTitleText": "报表分析"
+            }
+        },{
+            "path" : "pages/index/record_list",//记录列表
+            "style" : {
+                "navigationBarTitleText": "记录列表"
+            }
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#E4E5E7",
+	    "selectedColor": "#9E9FFD",
+	    "borderStyle": "white",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/index/index",
+	        "iconPath": "static/main1.png",
+	        "selectedIconPath": "static/main.png",
+	        "text": "控制台"
+	    }, {
+	        "pagePath": "pages/handicap/handicap",
+	        "iconPath": "static/hand1.png",
+	        "selectedIconPath": "static/hand.png",
+	        "text": "盘口"
+	    }, {
+	        "pagePath": "pages/setup/setup",
+	        "iconPath": "static/set1.png",
+	        "selectedIconPath": "static/set.png",
+	        "text": "设置"
+	    }]
+	}
+}

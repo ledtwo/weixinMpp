@@ -1,0 +1,1 @@
+<view><block wx:for="{{20}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="lists dis-jasc"><view class="dis-alicen"><image src="../../static/linshi/casour.jpg"></image><text>浓妆艳抹</text></view><view class="listbtn">移出黑名单</view></view></block></view>

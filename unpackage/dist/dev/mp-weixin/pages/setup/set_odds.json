@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "赔率设置",
+  "usingComponents": {
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection"
+  }
+}

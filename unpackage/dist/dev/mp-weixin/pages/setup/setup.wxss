@@ -1,0 +1,206 @@
+page {
+  background-color: #F7FCFF;
+  padding-bottom: 30rpx;
+}
+.boxs {
+  width: 702rpx;
+  height: 112rpx;
+  background-color: #fff;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  margin: 24rpx;
+  padding: 0 30rpx;
+}
+.boxs .tile {
+  font-size: 32rpx;
+  color: #333;
+}
+.boxs .tirig {
+  font-size: 24rpx;
+  color: #999;
+}
+.boxs .tirig text {
+  font-size: 32rpx;
+  color: #9D9FFD;
+  margin-right: 12rpx;
+}
+.opendown {
+  width: 750rpx;
+  padding: 0 24rpx;
+  background-color: #fff;
+  margin-bottom: 24rpx;
+}
+.opendown .odtile {
+  width: 100%;
+  height: 112rpx;
+  font-size: 32rpx;
+  color: #333;
+  padding: 0 28rpx 0 32rpx;
+}
+.opendown .lists {
+  width: 100%;
+  padding: 0 20rpx 0 34rpx;
+}
+.opendown .lists .odlist {
+  width: 100%;
+  height: 104rpx;
+  border-bottom: 1px solid #F0F0F0;
+  padding-right: 10rpx;
+}
+.opendown .lists .odlist .onetile {
+  font-size: 28rpx;
+  color: #999;
+}
+.opendown .lists .odlist .onerig .rigle {
+  margin-right: 24rpx;
+}
+.opendown .lists .odlist .onerig .rigle image {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 16rpx;
+}
+.opendown .lists .odlist .onerig .rigle .timbox {
+  width: 190rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  -webkit-border-radius: 6rpx;
+          border-radius: 6rpx;
+  border: 1px solid #9599F6;
+  padding: 0 10rpx;
+  font-size: 20rpx;
+  color: #9599F6;
+}
+.retus {
+  width: 702rpx;
+  height: 112rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  background-color: #FF8383;
+  margin: 24rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+.retus image {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 14rpx;
+}
+.mtop {
+  margin-top: 0;
+}
+.showpop {
+  width: 702rpx;
+}
+.showpop .toptile {
+  width: 702rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  -webkit-border-radius: 20rpx 20rpx 0 0;
+          border-radius: 20rpx 20rpx 0 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
+  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
+  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  padding-left: 38rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.showpop .changpw {
+  width: 100%;
+  padding: 80rpx 42rpx 70rpx 42rpx;
+}
+.showpop .changpw .inputs {
+  width: 100%;
+  height: 78rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  background-color: #F6F2FF;
+  margin-top: 64rpx;
+}
+.showpop .changpw .inputs view {
+  width: 82rpx;
+  height: 78rpx;
+  line-height: 78rpx;
+  text-align: center;
+  background-color: #9D9FFD;
+  -webkit-border-radius: 10rpx 0 0 10rpx;
+          border-radius: 10rpx 0 0 10rpx;
+}
+.showpop .changpw .inputs view image {
+  width: 30rpx;
+  height: 34rpx;
+}
+.showpop .changpw .inputs input {
+  width: 510rpx;
+  height: 78rpx;
+  line-height: 78rpx;
+  padding-left: 24rpx;
+  font-size: 24rpx;
+}
+.showpop .changpw .surbtn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
+  background-color: #9599F6;
+  font-size: 28rpx;
+  color: #fff;
+  margin-top: 76rpx;
+}
+.showpop .addpeo {
+  width: 100%;
+  padding: 54rpx 28rpx 60rpx 34rpx;
+}
+.showpop .addpeo .addimg {
+  width: 100%;
+}
+.showpop .addpeo .addimg image {
+  width: 160rpx;
+  height: 160rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+.showpop .addpeo .addbtn {
+  width: 208rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  background-color: #9D9FFD;
+  font-size: 28rpx;
+  color: #fff;
+  margin: 36rpx auto;
+  margin-bottom: 44rpx;
+}
+.showpop .addpeo .addinput {
+  width: 100%;
+  height: 108rpx;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
+  font-size: 32rpx;
+  color: #333;
+}
+.showpop .addpeo .addinput input {
+  width: 470rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: right;
+  font-size: 32rpx;
+  color: #9599F6;
+  padding-right: 10rpx;
+}
+.showpop .addpeo .addsure {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
+  background-color: #9599F6;
+  font-size: 28rpx;
+  color: #fff;
+  margin-top: 50rpx;
+}
+

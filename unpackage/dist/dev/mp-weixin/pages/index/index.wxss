@@ -1,0 +1,607 @@
+page {
+  background-color: #F7FCFF;
+  padding-bottom: 20rpx;
+}
+.bigbox {
+  width: 700rpx;
+  margin: 24rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  background: -webkit-gradient(linear, left top, left bottom, from(#C09CF6), to(#9DA0FE));
+  background: -webkit-linear-gradient(top, #C09CF6 0%, #9DA0FE 100%);
+  background: linear-gradient(180deg, #C09CF6 0%, #9DA0FE 100%);
+  padding-bottom: 18rpx;
+}
+.bigbox .firstbox {
+  width: 100%;
+  padding: 26rpx 44rpx 0 44rpx;
+}
+.bigbox .firstbox .firsone {
+  font-size: 26rpx;
+  color: #eee;
+}
+.bigbox .firstbox .firsone .fffcol {
+  font-size: 36rpx;
+  color: #fff;
+  margin-top: 6rpx;
+}
+.bigbox .logins {
+  width: 100%;
+  padding: 46rpx 0 18rpx 0;
+}
+.bigbox .logins .loginbtn {
+  width: 192rpx;
+  height: 58rpx;
+  border: 1px solid #fff;
+  -webkit-border-radius: 40rpx;
+          border-radius: 40rpx;
+}
+.bigbox .logins .loginbtn text {
+  font-size: 28rpx;
+  color: #fff;
+  margin-right: 8rpx;
+}
+.bigbox .bindsqun {
+  width: 100%;
+  border-top: 1px solid #BEB3F9;
+  margin-top: 42rpx;
+}
+.bigbox .bindsqun .bindsone {
+  width: 100%;
+  height: 158rpx;
+  border-bottom: 1px solid #BEB3F9;
+  padding: 0 38rpx;
+}
+.bigbox .bindsqun .bindsone .onelist .listimg {
+  margin-right: 20rpx;
+  width: 92rpx;
+  height: 92rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  background-color: #CEB1F3;
+}
+.bigbox .bindsqun .bindsone .onelist .listimg image {
+  width: 84rpx;
+  height: 84rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+.bigbox .bindsqun .bindsone .onelist .listmsg {
+  height: 92rpx;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+}
+.bigbox .bindsqun .bindsone .onelist .listmsg .listop {
+  color: #fff;
+  font-size: 28rpx;
+}
+.bigbox .bindsqun .bindsone .onelist .listmsg .listop .bindbtn {
+  padding: 0 14rpx;
+  height: 42rpx;
+  font-size: 20rpx;
+  margin-left: 24rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border: 1px solid #fff;
+  -webkit-border-radius: 24rpx;
+          border-radius: 24rpx;
+}
+.bigbox .bindsqun .bindsone .onelist .listmsg .listbo {
+  font-size: 22rpx;
+  color: #eee;
+}
+.bigbox .bindsqun .bindsone .oncerig image {
+  width: 32rpx;
+  height: 32rpx;
+}
+.bigbox .addsome {
+  padding: 34rpx 0 0 40rpx;
+  font-size: 28rpx;
+  color: #EEE;
+}
+.bigbox .addsome image {
+  width: 84rpx;
+  height: 84rpx;
+  margin-right: 28rpx;
+}
+.bigbox .lastmore {
+  margin-top: 28rpx;
+  font-size: 24rpx;
+  color: #DAD3FF;
+}
+.bigbox .lastmore text {
+  margin-right: 12rpx;
+}
+.friends {
+  width: 700rpx;
+  height: 176rpx;
+  margin: 0 auto;
+  margin-bottom: 24rpx;
+  background-color: #fff;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  -webkit-box-shadow: 0px 0px 12px rgba(64, 64, 64, 0.07);
+          box-shadow: 0px 0px 12px rgba(64, 64, 64, 0.07);
+}
+.friends .fright .ritop {
+  width: 520rpx;
+  fonts: 24rpx;
+  color: #DAD3FF;
+}
+.friends .fright .ritop .onename {
+  width: 360rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #9D9FFD;
+}
+.friends .fright .ribot {
+  width: 520rpx;
+  margin-top: 30rpx;
+}
+.friends .fright .ribot .botle {
+  padding: 0 14rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  border: 1px solid #FE9749;
+  -webkit-border-radius: 8rpx;
+          border-radius: 8rpx;
+  font-size: 22rpx;
+  color: #FE9749;
+}
+.friends .fright .ribot .botri view {
+  width: 110rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  text-align: center;
+  -webkit-border-radius: 8rpx;
+          border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background-color: #9D9FFD;
+}
+.friends .fright .ribot .botri .riisnt {
+  background-color: #FF8383;
+  margin-left: 16rpx;
+}
+.friends .imgs {
+  margin: 0 22rpx;
+}
+.friends .imgs image {
+  width: 104rpx;
+  height: 104rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+.utabs {
+  width: 700rpx;
+  margin: 0 auto;
+  padding: 30rpx 0;
+}
+.lastlist {
+  width: 750rpx;
+  padding: 0 25rpx;
+}
+.lastlist .listone {
+  width: 700rpx;
+  background-color: #fff;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  margin: 0 auto;
+  margin-bottom: 24rpx;
+  padding: 24rpx 0 18rpx 16rpx;
+}
+.lastlist .listone .oneimg {
+  margin-right: 10rpx;
+  position: relative;
+}
+.lastlist .listone .oneimg image {
+  width: 84rpx;
+  height: 84rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  z-index: 10;
+}
+.lastlist .listone .oneimg .flatsbox {
+  width: 292rpx;
+  height: 102rpx;
+  -webkit-box-shadow: 0px 0px 12px rgba(42, 42, 42, 0.23);
+          box-shadow: 0px 0px 12px rgba(42, 42, 42, 0.23);
+  background-color: #fff;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  position: absolute;
+  left: 80rpx;
+  top: -90rpx;
+  z-index: 20;
+  font-size: 28rpx;
+  color: #333;
+}
+.lastlist .listone .oneimg .flatsbox view {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  height: 102rpx;
+  line-height: 102rpx;
+  text-align: center;
+}
+.lastlist .listone .oneimg .flatbox {
+  width: 523rpx;
+  height: 216rpx;
+  -webkit-box-shadow: 0px 0px 12px rgba(42, 42, 42, 0.23);
+          box-shadow: 0px 0px 12px rgba(42, 42, 42, 0.23);
+  position: absolute;
+  background-color: #fff;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  left: 14rpx;
+  top: -218rpx;
+  z-index: 20;
+  font-size: 28rpx;
+  color: #333;
+}
+.lastlist .listone .oneimg .flatbox .boxleft {
+  width: 100%;
+  height: 108rpx;
+}
+.lastlist .listone .oneimg .flatbox .boxleft view {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  height: 108rpx;
+  line-height: 108rpx;
+  text-align: center;
+}
+.lastlist .listone .onecont .onetop {
+  width: 570rpx;
+}
+.lastlist .listone .onecont .onetop .topleft view {
+  margin: 0 10rpx 10rpx 0;
+}
+.lastlist .listone .onecont .onetop .topleft view:nth-of-type(1) {
+  font-size: 30rpx;
+  color: #333;
+}
+.lastlist .listone .onecont .onetop .topleft .flys {
+  width: 38rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
+  text-align: center;
+  border: 1px solid #A696F8;
+  font-size: 20rpx;
+  color: #A696F8;
+}
+.lastlist .listone .onecont .onetop .topleft .updow {
+  height: 34rpx;
+  line-height: 34rpx;
+  -webkit-border-radius: 4rpx;
+          border-radius: 4rpx;
+  padding: 0 10rpx;
+  border: 1px solid #FE9749;
+  font-size: 20rpx;
+  color: #FE9749;
+}
+.lastlist .listone .onecont .onebot {
+  width: 570rpx;
+  padding-top: 12rpx;
+}
+.lastlist .listone .onecont .onebot .botleft {
+  width: 380rpx;
+  font-size: 20rpx;
+  color: #BA9BF6;
+}
+.lastlist .listone .onecont .onebot .botleft view {
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 0 16rpx;
+  border: 1px solid #BA9BF6;
+  -webkit-border-radius: 6rpx;
+          border-radius: 6rpx;
+  margin-right: 8rpx;
+}
+.lastlist .listone .onecont .onebot .botright {
+  font-size: 24rpx;
+  color: #999;
+}
+.lastlist .listone .onecont .onebot .botright text {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #FE9749;
+  margin-right: 6rpx;
+}
+.showpop {
+  width: 702rpx;
+}
+.showpop scroll-view {
+  width: 702rpx;
+  height: 1000rpx;
+  padding: 10rpx 0 20rpx 40rpx;
+}
+.showpop scroll-view view {
+  display: inline-block;
+  padding: 0 32rpx;
+  background-color: #F1ECFF;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  margin: 30rpx 30rpx 0 0;
+  font-size: 28rpx;
+  color: #9699F6;
+}
+.showpop .toptile {
+  width: 702rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  -webkit-border-radius: 20rpx 20rpx 0 0;
+          border-radius: 20rpx 20rpx 0 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
+  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
+  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  padding-left: 38rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.showpop .ercode {
+  width: 100%;
+  padding: 36rpx 60rpx 50rpx 40rpx;
+  font-size: 24rpx;
+  color: #333;
+}
+.showpop .ercode .codtwo {
+  margin-top: 32rpx;
+}
+.showpop .ercode .codimg {
+  margin: 10rpx 0;
+}
+.showpop .ercode .codimg image {
+  width: 236rpx;
+  height: 236rpx;
+}
+.showpop .ercode .codtil text {
+  margin-left: 14rpx;
+}
+.showpop .ercode .codte {
+  margin: 32rpx 0 20rpx 0;
+}
+.showpop .ercode .codlas {
+  line-height: 44rpx;
+}
+.showpop .showlogin {
+  width: 100%;
+  padding: 102rpx 46rpx 58rpx 46rpx;
+}
+.showpop .showlogin .theone {
+  width: 100%;
+  height: 78rpx;
+  background-color: #F6F2FF;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+}
+.showpop .showlogin .theone view {
+  width: 82rpx;
+  height: 78rpx;
+  background-color: #9D9FFD;
+  -webkit-border-radius: 10rpx 0 0 10rpx;
+          border-radius: 10rpx 0 0 10rpx;
+}
+.showpop .showlogin .theone view image {
+  width: 28rpx;
+  height: 34rpx;
+}
+.showpop .showlogin .theone input {
+  width: 510rpx;
+  height: 78rpx;
+  line-height: 78rpx;
+  padding-left: 24rpx;
+  font-size: 24rpx;
+}
+.showpop .showlogin .thetwo {
+  margin-top: 54rpx;
+  color: #999;
+  font-size: 22rpx;
+}
+.showpop .showlogin .thetwo image {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 20rpx;
+}
+.showpop .updownf {
+  width: 100%;
+  padding: 46rpx 30rpx 66rpx 30rpx;
+}
+.showpop .updownf .topqie view {
+  width: 120rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  -webkit-border-radius: 40rpx;
+          border-radius: 40rpx;
+  font-size: 32rpx;
+  color: #999;
+}
+.showpop .updownf .topqie .bgcs {
+  background: -webkit-gradient(linear, left top, left bottom, from(#9599F6), to(#B297EA));
+  background: -webkit-linear-gradient(top, #9599F6 0%, #B297EA 100%);
+  background: linear-gradient(180deg, #9599F6 0%, #B297EA 100%);
+  color: #fff;
+}
+.showpop .updownf .iputs {
+  width: 100%;
+  height: 108rpx;
+  margin-top: 80rpx;
+  padding-left: 16rpx;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
+  font-size: 32rpx;
+  color: #333;
+}
+.showpop .updownf .iputs input {
+  width: 440rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 40rpx;
+  color: #9599F6;
+  font-weight: 600;
+  text-align: right;
+  margin-right: 6rpx;
+}
+.showpop .msguser {
+  width: 100%;
+  padding: 54rpx 28rpx 60rpx 34rpx;
+}
+.showpop .msguser .usehead image {
+  width: 160rpx;
+  height: 160rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+.showpop .msguser .heabtn {
+  width: 208rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background-color: #9D9FFD;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #fff;
+  margin: 0 auto;
+  margin-top: 36rpx;
+}
+.showpop .msguser .heaiput {
+  width: 100%;
+  height: 108rpx;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
+  margin-top: 44rpx;
+}
+.showpop .msguser .heaiput input {
+  width: 430rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: right;
+  font-size: 32rpx;
+  color: #9599F6;
+}
+.showpop .retuwater {
+  width: 100%;
+  padding: 84rpx 30rpx 60rpx 30rpx;
+}
+.showpop .retuwater .reinput {
+  width: 100%;
+  height: 108rpx;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
+  padding: 0 16rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+.showpop .retuwater .reinput input {
+  width: 420rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: right;
+  font-size: 40rpx;
+  color: #9599F6;
+  font-weight: 600;
+  padding-right: 6rpx;
+}
+.showpop .retuwater .retils {
+  width: 100%;
+  font-size: 24rpx;
+  color: #FF7900;
+  margin: 36rpx 0 64rpx 0;
+  padding: 0 6rpx;
+}
+.showpop .retuwater .retils text {
+  margin-left: 4rpx;
+}
+.showpop .makesurebtn {
+  width: 608rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #9599F6;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
+  margin: 0 auto;
+  margin-top: 76rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.lists {
+  width: 750rpx;
+  padding: 24rpx;
+  padding-top: 0;
+}
+.lists .listone {
+  width: 100%;
+  background-color: #fff;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  padding: 26rpx 28rpx 18rpx 30rpx;
+  margin-bottom: 24rpx;
+}
+.lists .listone .timg {
+  margin-right: 10rpx;
+}
+.lists .listone .timg image {
+  width: 84rpx;
+  height: 84rpx;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+.lists .listone .onerig .rigtop {
+  width: 550rpx;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+}
+.lists .listone .onerig .rigtop .rnotime view {
+  margin-right: 12rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+.lists .listone .onerig .rigtop .rnotime view:nth-of-type(2) {
+  height: 36rpx;
+  line-height: 36rpx;
+  padding: 0 8rpx;
+  -webkit-border-radius: 8rpx;
+          border-radius: 8rpx;
+  border: 1px solid #A29FFC;
+  font-size: 22rpx;
+  color: #A29FFC;
+}
+.lists .listone .onerig .rigtop .rnotime view:nth-of-type(3) {
+  height: 36rpx;
+  line-height: 36rpx;
+  padding: 0 8rpx;
+  -webkit-border-radius: 8rpx;
+          border-radius: 8rpx;
+  border: 1px solid #FE9749;
+  font-size: 22rpx;
+  color: #FE9749;
+}
+.lists .listone .onerig .rigtop .rigtime {
+  font-size: 22rpx;
+  color: #DAD3FF;
+  margin-top: 12rpx;
+}
+.lists .listone .onerig .rigtop .btn {
+  width: 142rpx;
+  height: 62rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  background-color: #9D9FFD;
+  line-height: 62rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #fff;
+}
+.lists .listone .onerig .rigbot {
+  width: 550rpx;
+}
+

@@ -1,0 +1,92 @@
+page {
+  background-color: #F7FCFF;
+}
+.lists {
+  width: 702rpx;
+  background-color: #fff;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
+  margin: 24rpx;
+  margin-bottom: 0;
+  padding: 48rpx 0 30rpx 38rpx;
+}
+.lists .listone {
+  margin-bottom: 34rpx;
+}
+.lists .listone .oneimg image {
+  width: 80rpx;
+  height: 80rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
+}
+.lists .listone .onerig {
+  width: 544rpx;
+  height: 104rpx;
+  padding-right: 36rpx;
+  border-bottom: 1px solid #F0F0F0;
+}
+.lists .listone .onerig view {
+  width: 440rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+.lists .listone .onerig image {
+  width: 48rpx;
+  height: 48rpx;
+}
+.tuibtn {
+  width: 702rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  text-align: center;
+  background-color: #9599F6;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
+  font-size: 32rpx;
+  color: #fff;
+  margin: 0 auto;
+  margin-top: 46rpx;
+}
+.showpop {
+  width: 702rpx;
+}
+.showpop .toptile {
+  width: 702rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  -webkit-border-radius: 20rpx 20rpx 0 0;
+          border-radius: 20rpx 20rpx 0 0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
+  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
+  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  padding-left: 38rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.showpop .popbot {
+  width: 100%;
+  background-color: #fff;
+  padding: 82rpx 46rpx 54rpx 46rpx;
+}
+.showpop .popbot .botlist image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 24rpx;
+}
+.showpop .popbot .botlist text {
+  font-size: 28rpx;
+  color: #333;
+}
+.showpop .popbot .surbtn {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #9599F6;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
+  font-size: 28rpx;
+  color: #fff;
+  margin-top: 110rpx;
+}
+

@@ -1,0 +1,64 @@
+.ttopbg {
+  width: 750rpx;
+  height: 25px;
+  position: fixed;
+  background-color: #F7FCFF;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+.theight {
+  width: 750rpx;
+  height: 90rpx;
+  margin-top: 25px;
+}
+.navbox {
+  width: 750rpx;
+  height: 90rpx;
+  background-color: #F7FCFF;
+  position: fixed;
+  top: 25px;
+  left: 0;
+  z-index: 9999;
+  color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+          align-items: flex-end;
+}
+.navbox .inbox {
+  height: 68rpx;
+  margin-left: 24rpx;
+  background-color: #fff;
+  -webkit-border-radius: 34rpx;
+          border-radius: 34rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.navbox .inbox view {
+  width: 138rpx;
+  height: 68rpx;
+  -webkit-border-radius: 34rpx;
+          border-radius: 34rpx;
+  text-align: center;
+  line-height: 68rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.navbox .inbox .activd {
+  width: 138rpx;
+  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
+  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
+  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  color: #fff;
+}
+

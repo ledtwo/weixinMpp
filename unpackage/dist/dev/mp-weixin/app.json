@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/logins/logins",
+    "pages/index/index",
+    "pages/handicap/handicap",
+    "pages/setup/setup",
+    "pages/setup/set_odds",
+    "pages/setup/up_down",
+    "pages/setup/orders",
+    "pages/bindqun/bindqun",
+    "pages/setup/to_block",
+    "pages/report_form/report_form",
+    "pages/index/record_list"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#E4E5E7",
+    "selectedColor": "#9E9FFD",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/main1.png",
+        "selectedIconPath": "static/main.png",
+        "text": "控制台"
+      },
+      {
+        "pagePath": "pages/handicap/handicap",
+        "iconPath": "static/hand1.png",
+        "selectedIconPath": "static/hand.png",
+        "text": "盘口"
+      },
+      {
+        "pagePath": "pages/setup/setup",
+        "iconPath": "static/set1.png",
+        "selectedIconPath": "static/set.png",
+        "text": "设置"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

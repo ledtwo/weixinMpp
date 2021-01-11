@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "绑定群聊",
+  "usingComponents": {
+    "u-popup": "/node-modules/uview-ui/components/u-popup/u-popup"
+  }
+}

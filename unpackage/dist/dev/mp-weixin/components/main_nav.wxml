@@ -1,0 +1,1 @@
+<view><view class="ttopbg"></view><view class="theight"></view><view class="navbox"><view class="inbox"><block wx:for="{{navlist}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view data-event-opts="{{[['tap',[['choseone',[index]]]]]}}" class="{{[(index==activenum)?'activd':'']}}" bindtap="__e">{{item}}</view></block></view></view></view>

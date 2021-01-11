@@ -1,0 +1,54 @@
+page {
+  background: -webkit-gradient(linear, left top, left bottom, from(#BF9CF6), to(#9D9FFD));
+  background: -webkit-linear-gradient(top, #BF9CF6 0%, #9D9FFD 100%);
+  background: linear-gradient(180deg, #BF9CF6 0%, #9D9FFD 100%);
+  padding-top: 300rpx;
+}
+.logos {
+  text-align: center;
+  font-size: 40rpx;
+  color: #fff;
+}
+.inputs {
+  width: 668rpx;
+  height: 60rpx;
+  margin: 0 auto;
+  margin-top: 200rpx;
+  border-bottom: 1px solid #F6F6F6;
+}
+.inputs image {
+  width: 26rpx;
+  height: 36rpx;
+}
+.inputs input {
+  width: 600rpx ;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 22rpx;
+  font-size: 26rpx;
+  color: #fff;
+}
+.remenpw {
+  font-size: 22rpx;
+  color: #fff;
+  padding: 38rpx 0 0 42rpx;
+}
+.remenpw image {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 20rpx;
+}
+.loginbtn {
+  width: 690rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #fff;
+  -webkit-border-radius: 50rpx;
+          border-radius: 50rpx;
+  font-size: 32rpx;
+  color: #A29EFB;
+  margin: 0 auto;
+  margin-top: 96rpx;
+}
+
