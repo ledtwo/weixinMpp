@@ -253,6 +253,28 @@
 				})
 			},
 			switchs(e){
+				var permitPrivateChat;
+				if(e){
+					permitPrivateChat=1;
+				}else{
+					permitPrivateChat=0;
+				}
+				var pram={
+					url:"agent/update",
+					methods:"POST",
+					data:{
+						sid:this.$utils.tokens,
+						permitPrivateChat: permitPrivateChat
+					}
+				}
+				this.$utils.getRequest(pram,res=>{
+					if(res.succeeded){
+						this.$refs.uToast.show({
+							title: e?'开启私聊!':'关闭私聊!',
+							type: 'success'
+						})
+					}
+				})
 				console.log(this.roomlist);
 			},
 			// 确认清空流水

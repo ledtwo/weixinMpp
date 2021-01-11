@@ -360,6 +360,7 @@
 			}
 		},
 		onLoad() {
+			this.getBetTotal()//获取代理积分统计
 			this.getwanjia()// 获取玩家列表
 		},
 		onReachBottom(){
@@ -380,6 +381,36 @@
 			this.getjifen()// 获取积分请求列表
 		},
 		methods: {
+			//代理积分统计
+			getBetTotal(){
+				var pram={
+					url:"agent/user/bet/total",
+					methods:"GET",
+					data:{
+						sid:this.$utils.tokens
+					}
+				}
+				this.$utils.getRequest(pram,res=>{
+					this.somemun[0].mon=res.totalIntegral
+					this.somemun[1].mon=res.costTotalIntegral
+					this.somemun[2].mon=res.obtainTotalIntegral
+				})
+			},
+			//代理盘口积分统计
+			getPankouTotal(){
+				var pram={
+					url:"agent/user/bet/pankou/total",
+					methods:"GET",
+					data:{
+						sid:this.$utils.tokens
+					}
+				}
+				this.$utils.getRequest(pram,res=>{
+					this.twomun[0].mon=res.leftAmount
+					this.twomun[1].mon=res.periodTotalIntegral
+					this.twomun[2].mon=res.todayTotalIntegral
+				})
+			},
 			// 获取积分请求列表
 			getjifen(){
 				var pram ={
@@ -404,7 +435,7 @@
 				this.$utils.getRequest(this.reqdata ,res=>{
 					console.log("玩家列表:",res);
 					uni.stopPullDownRefresh()
-					var data =res.data
+					var data =res.data||[]
 					data.forEach(val=>{
 						val.checked = false
 					})
