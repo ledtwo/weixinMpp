@@ -626,9 +626,15 @@ __webpack_require__.r(__webpack_exports__);
           if (data[i].userType == 'Mock') {
             _this4.notpeos.push(data[i]);
           } else {
+            if (data[i].flyOrder == 1) {
+              data[i].checked = true;
+            } else {
+              data[i].checked = false;
+            }
             _this4.lastlists.push(data[i]);
           }
         }
+
       });
     },
     // 同意拒绝
@@ -704,16 +710,13 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     switchs: function switchs(num) {var _this6 = this;
-      debugger;
-      var flyOrder = this.lastlists[num].checked ? 0 : 1;
+      var flyOrder = this.lastlists[num].checked ? 1 : 0;
       // this.lastlists[num].checked = this.lastlists[num].checked?false:true;
       // 是否飞单
       this.userid = this.lastlists[num].id;
       var pram = {
         url: 'agent/user/update/' + this.userid,
         data: {
-          // name: this.xiugaizi,
-          // thumb: this.suijimg,
           flyOrder: flyOrder,
           sid: this.$utils.tokens } };
 

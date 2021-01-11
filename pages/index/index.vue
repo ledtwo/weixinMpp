@@ -452,9 +452,15 @@ export default {
                     if (data[i].userType == 'Mock') {
                         this.notpeos.push(data[i]);
                     } else {
+                        if(data[i].flyOrder == 1){
+                            data[i].checked = true
+                        }else{
+                            data[i].checked = false
+                        }
                         this.lastlists.push(data[i]);
                     }
                 }
+                
             });
         },
         // 同意拒绝
@@ -530,16 +536,13 @@ export default {
             }
         },
         switchs(num) {
-            debugger;
-            let flyOrder = this.lastlists[num].checked ? 0 : 1;
+            let flyOrder = this.lastlists[num].checked ? 1 : 0;
             // this.lastlists[num].checked = this.lastlists[num].checked?false:true;
             // 是否飞单
             this.userid = this.lastlists[num].id;
             var pram = {
                 url: 'agent/user/update/' + this.userid,
                 data: {
-                    // name: this.xiugaizi,
-                    // thumb: this.suijimg,
                     flyOrder: flyOrder,
                     sid: this.$utils.tokens
                 }
