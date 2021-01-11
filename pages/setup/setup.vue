@@ -2,7 +2,7 @@
 	<view>
 		<view class="boxs dis-jasc">
 			<view class="tile">账号</view>
-			<view class="tirig"><text>LIU1456323</text>(到期时间：2020-02-15)</view>
+			<view class="tirig"><text>{{account}}</text>(到期时间：{{effectiveEndTime}})</view>
 		</view>
 		
 		<view class="boxs dis-jasc mtop" @click="clickone(6)">
@@ -57,15 +57,15 @@
 		 				<view class="dis-jacc">
 		 					<image src="../../static/pw.png"></image>
 		 				</view>
-						<input type="text" placeholder="请输入原密码" password />
+						<input type="text" placeholder="请输入原密码" password v-model="oldPassword"/>
 		 			</view>
 					<view class="inputs dis-alicen">
 						<view class="dis-jacc">
 							<image src="../../static/pw.png"></image>
 						</view>
-						<input type="text" placeholder="请输入新密码" password />
+						<input type="text" placeholder="请输入新密码" password v-model="newPassword"/>
 					</view>
-					<view class="surbtn">确定</view>
+					<view class="surbtn" @click="mudifyPwd">确定</view>
 		 		</view>
 				
 				<!-- 添加假人 -->
@@ -94,6 +94,8 @@
 	export default {
 		data() {
 			return {
+				account:'',
+				effectiveEndTime:'',//到期时间
 				showselect:false,//单选
 				showpops:false,
 				showrome:false,//显示房间列表
@@ -101,6 +103,8 @@
 				addpwd:false,//true修改密码 false添加假人
 				poptile:"修改密码",
 				show:false,
+				oldPassword:"",//原密码
+				newPassword:"",//新密码
 				userName:"",//添加假人名称
 				checked:false,
 				list:[
@@ -166,7 +170,13 @@
 					}
 				}
 				this.$utils.getRequest(pram, res=>{
-					console.log(res);
+					this.account=res.account
+					this.effectiveEndTime= this.$utils.formatDate(res.effectiveEndTime)
+					if(res.permitPrivateChat==1){
+						this.checked=true
+					}else{
+						this.checked=false
+					}
 				})
 			},
 			clickone(index){
@@ -206,6 +216,29 @@
 						break;
 				}
 			},
+			//修改密码
+			mudifyPwd(){
+				var pram ={
+					url:"agent/updatePassword",
+					methods:'POST',
+					data:{
+						sid:this.$utils.tokens,
+						oldPassword:this.oldPassword,
+						password:this.newPassword
+					}
+				}
+				this.$utils.getRequest(pram,res=>{
+					if(res.succeeded){
+						this.$refs.uToast.show({
+							title: '密码修改成功!',
+							type: 'success'
+						})
+						this.showpops =false
+						this.oldPassword=''
+						this.newPassword=''
+					}
+				})
+			},
 			// 添加假人
 			addjiaren(){
 				var pram ={
@@ -225,10 +258,14 @@
 			// 确认清空流水
 			surebtn(){
 				var pram={
-					url:"agent/user/clearIntegral"
+					url:"agent/user/clearIntegral",
+					methods:'POST',
+					data:{
+						sid:this.$utils.tokens,
+					}
 				}
 				this.$utils.getRequest(pram,res =>{
-					console.log("清空流水:",res);
+					// console.log("清空流水:",res);
 					if(res.succeeded){
 						this.$refs.uToast.show({
 							title: '流水已清空!',
