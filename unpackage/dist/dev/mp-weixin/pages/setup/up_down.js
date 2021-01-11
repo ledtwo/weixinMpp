@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -158,32 +158,63 @@ var _default =
 {
   data: function data() {
     return {
+      reqdata: {
+        url: 'agent/integral/request/journal/list',
+        data: {
+          pageNo: 1,
+          length: 30,
+          sid: this.$utils.tokens } },
+
+
       lists: [
       {
         updown: '上分',
-        num: "502.9" },
+        num: '502.9' },
+
       {
         updown: '上分',
-        num: "502.9" },
+        num: '502.9' },
+
       {
         updown: '下分',
-        num: "506.9" },
+        num: '506.9' },
+
       {
         updown: '上分',
-        num: "507.9" },
+        num: '507.9' },
+
       {
         updown: '上分',
-        num: "502.9" },
+        num: '502.9' },
+
       {
         updown: '下分',
-        num: "506.9" },
+        num: '506.9' },
+
       {
         updown: '上分',
-        num: "507.9" }] };
+        num: '507.9' }] };
 
 
 
+  },
+  onReachBottom: function onReachBottom() {
+    this.reqdata.data.pageNo++;
+    this.getAllList();
+  },
+  methods: {
+    getAllList: function getAllList() {var _this = this;
+      this.$utils.getRequest(this.reqdata, function (res) {
+        console.log('玩家列表:', res);
+        uni.stopPullDownRefresh();
+        _this.lists = res.data;
+      });
+    } },
+
+  mounted: function mounted() {
+    this.getAllList();
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

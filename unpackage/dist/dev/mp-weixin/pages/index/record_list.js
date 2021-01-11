@@ -148,7 +148,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
 //
 //
 //
@@ -198,21 +202,35 @@ var _default =
 {
   data: function data() {
     return {
-      show: false,
-      list: [
-      {
-        name: '幸运' },
-      {
-        name: '重庆' },
-      {
-        name: '新疆' },
-      {
-        name: '快乐8' }],
+      reqdata: {
+        url: '/agent/user/bet/list',
+        data: {
+          pageNo: 1,
+          length: 30,
+          sid: this.$utils.tokens } },
 
+
+      show: false,
+      lists: [],
 
       current: 0 };
 
+  },
+  methods: {
+    getAllList: function getAllList() {var _this = this;
+      debugger;
+      this.$utils.getRequest(this.reqdata, function (res) {
+        console.log('下注列表:', res);
+        debugger;
+        uni.stopPullDownRefresh();
+        _this.lists = res.data;
+      });
+    } },
+
+  mounted: function mounted() {
+    this.getAllList();
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

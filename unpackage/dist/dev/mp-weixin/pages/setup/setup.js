@@ -258,6 +258,8 @@ var _default =
 {
   data: function data() {
     return {
+      account: '',
+      effectiveEndTime: '', //到期时间
       showselect: false, //单选
       showpops: false,
       showrome: false, //显示房间列表
@@ -265,6 +267,8 @@ var _default =
       addpwd: false, //true修改密码 false添加假人
       poptile: "修改密码",
       show: false,
+      oldPassword: "", //原密码
+      newPassword: "", //新密码
       userName: "", //添加假人名称
       checked: false,
       list: [
@@ -322,7 +326,7 @@ var _default =
   },
   methods: {
     // 获取用户信息
-    getinfo: function getinfo() {
+    getinfo: function getinfo() {var _this = this;
       var pram = {
         url: "agent/agentInfo",
         data: {
@@ -330,7 +334,13 @@ var _default =
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log(res);
+        _this.account = res.account;
+        _this.effectiveEndTime = _this.$utils.formatDate(res.effectiveEndTime);
+        if (res.permitPrivateChat == 1) {
+          _this.checked = true;
+        } else {
+          _this.checked = false;
+        }
       });
     },
     clickone: function clickone(index) {
@@ -370,6 +380,29 @@ var _default =
           break;}
 
     },
+    //修改密码
+    mudifyPwd: function mudifyPwd() {var _this2 = this;
+      var pram = {
+        url: "agent/updatePassword",
+        methods: 'POST',
+        data: {
+          sid: this.$utils.tokens,
+          oldPassword: this.oldPassword,
+          password: this.newPassword } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        if (res.succeeded) {
+          _this2.$refs.uToast.show({
+            title: '密码修改成功!',
+            type: 'success' });
+
+          _this2.showpops = false;
+          _this2.oldPassword = '';
+          _this2.newPassword = '';
+        }
+      });
+    },
     // 添加假人
     addjiaren: function addjiaren() {
       var pram = {
@@ -387,14 +420,18 @@ var _default =
       console.log(this.roomlist);
     },
     // 确认清空流水
-    surebtn: function surebtn() {var _this = this;
+    surebtn: function surebtn() {var _this3 = this;
       var pram = {
-        url: "agent/user/clearIntegral" };
+        url: "agent/user/clearIntegral",
+        methods: 'POST',
+        data: {
+          sid: this.$utils.tokens } };
+
 
       this.$utils.getRequest(pram, function (res) {
-        console.log("清空流水:", res);
+        // console.log("清空流水:",res);
         if (res.succeeded) {
-          _this.$refs.uToast.show({
+          _this3.$refs.uToast.show({
             title: '流水已清空!',
             type: 'success' });
 

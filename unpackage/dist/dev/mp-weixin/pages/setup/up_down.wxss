@@ -1,6 +1,19 @@
 page {
-  background-color: #F7FCFF;
+  background-color: #f7fcff;
   padding-bottom: 10rpx;
+}
+.center-v {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 .lists {
   width: 750rpx;
@@ -18,12 +31,12 @@ page {
 .lists .listone .onetop {
   width: 100%;
   font-size: 24rpx;
-  color: #DAD3FF;
+  color: #dad3ff;
 }
 .lists .listone .onetop .foncor {
   font-size: 32rpx;
   font-weight: 600;
-  color: #9D9FFD;
+  color: #9d9ffd;
 }
 .lists .listone .ontbot {
   width: 100%;
@@ -46,11 +59,11 @@ page {
 .lists .listone .ontbot .botlef .anthimg text {
   font-size: 24rpx;
   margin-top: 12rpx;
-  color: #BCBCBC;
+  color: #bcbcbc;
 }
 .lists .listone .ontbot .botrig {
   font-size: 36rpx;
   font-weight: 600;
-  color: #FE9749;
+  color: #fe9749;
 }
 
