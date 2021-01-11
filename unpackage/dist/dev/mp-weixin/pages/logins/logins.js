@@ -217,6 +217,12 @@ var _default =
             url: "../index/index" });
 
         }
+        if (res = {}) {
+          _this.$refs.uToast.show({
+            title: '账号已过期!',
+            type: 'warning' });
+
+        }
       });
 
 

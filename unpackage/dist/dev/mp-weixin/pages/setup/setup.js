@@ -251,9 +251,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -265,48 +262,57 @@ var _default =
       showrome: false, //显示房间列表
       roomenum: 0, //点击第几个模式
       addpwd: false, //true修改密码 false添加假人
-      poptile: "修改密码",
+      poptile: '修改密码',
       show: false,
-      oldPassword: "", //原密码
-      newPassword: "", //新密码
-      userName: "", //添加假人名称
+      oldPassword: '', //原密码
+      newPassword: '', //新密码
+      userName: '', //添加假人名称
       checked: false,
       list: [
       {
-        tiles: "赔率设置" },
+        tiles: '赔率设置' },
+
       {
-        tiles: "添加假人" },
+        tiles: '添加假人' },
+
       {
-        tiles: "清空流水" },
+        tiles: '清空流水' },
+
       {
-        tiles: "拉黑列表" },
+        tiles: '拉黑列表' },
+
       {
-        tiles: "上下分记录" },
+        tiles: '上下分记录' },
+
       {
-        tiles: "订单中心" }],
+        tiles: '订单中心' }],
 
 
-      roomlist: [//房间开关列表
+      roomlist: [
+      //房间开关列表
       {
-        tiles: "幸运五星 ",
+        tiles: '幸运五星 ',
         chose: true, //是否选中
         flag: true, //是否开启
-        text: "24小时模式" },
+        text: '24小时模式' },
+
       {
-        tiles: "重庆时时彩",
+        tiles: '重庆时时彩',
         chose: true,
         flag: true,
-        text: "9点-4点模式" },
+        text: '9点-4点模式' },
+
       {
-        tiles: "天津时时彩",
+        tiles: '天津时时彩',
         chose: false,
         flag: true,
-        text: "9点-4点模式" },
+        text: '9点-4点模式' },
+
       {
-        tiles: "北京快乐 8",
+        tiles: '北京快乐 8',
         chose: true,
         flag: false,
-        text: "24小时模式" }],
+        text: '24小时模式' }],
 
 
       seleclist: [
@@ -325,10 +331,10 @@ var _default =
     this.getinfo();
   },
   methods: {
-    // 获取用户信息
-    getinfo: function getinfo() {var _this = this;
+    // 获取房间信息
+    getRoomList: function getRoomList() {var _this = this;
       var pram = {
-        url: "agent/agentInfo",
+        url: 'agent/agentInfo',
         data: {
           sid: this.$utils.tokens } };
 
@@ -343,47 +349,65 @@ var _default =
         }
       });
     },
+    // 获取用户信息
+    getinfo: function getinfo() {var _this2 = this;
+      var pram = {
+        url: 'agent/agentInfo',
+        data: {
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        _this2.account = res.account;
+        _this2.effectiveEndTime = _this2.$utils.formatDate(res.effectiveEndTime);
+        if (res.permitPrivateChat == 1) {
+          _this2.checked = true;
+        } else {
+          _this2.checked = false;
+        }
+      });
+    },
     clickone: function clickone(index) {
       switch (index) {
         case 0:
           uni.navigateTo({
-            url: "set_odds" });
+            url: 'set_odds' });
 
           break;
         case 1:
           this.showpops = true;
           this.addpwd = false;
-          this.poptile = "添加假人";
+          this.poptile = '添加假人';
           break;
         case 2:
           this.show = true;
           break;
         case 3:
           uni.navigateTo({
-            url: "to_block" });
+            url: 'to_block' });
 
           break;
         case 4:
           uni.navigateTo({
-            url: "up_down" });
+            url: 'up_down' });
 
           break;
         case 5:
           uni.navigateTo({
-            url: "orders" });
+            url: 'orders' });
 
           break;
         case 6:
           this.showpops = true;
           this.addpwd = true;
-          this.poptile = "修改密码";
+          this.poptile = '修改密码';
           break;}
 
     },
     //修改密码
-    mudifyPwd: function mudifyPwd() {var _this2 = this;
+    mudifyPwd: function mudifyPwd() {var _this3 = this;
       var pram = {
-        url: "agent/updatePassword",
+        url: 'agent/updatePassword',
         methods: 'POST',
         data: {
           sid: this.$utils.tokens,
@@ -393,30 +417,37 @@ var _default =
 
       this.$utils.getRequest(pram, function (res) {
         if (res.succeeded) {
-          _this2.$refs.uToast.show({
+          _this3.$refs.uToast.show({
             title: '密码修改成功!',
             type: 'success' });
 
-          _this2.showpops = false;
-          _this2.oldPassword = '';
-          _this2.newPassword = '';
+          _this3.showpops = false;
+          _this3.oldPassword = '';
+          _this3.newPassword = '';
         }
       });
     },
     // 添加假人
-    addjiaren: function addjiaren() {
+    addjiaren: function addjiaren() {var _this4 = this;
+      var su = Math.ceil(Math.random() * 10);
+      var suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
       var pram = {
-        url: "agent/user/addMockUser",
+        url: 'agent/user/addMockUser',
+        methods: 'POST',
         data: {
           userName: this.userName,
-          thumb: "" } };
+          thumb: suijimg } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log("添加假人:", res);
+        console.log('添加假人:', res);
+        _this4.$refs.uToast.show({
+          title: '添加成功!',
+          type: 'success' });
+
       });
     },
-    switchs: function switchs(e) {var _this3 = this;
+    switchs: function switchs(e) {var _this5 = this;
       var permitPrivateChat;
       if (e) {
         permitPrivateChat = 1;
@@ -424,8 +455,8 @@ var _default =
         permitPrivateChat = 0;
       }
       var pram = {
-        url: "agent/update",
-        methods: "POST",
+        url: 'agent/update',
+        methods: 'POST',
         data: {
           sid: this.$utils.tokens,
           permitPrivateChat: permitPrivateChat } };
@@ -433,7 +464,7 @@ var _default =
 
       this.$utils.getRequest(pram, function (res) {
         if (res.succeeded) {
-          _this3.$refs.uToast.show({
+          _this5.$refs.uToast.show({
             title: e ? '开启私聊!' : '关闭私聊!',
             type: 'success' });
 
@@ -442,9 +473,9 @@ var _default =
       console.log(this.roomlist);
     },
     // 确认清空流水
-    surebtn: function surebtn() {var _this4 = this;
+    surebtn: function surebtn() {var _this6 = this;
       var pram = {
-        url: "agent/user/clearIntegral",
+        url: 'agent/user/clearIntegral',
         methods: 'POST',
         data: {
           sid: this.$utils.tokens } };
@@ -453,7 +484,7 @@ var _default =
       this.$utils.getRequest(pram, function (res) {
         // console.log("清空流水:",res);
         if (res.succeeded) {
-          _this4.$refs.uToast.show({
+          _this6.$refs.uToast.show({
             title: '流水已清空!',
             type: 'success' });
 
@@ -479,10 +510,10 @@ var _default =
     // 退出登录
     comout: function comout() {
       uni.clearStorageSync();
-      this.$utils.tokens = "";
+      this.$utils.tokens = '';
       setTimeout(function () {
         uni.reLaunch({
-          url: "../logins/logins" });
+          url: '../logins/logins' });
 
       }, 200);
     } } };exports.default = _default;

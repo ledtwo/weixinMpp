@@ -81,6 +81,12 @@
 							url:"../index/index"
 						})
 					}
+                    if(res = {}){
+                        this.$refs.uToast.show({
+                        	title: '账号已过期!',
+                        	type: 'warning'
+                        })
+                    }
 				})
 				
 				

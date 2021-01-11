@@ -1,5 +1,5 @@
 page {
-  background-color: #F7FCFF;
+  background-color: #f7fcff;
   padding-bottom: 30rpx;
 }
 .boxs {
@@ -21,7 +21,7 @@ page {
 }
 .boxs .tirig text {
   font-size: 32rpx;
-  color: #9D9FFD;
+  color: #9d9ffd;
   margin-right: 12rpx;
 }
 .opendown {
@@ -44,7 +44,7 @@ page {
 .opendown .lists .odlist {
   width: 100%;
   height: 104rpx;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid #f0f0f0;
   padding-right: 10rpx;
 }
 .opendown .lists .odlist .onetile {
@@ -65,17 +65,17 @@ page {
   line-height: 40rpx;
   -webkit-border-radius: 6rpx;
           border-radius: 6rpx;
-  border: 1px solid #9599F6;
+  border: 1px solid #9599f6;
   padding: 0 10rpx;
   font-size: 20rpx;
-  color: #9599F6;
+  color: #9599f6;
 }
 .retus {
   width: 702rpx;
   height: 112rpx;
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
-  background-color: #FF8383;
+  background-color: #ff8383;
   margin: 24rpx;
   font-size: 32rpx;
   color: #fff;
@@ -97,9 +97,9 @@ page {
   line-height: 88rpx;
   -webkit-border-radius: 20rpx 20rpx 0 0;
           border-radius: 20rpx 20rpx 0 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
-  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
-  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#959af7), to(#b397ea));
+  background: -webkit-linear-gradient(top, #959af7 0%, #b397ea 100%);
+  background: linear-gradient(180deg, #959af7 0%, #b397ea 100%);
   padding-left: 38rpx;
   font-size: 28rpx;
   color: #fff;
@@ -113,7 +113,7 @@ page {
   height: 78rpx;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
-  background-color: #F6F2FF;
+  background-color: #f6f2ff;
   margin-top: 64rpx;
 }
 .showpop .changpw .inputs view {
@@ -121,7 +121,7 @@ page {
   height: 78rpx;
   line-height: 78rpx;
   text-align: center;
-  background-color: #9D9FFD;
+  background-color: #9d9ffd;
   -webkit-border-radius: 10rpx 0 0 10rpx;
           border-radius: 10rpx 0 0 10rpx;
 }
@@ -143,7 +143,7 @@ page {
   text-align: center;
   -webkit-border-radius: 50rpx;
           border-radius: 50rpx;
-  background-color: #9599F6;
+  background-color: #9599f6;
   font-size: 28rpx;
   color: #fff;
   margin-top: 76rpx;
@@ -168,7 +168,7 @@ page {
   text-align: center;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
-  background-color: #9D9FFD;
+  background-color: #9d9ffd;
   font-size: 28rpx;
   color: #fff;
   margin: 36rpx auto;
@@ -177,8 +177,8 @@ page {
 .showpop .addpeo .addinput {
   width: 100%;
   height: 108rpx;
-  border-top: 1px solid #EFEFFF;
-  border-bottom: 1px solid #EFEFFF;
+  border-top: 1px solid #efefff;
+  border-bottom: 1px solid #efefff;
   font-size: 32rpx;
   color: #333;
 }
@@ -188,7 +188,7 @@ page {
   line-height: 80rpx;
   text-align: right;
   font-size: 32rpx;
-  color: #9599F6;
+  color: #9599f6;
   padding-right: 10rpx;
 }
 .showpop .addpeo .addsure {
@@ -198,7 +198,7 @@ page {
   text-align: center;
   -webkit-border-radius: 50rpx;
           border-radius: 50rpx;
-  background-color: #9599F6;
+  background-color: #9599f6;
   font-size: 28rpx;
   color: #fff;
   margin-top: 50rpx;
