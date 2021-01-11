@@ -416,11 +416,33 @@ var _default =
         console.log("添加假人:", res);
       });
     },
-    switchs: function switchs(e) {
+    switchs: function switchs(e) {var _this3 = this;
+      var permitPrivateChat;
+      if (e) {
+        permitPrivateChat = 1;
+      } else {
+        permitPrivateChat = 0;
+      }
+      var pram = {
+        url: "agent/update",
+        methods: "POST",
+        data: {
+          sid: this.$utils.tokens,
+          permitPrivateChat: permitPrivateChat } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        if (res.succeeded) {
+          _this3.$refs.uToast.show({
+            title: e ? '开启私聊!' : '关闭私聊!',
+            type: 'success' });
+
+        }
+      });
       console.log(this.roomlist);
     },
     // 确认清空流水
-    surebtn: function surebtn() {var _this3 = this;
+    surebtn: function surebtn() {var _this4 = this;
       var pram = {
         url: "agent/user/clearIntegral",
         methods: 'POST',
@@ -431,7 +453,7 @@ var _default =
       this.$utils.getRequest(pram, function (res) {
         // console.log("清空流水:",res);
         if (res.succeeded) {
-          _this3.$refs.uToast.show({
+          _this4.$refs.uToast.show({
             title: '流水已清空!',
             type: 'success' });
 

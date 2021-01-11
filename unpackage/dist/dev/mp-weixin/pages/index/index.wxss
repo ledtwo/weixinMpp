@@ -1,5 +1,5 @@
 page {
-  background-color: #f7fcff;
+  background-color: #F7FCFF;
   padding-bottom: 20rpx;
 }
 .bigbox {
@@ -7,9 +7,9 @@ page {
   margin: 24rpx;
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
-  background: -webkit-gradient(linear, left top, left bottom, from(#c09cf6), to(#9da0fe));
-  background: -webkit-linear-gradient(top, #c09cf6 0%, #9da0fe 100%);
-  background: linear-gradient(180deg, #c09cf6 0%, #9da0fe 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#C09CF6), to(#9DA0FE));
+  background: -webkit-linear-gradient(top, #C09CF6 0%, #9DA0FE 100%);
+  background: linear-gradient(180deg, #C09CF6 0%, #9DA0FE 100%);
   padding-bottom: 18rpx;
 }
 .bigbox .firstbox {
@@ -43,13 +43,13 @@ page {
 }
 .bigbox .bindsqun {
   width: 100%;
-  border-top: 1px solid #beb3f9;
+  border-top: 1px solid #BEB3F9;
   margin-top: 42rpx;
 }
 .bigbox .bindsqun .bindsone {
   width: 100%;
   height: 158rpx;
-  border-bottom: 1px solid #beb3f9;
+  border-bottom: 1px solid #BEB3F9;
   padding: 0 38rpx;
 }
 .bigbox .bindsqun .bindsone .onelist .listimg {
@@ -58,7 +58,7 @@ page {
   height: 92rpx;
   -webkit-border-radius: 50%;
           border-radius: 50%;
-  background-color: #ceb1f3;
+  background-color: #CEB1F3;
 }
 .bigbox .bindsqun .bindsone .onelist .listimg image {
   width: 84rpx;
@@ -98,7 +98,7 @@ page {
 .bigbox .addsome {
   padding: 34rpx 0 0 40rpx;
   font-size: 28rpx;
-  color: #eee;
+  color: #EEE;
 }
 .bigbox .addsome image {
   width: 84rpx;
@@ -108,7 +108,7 @@ page {
 .bigbox .lastmore {
   margin-top: 28rpx;
   font-size: 24rpx;
-  color: #dad3ff;
+  color: #DAD3FF;
 }
 .bigbox .lastmore text {
   margin-right: 12rpx;
@@ -127,13 +127,13 @@ page {
 .friends .fright .ritop {
   width: 520rpx;
   fonts: 24rpx;
-  color: #dad3ff;
+  color: #DAD3FF;
 }
 .friends .fright .ritop .onename {
   width: 360rpx;
   font-size: 32rpx;
   font-weight: 600;
-  color: #9d9ffd;
+  color: #9D9FFD;
 }
 .friends .fright .ribot {
   width: 520rpx;
@@ -143,11 +143,11 @@ page {
   padding: 0 14rpx;
   height: 42rpx;
   line-height: 42rpx;
-  border: 1px solid #fe9749;
+  border: 1px solid #FE9749;
   -webkit-border-radius: 8rpx;
           border-radius: 8rpx;
   font-size: 22rpx;
-  color: #fe9749;
+  color: #FE9749;
 }
 .friends .fright .ribot .botri view {
   width: 110rpx;
@@ -158,10 +158,10 @@ page {
           border-radius: 8rpx;
   font-size: 24rpx;
   color: #fff;
-  background-color: #9d9ffd;
+  background-color: #9D9FFD;
 }
 .friends .fright .ribot .botri .riisnt {
-  background-color: #ff8383;
+  background-color: #FF8383;
   margin-left: 16rpx;
 }
 .friends .imgs {
@@ -269,9 +269,9 @@ page {
   -webkit-border-radius: 4rpx;
           border-radius: 4rpx;
   text-align: center;
-  border: 1px solid #a696f8;
+  border: 1px solid #A696F8;
   font-size: 20rpx;
-  color: #a696f8;
+  color: #A696F8;
 }
 .lastlist .listone .onecont .onetop .topleft .updow {
   height: 34rpx;
@@ -279,9 +279,9 @@ page {
   -webkit-border-radius: 4rpx;
           border-radius: 4rpx;
   padding: 0 10rpx;
-  border: 1px solid #fe9749;
+  border: 1px solid #FE9749;
   font-size: 20rpx;
-  color: #fe9749;
+  color: #FE9749;
 }
 .lastlist .listone .onecont .onebot {
   width: 570rpx;
@@ -290,13 +290,13 @@ page {
 .lastlist .listone .onecont .onebot .botleft {
   width: 380rpx;
   font-size: 20rpx;
-  color: #ba9bf6;
+  color: #BA9BF6;
 }
 .lastlist .listone .onecont .onebot .botleft view {
   height: 40rpx;
   line-height: 40rpx;
   padding: 0 16rpx;
-  border: 1px solid #ba9bf6;
+  border: 1px solid #BA9BF6;
   -webkit-border-radius: 6rpx;
           border-radius: 6rpx;
   margin-right: 8rpx;
@@ -308,7 +308,7 @@ page {
 .lastlist .listone .onecont .onebot .botright text {
   font-size: 34rpx;
   font-weight: 600;
-  color: #fe9749;
+  color: #FE9749;
   margin-right: 6rpx;
 }
 .showpop {
@@ -322,14 +322,14 @@ page {
 .showpop scroll-view view {
   display: inline-block;
   padding: 0 32rpx;
-  background-color: #f1ecff;
+  background-color: #F1ECFF;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   height: 54rpx;
   line-height: 54rpx;
   margin: 30rpx 30rpx 0 0;
   font-size: 28rpx;
-  color: #9699f6;
+  color: #9699F6;
 }
 .showpop .toptile {
   width: 702rpx;
@@ -337,9 +337,9 @@ page {
   line-height: 88rpx;
   -webkit-border-radius: 20rpx 20rpx 0 0;
           border-radius: 20rpx 20rpx 0 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#959af7), to(#b397ea));
-  background: -webkit-linear-gradient(top, #959af7 0%, #b397ea 100%);
-  background: linear-gradient(180deg, #959af7 0%, #b397ea 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
+  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
+  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
   padding-left: 38rpx;
   font-size: 28rpx;
   color: #fff;
@@ -376,14 +376,14 @@ page {
 .showpop .showlogin .theone {
   width: 100%;
   height: 78rpx;
-  background-color: #f6f2ff;
+  background-color: #F6F2FF;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
 }
 .showpop .showlogin .theone view {
   width: 82rpx;
   height: 78rpx;
-  background-color: #9d9ffd;
+  background-color: #9D9FFD;
   -webkit-border-radius: 10rpx 0 0 10rpx;
           border-radius: 10rpx 0 0 10rpx;
 }
@@ -423,9 +423,9 @@ page {
   color: #999;
 }
 .showpop .updownf .topqie .bgcs {
-  background: -webkit-gradient(linear, left top, left bottom, from(#9599f6), to(#b297ea));
-  background: -webkit-linear-gradient(top, #9599f6 0%, #b297ea 100%);
-  background: linear-gradient(180deg, #9599f6 0%, #b297ea 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#9599F6), to(#B297EA));
+  background: -webkit-linear-gradient(top, #9599F6 0%, #B297EA 100%);
+  background: linear-gradient(180deg, #9599F6 0%, #B297EA 100%);
   color: #fff;
 }
 .showpop .updownf .iputs {
@@ -433,8 +433,8 @@ page {
   height: 108rpx;
   margin-top: 80rpx;
   padding-left: 16rpx;
-  border-top: 1px solid #efefff;
-  border-bottom: 1px solid #efefff;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
   font-size: 32rpx;
   color: #333;
 }
@@ -443,7 +443,7 @@ page {
   height: 80rpx;
   line-height: 80rpx;
   font-size: 40rpx;
-  color: #9599f6;
+  color: #9599F6;
   font-weight: 600;
   text-align: right;
   margin-right: 6rpx;
@@ -463,7 +463,7 @@ page {
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
-  background-color: #9d9ffd;
+  background-color: #9D9FFD;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   font-size: 28rpx;
@@ -474,8 +474,8 @@ page {
 .showpop .msguser .heaiput {
   width: 100%;
   height: 108rpx;
-  border-top: 1px solid #efefff;
-  border-bottom: 1px solid #efefff;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
   margin-top: 44rpx;
 }
 .showpop .msguser .heaiput input {
@@ -484,7 +484,7 @@ page {
   line-height: 80rpx;
   text-align: right;
   font-size: 32rpx;
-  color: #9599f6;
+  color: #9599F6;
 }
 .showpop .retuwater {
   width: 100%;
@@ -493,8 +493,8 @@ page {
 .showpop .retuwater .reinput {
   width: 100%;
   height: 108rpx;
-  border-top: 1px solid #efefff;
-  border-bottom: 1px solid #efefff;
+  border-top: 1px solid #EFEFFF;
+  border-bottom: 1px solid #EFEFFF;
   padding: 0 16rpx;
   font-size: 32rpx;
   color: #333;
@@ -505,14 +505,14 @@ page {
   line-height: 80rpx;
   text-align: right;
   font-size: 40rpx;
-  color: #9599f6;
+  color: #9599F6;
   font-weight: 600;
   padding-right: 6rpx;
 }
 .showpop .retuwater .retils {
   width: 100%;
   font-size: 24rpx;
-  color: #ff7900;
+  color: #FF7900;
   margin: 36rpx 0 64rpx 0;
   padding: 0 6rpx;
 }
@@ -524,7 +524,7 @@ page {
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
-  background-color: #9599f6;
+  background-color: #9599F6;
   -webkit-border-radius: 50rpx;
           border-radius: 50rpx;
   margin: 0 auto;
@@ -571,9 +571,9 @@ page {
   padding: 0 8rpx;
   -webkit-border-radius: 8rpx;
           border-radius: 8rpx;
-  border: 1px solid #a29ffc;
+  border: 1px solid #A29FFC;
   font-size: 22rpx;
-  color: #a29ffc;
+  color: #A29FFC;
 }
 .lists .listone .onerig .rigtop .rnotime view:nth-of-type(3) {
   height: 36rpx;
@@ -581,13 +581,13 @@ page {
   padding: 0 8rpx;
   -webkit-border-radius: 8rpx;
           border-radius: 8rpx;
-  border: 1px solid #fe9749;
+  border: 1px solid #FE9749;
   font-size: 22rpx;
-  color: #fe9749;
+  color: #FE9749;
 }
 .lists .listone .onerig .rigtop .rigtime {
   font-size: 22rpx;
-  color: #dad3ff;
+  color: #DAD3FF;
   margin-top: 12rpx;
 }
 .lists .listone .onerig .rigtop .btn {
@@ -595,7 +595,7 @@ page {
   height: 62rpx;
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
-  background-color: #9d9ffd;
+  background-color: #9D9FFD;
   line-height: 62rpx;
   text-align: center;
   font-size: 24rpx;
