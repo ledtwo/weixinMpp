@@ -84,7 +84,7 @@ export default {
 						modifiedTime:this.$utils.formatDate(item.userVO.modifiedTime)
 					})
 				})
-                this.lists = list;
+                this.lists = this.lists.concat(list);
             });
         }
     },

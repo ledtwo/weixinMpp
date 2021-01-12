@@ -128,7 +128,7 @@ export default {
             roomlist: [
                 //房间开关列表
                 {
-                    tiles: '幸运五星 ',
+                    tiles: '幸运五星',
                     chose: true, //是否选中
                     flag: true, //是否开启
                     text: '24小时模式'
