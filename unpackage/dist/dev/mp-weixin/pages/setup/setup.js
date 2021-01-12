@@ -351,7 +351,7 @@ var _default =
               flag: item.status == 'Opened' ? true : false,
               chose: item.roomVO.status == 'Valid' ? true : false,
               text: item.roomVO.title,
-              id: item.roomVO.id });
+              id: item.id });
 
           });
         }
@@ -392,9 +392,13 @@ var _default =
           this.show = true;
           break;
         case 3:
-          uni.navigateTo({
-            url: 'to_block' });
+          this.$refs.uToast.show({
+            title: '建设中!',
+            type: 'warning' });
 
+          // uni.navigateTo({
+          //     url: 'to_block'
+          // });
           break;
         case 4:
           uni.navigateTo({
@@ -477,7 +481,7 @@ var _default =
     },
     // todo
     switchRooms: function switchRooms(num) {var _this5 = this;
-      var status = this.roomlist[num].flag ? 0 : 1;
+      var status = this.roomlist[num].flag ? "Opened" : "Closed";
       // 是否关闭房间
       var roomId = this.roomlist[num].id;
       var pram = {
