@@ -2,7 +2,7 @@
   width: 750rpx;
   height: 25px;
   position: fixed;
-  background-color: #F7FCFF;
+  background-color: #f7fcff;
   top: 0;
   left: 0;
   z-index: 9999;
@@ -15,7 +15,7 @@
 .navbox {
   width: 750rpx;
   height: 90rpx;
-  background-color: #F7FCFF;
+  background-color: #f7fcff;
   position: fixed;
   top: 25px;
   left: 0;
@@ -56,9 +56,9 @@
 }
 .navbox .inbox .activd {
   width: 138rpx;
-  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
-  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
-  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#959af7), to(#b397ea));
+  background: -webkit-linear-gradient(top, #959af7 0%, #b397ea 100%);
+  background: linear-gradient(180deg, #959af7 0%, #b397ea 100%);
   color: #fff;
 }
 

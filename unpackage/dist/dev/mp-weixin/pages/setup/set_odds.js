@@ -95,6 +95,9 @@ __webpack_require__.r(__webpack_exports__);
 var components = {
   uSubsection: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 192))
+  },
+  uToast: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 129))
   }
 }
 var render = function() {
@@ -159,57 +162,162 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      roomlist: [],
+      roomId: 1,
       list: [
       {
         name: '幸运' },
+
       {
         name: '重庆' },
+
       {
         name: '新疆' },
+
       {
         name: '快乐8' }],
 
 
       current: 0,
-      listarr: [
+      listarr: [],
+      oddName: [
       {
-        til: "一字定",
-        vmodelo: "",
-        vmodelt: "",
-        vmodelf: "" },
+        code: 'Three_Show',
+        name: '三字现' },
+
       {
-        til: "二字定",
-        vmodelo: "",
-        vmodelt: "",
-        vmodelf: "" },
+        code: 'Four_Decide',
+        name: '四字定' },
+
       {
-        til: "三字定",
-        vmodelo: "",
-        vmodelt: "",
-        vmodelf: "" },
+        code: 'Two_Show',
+        name: '二字现' },
+
       {
-        til: "二字现",
-        vmodelo: "",
-        vmodelt: "",
-        vmodelf: "" },
+        code: 'Two_Decide',
+        name: '二字定' },
+
       {
-        til: "三字现",
-        vmodelo: "",
-        vmodelt: "",
-        vmodelf: "" },
+        code: 'Five_Two_Decide',
+        name: '五位二定' },
+
       {
-        til: "五位二定",
-        vmodelo: "",
-        vmodelt: "",
-        vmodelf: "" }] };
+        code: 'Four_Show',
+        name: '四字现' },
+
+      {
+        code: 'Three_Decide',
+        name: '三字定' },
+
+      {
+        code: 'One_Decide',
+        name: '一字定' }] };
 
 
 
-  } };exports.default = _default;
+  },
+  onShow: function onShow() {},
+  onLoad: function onLoad() {
+    this.getOddsList();
+    this.getRoomList();
+  },
+  methods: {
+    // 获取房间信息
+    getRoomList: function getRoomList() {var _this = this;
+      var pram = {
+        url: 'agent/agentRoom',
+        data: {
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        var roomlist = [];
+        if (res) {
+          res.forEach(function (item) {
+            roomlist.push({
+              name: item.roomVO.name,
+              id: item.roomVO.id });
+
+          });
+        }
+        _this.roomlist = roomlist;
+      });
+    },
+    sectionChange: function sectionChange(index) {
+      if (index == 0) {
+        this.current = index;
+        this.roomId = this.roomlist[index];
+        this.getOddsList(index);
+      } else {
+        this.current = 0;
+        this.$refs.uToast.show({
+          title: '功能未开放!',
+          type: 'warning' });
+
+      }
+    },
+    getOddsList: function getOddsList(index) {var _this2 = this;
+      var pram = {
+        url: 'agent/odds/' + this.roomId,
+        methods: 'GET',
+        data: {
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        var list = [];var _loop = function _loop(
+        i) {
+          _this2.oddName.forEach(function (item) {
+            if (item.code == res[i].modeType) {
+              res[i].name = item.name;
+            }
+          });
+          list.push(res[i]);};for (var i in res) {_loop(i);
+        }
+        _this2.listarr = list;
+      });
+    },
+    updateOdds: function updateOdds(item) {var _this3 = this;
+      var pram = {
+        url: 'agent/oddsUpdate/' + this.roomId,
+        methods: 'POST',
+        data: {
+          sid: this.$utils.tokens,
+          odds: item.odds,
+          min: item.min,
+          max: item.max,
+          modeType: item.modeType } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        if (res.succeeded) {
+          _this3.$refs.uToast.show({
+            title: '赔率更新成功!',
+            type: 'success' });
+
+        } else {
+          _this3.$refs.uToast.show({
+            title: '赔率更新失败!',
+            type: 'error' });
+
+        }
+        _this3.getOddsList();
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 

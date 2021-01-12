@@ -43,7 +43,7 @@ page {
   -webkit-box-align: end;
   -webkit-align-items: flex-end;
           align-items: flex-end;
-  margin-top: 50rpx;
+  margin-top: 10rpx;
 }
 .lists .listone .ontbot .botlef image {
   width: 84rpx;

@@ -1,5 +1,5 @@
 page {
-  background-color: #F7FCFF;
+  background-color: #f7fcff;
   padding-bottom: 10rpx;
 }
 .utoptab {
@@ -44,9 +44,9 @@ page {
   padding: 0 8rpx;
   -webkit-border-radius: 8rpx;
           border-radius: 8rpx;
-  border: 1px solid #A29FFC;
+  border: 1px solid #a29ffc;
   font-size: 22rpx;
-  color: #A29FFC;
+  color: #a29ffc;
 }
 .lists .listone .onerig .rigtop .rnotime view:nth-of-type(3) {
   height: 36rpx;
@@ -54,13 +54,13 @@ page {
   padding: 0 8rpx;
   -webkit-border-radius: 8rpx;
           border-radius: 8rpx;
-  border: 1px solid #FE9749;
+  border: 1px solid #fe9749;
   font-size: 22rpx;
-  color: #FE9749;
+  color: #fe9749;
 }
 .lists .listone .onerig .rigtop .rigtime {
   font-size: 22rpx;
-  color: #DAD3FF;
+  color: #dad3ff;
   margin-top: 12rpx;
 }
 .lists .listone .onerig .rigtop .btn {
@@ -68,7 +68,7 @@ page {
   height: 62rpx;
   -webkit-border-radius: 20rpx;
           border-radius: 20rpx;
-  background-color: #9D9FFD;
+  background-color: #9d9ffd;
   line-height: 62rpx;
   text-align: center;
   font-size: 24rpx;
@@ -86,9 +86,9 @@ page {
   line-height: 88rpx;
   -webkit-border-radius: 20rpx 20rpx 0 0;
           border-radius: 20rpx 20rpx 0 0;
-  background: -webkit-gradient(linear, left top, left bottom, from(#959AF7), to(#B397EA));
-  background: -webkit-linear-gradient(top, #959AF7 0%, #B397EA 100%);
-  background: linear-gradient(180deg, #959AF7 0%, #B397EA 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#959af7), to(#b397ea));
+  background: -webkit-linear-gradient(top, #959af7 0%, #b397ea 100%);
+  background: linear-gradient(180deg, #959af7 0%, #b397ea 100%);
   padding-left: 38rpx;
   font-size: 28rpx;
   color: #fff;
@@ -101,13 +101,13 @@ page {
 .showpop scroll-view view {
   display: inline-block;
   padding: 0 32rpx;
-  background-color: #F1ECFF;
+  background-color: #f1ecff;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   height: 54rpx;
   line-height: 54rpx;
   margin: 30rpx 30rpx 0 0;
   font-size: 28rpx;
-  color: #9699F6;
+  color: #9699f6;
 }
 

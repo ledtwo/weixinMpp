@@ -93,9 +93,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
-  uSubsection: function() {
-    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 192))
-  },
   uCollapse: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-collapse/u-collapse */ "node-modules/uview-ui/components/u-collapse/u-collapse").then(__webpack_require__.bind(null, /*! uview-ui/components/u-collapse/u-collapse.vue */ 164))
   },
@@ -110,11 +107,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.list, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = _vm.$utils.formatDate(item.createdTime)
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.show = true
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -194,6 +210,13 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -201,17 +224,43 @@ var _default =
       show: false,
       list: [
       {
-        name: '幸运' },
-      {
-        name: '重庆' },
-      {
-        name: '新疆' },
-      {
-        name: '快乐8' }],
+        name: '幸运' }
+
+      // {
+      //     name: '重庆'
+      // },
+      // {
+      //     name: '新疆'
+      // },
+      // {
+      //     name: '快乐8'
+      // }
+      ],
+      current: 0,
+      reqdata: {
+        url: '/agent/user/bet/list',
+        data: {
+          pageNo: 1,
+          length: 30,
+          sid: this.$utils.tokens } } };
 
 
-      current: 0 };
 
+  },
+  onReachBottom: function onReachBottom() {
+    this.reqdata.data.pageNo++;
+    this.getAllList();
+  },
+  methods: {
+    getAllList: function getAllList() {var _this = this;
+      this.$utils.getRequest(this.reqdata, function (res) {
+        console.log('下注列表:', res);
+        _this.list = res.data;
+      });
+    } },
+
+  mounted: function mounted() {
+    this.getAllList();
   } };exports.default = _default;
 
 /***/ }),

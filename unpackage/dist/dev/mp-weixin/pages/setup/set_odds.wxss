@@ -1,5 +1,5 @@
 page {
-  background-color: #F7FCFF;
+  background-color: #f7fcff;
   padding-bottom: 30rpx;
 }
 .utoptab {
@@ -29,7 +29,7 @@ page {
   width: 320rpx;
   height: 64rpx;
   line-height: 64rpx;
-  border: 1px solid #DDD7FF;
+  border: 1px solid #ddd7ff;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   padding-left: 20rpx;
@@ -40,7 +40,7 @@ page {
   height: 72rpx;
   line-height: 72rpx;
   text-align: center;
-  background-color: #9D9FFD;
+  background-color: #9d9ffd;
   font-size: 28rpx;
   color: #fff;
   -webkit-border-radius: 20rpx;
@@ -57,7 +57,7 @@ page {
   width: 180rpx;
   height: 52rpx;
   line-height: 52rpx;
-  border: 1px solid #DDD7FF;
+  border: 1px solid #ddd7ff;
   -webkit-border-radius: 10rpx;
           border-radius: 10rpx;
   padding-left: 16rpx;

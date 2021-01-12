@@ -154,6 +154,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
@@ -167,35 +168,35 @@ var _default =
 
 
       lists: [
-      {
-        updown: '上分',
-        num: '502.9' },
-
-      {
-        updown: '上分',
-        num: '502.9' },
-
-      {
-        updown: '下分',
-        num: '506.9' },
-
-      {
-        updown: '上分',
-        num: '507.9' },
-
-      {
-        updown: '上分',
-        num: '502.9' },
-
-      {
-        updown: '下分',
-        num: '506.9' },
-
-      {
-        updown: '上分',
-        num: '507.9' }] };
-
-
+        // {
+        //     updown: '上分',
+        //     num: '502.9'
+        // },
+        // {
+        //     updown: '上分',
+        //     num: '502.9'
+        // },
+        // {
+        //     updown: '下分',
+        //     num: '506.9'
+        // },
+        // {
+        //     updown: '上分',
+        //     num: '507.9'
+        // },
+        // {
+        //     updown: '上分',
+        //     num: '502.9'
+        // },
+        // {
+        //     updown: '下分',
+        //     num: '506.9'
+        // },
+        // {
+        //     updown: '上分',
+        //     num: '507.9'
+        // }
+      ] };
 
   },
   onReachBottom: function onReachBottom() {
@@ -205,9 +206,18 @@ var _default =
   methods: {
     getAllList: function getAllList() {var _this = this;
       this.$utils.getRequest(this.reqdata, function (res) {
-        console.log('玩家列表:', res);
         uni.stopPullDownRefresh();
-        _this.lists = res.data;
+        var list = [];
+        res.data.forEach(function (item) {
+          list.push({
+            updown: item.source == "Add" ? "上分" : "下分",
+            num: item.userVO.integral,
+            thumb: item.userVO.thumb,
+            name: item.userVO.name,
+            modifiedTime: _this.$utils.formatDate(item.userVO.modifiedTime) });
+
+        });
+        _this.lists = _this.lists.concat(list);
       });
     } },
 

@@ -34,7 +34,7 @@
                                 <u-icon name="arrow-down" color="#999" size="24"></u-icon>
                             </view>
                         </view>
-                        <u-switch size="40" v-model="item.flag" active-color="#B199F7" inactive-color="#F3F3F3"></u-switch>
+                        <u-switch size="40" v-model="item.flag" @change="switchRooms(index)" active-color="#B199F7" inactive-color="#F3F3F3"></u-switch>
                     </view>
                 </view>
             </view>
@@ -166,8 +166,8 @@ export default {
     },
     onLoad() {
         this.getinfo();
-        this.suijic()
-		this.getRoomList();
+        this.suijic();
+        this.getRoomList();
     },
     methods: {
         // 获取房间信息
@@ -179,19 +179,19 @@ export default {
                 }
             };
             this.$utils.getRequest(pram, res => {
-                var roomList=[];
-				if(res){
-					res.forEach(item=>{
-						roomList.push({
-							tiles:item.roomVO.name,
-							flag:item.status=="Opened"?true:false,
-							chose:item.roomVO.status=="Valid"?true:false,
-							text:item.roomVO.title,
-						})
-					})
-				}
-				this.roomlist=roomList
-				
+                var roomList = [];
+                if (res) {
+                    res.forEach(item => {
+                        roomList.push({
+                            tiles: item.roomVO.name,
+                            flag: item.status == 'Opened' ? true : false,
+                            chose: item.roomVO.status == 'Valid' ? true : false,
+                            text: item.roomVO.title,
+                            id: item.roomVO.id
+                        });
+                    });
+                }
+                this.roomlist = roomList;
             });
         },
         // 获取用户信息
@@ -269,6 +269,16 @@ export default {
                     this.showpops = false;
                     this.oldPassword = '';
                     this.newPassword = '';
+                } else if ((res.responseCode = 'INCORRECT_PASSWORD')) {
+                    this.$refs.uToast.show({
+                        title: '原密码不正确!',
+                        type: 'warning'
+                    });
+                } else {
+                    this.$refs.uToast.show({
+                        title: '系统异常!',
+                        type: 'warning'
+                    });
                 }
             });
         },
@@ -292,7 +302,7 @@ export default {
                         title: '添加成功!',
                         type: 'success'
                     });
-                    this.userName='';
+                    this.userName = '';
                     this.showpops = false;
                 }
             });
@@ -300,6 +310,30 @@ export default {
         suijic() {
             var su = Math.ceil(Math.random() * 10);
             this.suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+        },
+        // todo
+        switchRooms(num) {
+            let status = this.roomlist[num].flag ? 0 : 1;
+            // 是否关闭房间
+            let roomId = this.roomlist[num].id;
+            var pram = {
+                methods:'POST',
+                url: 'agent/updateRoomStatus/' + roomId,
+                data: {
+                    status: status,
+                    sid: this.$utils.tokens
+                }
+            }
+            this.$utils.getRequest(pram, res => {
+                console.log('房间操作:', res);
+                if (res.succeeded) {
+                    this.showuser = false;
+                    this.$refs.uToast.show({
+                        title: '操作成功!',
+                        type: 'success'
+                    });
+                }
+            });
         },
         switchs(e) {
             var permitPrivateChat;

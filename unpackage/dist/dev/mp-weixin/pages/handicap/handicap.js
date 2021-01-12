@@ -196,6 +196,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -217,7 +230,8 @@ var _default =
       current: 0,
       checked: true,
       pho: "",
-      pwd: "" };
+      pwd: "",
+      address: "" };
 
   },
   onShow: function onShow() {
@@ -276,7 +290,7 @@ var _default =
 
       }
     },
-    logins: function logins() {
+    logins: function logins() {var _this = this;
       if (this.pho == "" || this.pho == " ") {
         this.$refs.uToast.show({
           title: '请输入账号!',
@@ -294,8 +308,9 @@ var _default =
       }
 
       var userinfo = {
-        usename: this.pho,
-        pwd: this.pwd };
+        thirdPartyUserName: this.pho,
+        thirdPartyPassward: this.pwd,
+        thirdPartyUrl: this.address };
 
       // 记住密码
       if (this.reminpw) {
@@ -314,7 +329,28 @@ var _default =
             break;}
 
       }
-      this.show = false;
+      var pram = {
+        methods: 'POST',
+        url: 'agent/updateRoomStatus/1',
+        data: {
+          thirdPartyUserName: this.pho,
+          thirdPartyPassward: this.pwd,
+          thirdPartyUrl: this.address,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        console.log('盘口登录:', res);
+        debugger;
+        if (res.succeeded) {
+          // this.showuser = false;
+          _this.show = false;
+          _this.$refs.uToast.show({
+            title: '操作成功!',
+            type: 'success' });
+
+        }
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

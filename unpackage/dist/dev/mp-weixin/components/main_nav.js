@@ -76,7 +76,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  uToast: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 129))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -126,18 +130,26 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {
-      navlist: ["幸运", "重庆", "新疆", "快乐8"],
+      navlist: ['幸运', '重庆', '新疆', '快乐8'],
       activenum: 0 };
 
   },
   methods: {
     choseone: function choseone(index) {
-      this.activenum = index;
-      this.$emit("usemethod", index);
+      if (index == 0) {
+        this.activenum = index;
+        this.$emit('usemethod', index);
+      } else {
+        this.$refs.uToast.show({
+          title: '功能未开放!',
+          type: 'warning' });
+
+      }
     } },
 
   props: {} };exports.default = _default;

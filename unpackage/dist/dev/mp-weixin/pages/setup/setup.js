@@ -255,6 +255,7 @@ var _default =
 {
   data: function data() {
     return {
+      suijimg: '',
       account: '',
       effectiveEndTime: '', //到期时间
       showselect: false, //单选
@@ -291,7 +292,7 @@ var _default =
       roomlist: [
       //房间开关列表
       {
-        tiles: '幸运五星 ',
+        tiles: '幸运五星',
         chose: true, //是否选中
         flag: true, //是否开启
         text: '24小时模式' },
@@ -329,24 +330,32 @@ var _default =
   },
   onLoad: function onLoad() {
     this.getinfo();
+    this.suijic();
+    this.getRoomList();
   },
   methods: {
     // 获取房间信息
     getRoomList: function getRoomList() {var _this = this;
       var pram = {
-        url: 'agent/agentInfo',
+        url: 'agent/agentRoom',
         data: {
           sid: this.$utils.tokens } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        _this.account = res.account;
-        _this.effectiveEndTime = _this.$utils.formatDate(res.effectiveEndTime);
-        if (res.permitPrivateChat == 1) {
-          _this.checked = true;
-        } else {
-          _this.checked = false;
+        var roomList = [];
+        if (res) {
+          res.forEach(function (item) {
+            roomList.push({
+              tiles: item.roomVO.name,
+              flag: item.status == 'Opened' ? true : false,
+              chose: item.roomVO.status == 'Valid' ? true : false,
+              text: item.roomVO.title,
+              id: item.roomVO.id });
+
+          });
         }
+        _this.roomlist = roomList;
       });
     },
     // 获取用户信息
@@ -424,30 +433,73 @@ var _default =
           _this3.showpops = false;
           _this3.oldPassword = '';
           _this3.newPassword = '';
+        } else if (res.responseCode = 'INCORRECT_PASSWORD') {
+          _this3.$refs.uToast.show({
+            title: '原密码不正确!',
+            type: 'warning' });
+
+        } else {
+          _this3.$refs.uToast.show({
+            title: '系统异常!',
+            type: 'warning' });
+
         }
       });
     },
     // 添加假人
     addjiaren: function addjiaren() {var _this4 = this;
       var su = Math.ceil(Math.random() * 10);
-      var suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+      var suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
       var pram = {
         url: 'agent/user/addMockUser',
         methods: 'POST',
         data: {
           userName: this.userName,
-          thumb: suijimg } };
+          thumb: suijimg,
+          sid: this.$utils.tokens } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('添加假人:', res);
-        _this4.$refs.uToast.show({
-          title: '添加成功!',
-          type: 'success' });
+        if (res.succeeded) {
+          console.log('添加假人:', res);
+          _this4.$refs.uToast.show({
+            title: '添加成功!',
+            type: 'success' });
 
+          _this4.userName = '';
+          _this4.showpops = false;
+        }
       });
     },
-    switchs: function switchs(e) {var _this5 = this;
+    suijic: function suijic() {
+      var su = Math.ceil(Math.random() * 10);
+      this.suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+    },
+    // todo
+    switchRooms: function switchRooms(num) {var _this5 = this;
+      var status = this.roomlist[num].flag ? 0 : 1;
+      // 是否关闭房间
+      var roomId = this.roomlist[num].id;
+      var pram = {
+        methods: 'POST',
+        url: 'agent/updateRoomStatus/' + roomId,
+        data: {
+          status: status,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        console.log('房间操作:', res);
+        if (res.succeeded) {
+          _this5.showuser = false;
+          _this5.$refs.uToast.show({
+            title: '操作成功!',
+            type: 'success' });
+
+        }
+      });
+    },
+    switchs: function switchs(e) {var _this6 = this;
       var permitPrivateChat;
       if (e) {
         permitPrivateChat = 1;
@@ -464,7 +516,7 @@ var _default =
 
       this.$utils.getRequest(pram, function (res) {
         if (res.succeeded) {
-          _this5.$refs.uToast.show({
+          _this6.$refs.uToast.show({
             title: e ? '开启私聊!' : '关闭私聊!',
             type: 'success' });
 
@@ -473,7 +525,7 @@ var _default =
       console.log(this.roomlist);
     },
     // 确认清空流水
-    surebtn: function surebtn() {var _this6 = this;
+    surebtn: function surebtn() {var _this7 = this;
       var pram = {
         url: 'agent/user/clearIntegral',
         methods: 'POST',
@@ -484,7 +536,7 @@ var _default =
       this.$utils.getRequest(pram, function (res) {
         // console.log("清空流水:",res);
         if (res.succeeded) {
-          _this6.$refs.uToast.show({
+          _this7.$refs.uToast.show({
             title: '流水已清空!',
             type: 'success' });
 

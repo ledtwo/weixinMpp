@@ -234,23 +234,21 @@
           ></view>
           <view class="onerig">
             <view class="rigtop dis-jasc">
-              <view class="rtlest">
+              <view class="rtlest" style="max-width: 80%;">
                 <view class="rnotime dis-alicen">
-                  <view class="">张三</view>
+                  <view class="" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 20%;">
+                      <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap">{{ item.userName }}</p>
+                  </view>
                   <view class="">已开奖</view>
-                  <view class="">20200256018</view>
+                  <view class="">{{ item.period }}</view>
                 </view>
-                <view class="rigtime">2020-09-19</view>
+                <view class="rigtime">{{$utils.formatDate(item.createdTime)}}</view>
               </view>
               <view class="btn" @click="showxia = true">号码明细</view>
             </view>
             <view class="rigbot">
               <u-collapse :accordion="false" arrow-color="#D4D4D4">
-                <u-collapse-item
-                  title="只要我们正确择取一个合适的参照物乃至稍降一格去看待他人，值得赏识的东西便会扑面而来"
-                >
-                  只要我们正确择取一个合适的参照物乃至稍降一格去看待他人，值得赏识的东西便会扑面而来
-                </u-collapse-item>
+                <u-collapse-item :title="item.content">{{ item.content }}</u-collapse-item>
               </u-collapse>
             </view>
           </view>
@@ -681,7 +679,6 @@ export default {
     },
     switchs(num) {
       let flyOrder = this.lastlists[num].checked ? 1 : 0;
-      // this.lastlists[num].checked = this.lastlists[num].checked?false:true;
       // 是否飞单
       this.userid = this.lastlists[num].id;
       var pram = {

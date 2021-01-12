@@ -1,11 +1,11 @@
 page {
-  background-color: #F6FBFE;
+  background-color: #f6fbfe;
   padding-bottom: 20rpx;
 }
 .notlogin .logos {
   text-align: center;
   font-size: 40rpx;
-  color: #9E9FFD;
+  color: #9e9ffd;
   margin-top: 200rpx;
 }
 .notlogin .inputs {
@@ -13,14 +13,14 @@ page {
   height: 60rpx;
   margin: 0 auto;
   margin-top: 130rpx;
-  border-bottom: 1px solid #F6F6F6;
+  border-bottom: 1px solid #f6f6f6;
 }
 .notlogin .inputs image {
   width: 26rpx;
   height: 36rpx;
 }
 .notlogin .inputs input {
-  width: 600rpx ;
+  width: 600rpx;
   height: 60rpx;
   line-height: 60rpx;
   padding-left: 22rpx;
@@ -42,7 +42,7 @@ page {
   height: 90rpx;
   line-height: 90rpx;
   text-align: center;
-  background-color: #9E9FFD;
+  background-color: #9e9ffd;
   -webkit-border-radius: 50rpx;
           border-radius: 50rpx;
   font-size: 32rpx;
@@ -67,12 +67,12 @@ page {
 }
 .lists .listone .onetop {
   width: 100%;
-  background-color: #E5E1FC;
+  background-color: #e5e1fc;
   -webkit-border-radius: 20rpx 20rpx 0 0;
           border-radius: 20rpx 20rpx 0 0;
   padding: 22rpx 34rpx 32rpx 26rpx;
   font-size: 28rpx;
-  color: #B9B4E4;
+  color: #b9b4e4;
 }
 .lists .listone .onetop .topone image {
   width: 28rpx;
@@ -84,7 +84,7 @@ page {
 .lists .listone .onetop .topnum {
   font-size: 60rpx;
   font-weight: 600;
-  color: #6D5EDE;
+  color: #6d5ede;
   text-align: center;
 }
 .lists .listone .onetop .toplast {

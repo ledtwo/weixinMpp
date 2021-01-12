@@ -4,7 +4,8 @@
             <view class="center-v" v-show="lists.length == 0">暂无数据</view>
             <view class="listone" v-for="(item, index) in lists" :key="index">
                 <view class="onetop dis-jasc">
-                    <text>{{modifiedTime}}</text>
+                    <!-- <text>{{$utils.formatDate(item.createdTime)}}</text> -->
+                    <text>{{item.modifiedTime}}</text>
                     <text class="foncor">{{ item.updown }}</text>
                 </view>
                 <view class="ontbot dis-jasc">
@@ -35,34 +36,34 @@ export default {
                 }
             },
             lists: [
-                {
-                    updown: '上分',
-                    num: '502.9'
-                },
-                {
-                    updown: '上分',
-                    num: '502.9'
-                },
-                {
-                    updown: '下分',
-                    num: '506.9'
-                },
-                {
-                    updown: '上分',
-                    num: '507.9'
-                },
-                {
-                    updown: '上分',
-                    num: '502.9'
-                },
-                {
-                    updown: '下分',
-                    num: '506.9'
-                },
-                {
-                    updown: '上分',
-                    num: '507.9'
-                }
+                // {
+                //     updown: '上分',
+                //     num: '502.9'
+                // },
+                // {
+                //     updown: '上分',
+                //     num: '502.9'
+                // },
+                // {
+                //     updown: '下分',
+                //     num: '506.9'
+                // },
+                // {
+                //     updown: '上分',
+                //     num: '507.9'
+                // },
+                // {
+                //     updown: '上分',
+                //     num: '502.9'
+                // },
+                // {
+                //     updown: '下分',
+                //     num: '506.9'
+                // },
+                // {
+                //     updown: '上分',
+                //     num: '507.9'
+                // }
             ]
         };
     },
@@ -134,8 +135,7 @@ page {
         .ontbot {
             width: 100%;
             align-items: flex-end;
-            margin-top: 50rpx;
-
+            margin-top: 10rpx;
             .botlef {
                 image {
                     width: 84rpx;

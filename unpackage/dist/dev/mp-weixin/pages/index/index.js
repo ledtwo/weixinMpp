@@ -122,6 +122,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 =
+    _vm.current == 2
+      ? _vm.__map(_vm.betList, function(item, index) {
+          var $orig = _vm.__get_orig(item)
+
+          var g0 = _vm.$utils.formatDate(item.createdTime)
+          return {
+            $orig: $orig,
+            g0: g0
+          }
+        })
+      : null
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.showmore = !_vm.showmore
@@ -139,6 +152,15 @@ var render = function() {
       _vm.showxia = true
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -466,64 +488,166 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   components: {
     topsNav: topsNav },
 
   data: function data() {
     return {
-      userid: '',
+      uuid: "",
+      qrUrl: "",
+      wxTime: "", //超时时间
+      wxLoadingFlag: true,
+      warningText: "正在加载...",
+      // 定时器
+      checkFlag: "",
+      // 分割线
+      userid: "",
       topstatus: 0, //0幸运  1重庆  2新疆   3快乐8
       upfen: 0, //
-      downfen: '', //上分下分
+      downfen: "", //上分下分
       usersnum: 0, //上下分0  修改资料1  反水2
       showuser: false, //长按弹框
-      usertile: '', //长按弹框标题
+      usertile: "", //长按弹框标题
       showpops: false, //弹框
       longtap: -1, //玩家列表长按弹出选择框
       longtapeo: -1, //假人列表长按弹出选择框
       showone: false,
-      poptile: '二维码登录', //弹出框标题
+      poptile: "二维码登录", //弹出框标题
       show: false,
       showmore: false,
       showxia: false, //下注监控号码明细
+      betList: [], //下注监控列表
       somemun: [
       {
-        til: '合计',
-        mon: '3288.78' },
+        til: "合计",
+        mon: "3288.78" },
 
       {
-        til: '投注流水',
-        mon: '3288.78' },
+        til: "投注流水",
+        mon: "3288.78" },
 
       {
-        til: '中奖流水',
-        mon: '3288.78' }],
+        til: "中奖流水",
+        mon: "3288.78" }],
 
 
       twomun: [
       {
-        til: '盘口余额',
-        mon: '3288.78' },
+        til: "盘口余额",
+        mon: "3288.78" },
 
       {
-        til: '本期飞单',
-        mon: '3288.78' },
+        til: "本期飞单",
+        mon: "3288.78" },
 
       {
-        til: '今日飞单',
-        mon: '3288.78' }],
+        til: "今日飞单",
+        mon: "3288.78" }],
 
 
       list: [
       {
-        name: '玩家列表' },
+        name: "玩家列表" },
 
       {
-        name: '假人列表' },
+        name: "假人列表" },
 
       {
-        name: '下注监控' }],
+        name: "下注监控" }],
 
 
       current: 0,
@@ -531,20 +655,28 @@ __webpack_require__.r(__webpack_exports__);
       notpeos: [],
       jifenlist: [], //积分列表
       reqdata: {
-        url: 'agent/user/list',
+        url: "agent/user/list",
         data: {
           pageNo: 1,
           length: 30,
           sid: this.$utils.tokens } },
 
 
-      suijimg: '',
-      xiugaizi: '' };
+      suijimg: "",
+      xiugaizi: "" };
 
   },
+  watch: {
+    showpops: function showpops(newVal) {
+      if (!newVal) {
+        clearInterval(this.checkFlag);
+      }
+    } },
+
   onLoad: function onLoad() {
     this.getBetTotal(); //获取代理积分统计
     this.getwanjia(); // 获取玩家列表
+    this.getxiazhu();
   },
   onReachBottom: function onReachBottom() {
     this.reqdata.data.pageNo++;
@@ -567,8 +699,8 @@ __webpack_require__.r(__webpack_exports__);
     //代理积分统计
     getBetTotal: function getBetTotal() {var _this = this;
       var pram = {
-        url: 'agent/user/bet/total',
-        methods: 'GET',
+        url: "agent/user/bet/total",
+        methods: "GET",
         data: {
           sid: this.$utils.tokens } };
 
@@ -582,8 +714,8 @@ __webpack_require__.r(__webpack_exports__);
     //代理盘口积分统计
     getPankouTotal: function getPankouTotal() {var _this2 = this;
       var pram = {
-        url: 'agent/user/bet/pankou/total',
-        methods: 'GET',
+        url: "agent/user/bet/pankou/total",
+        methods: "GET",
         data: {
           sid: this.$utils.tokens } };
 
@@ -596,9 +728,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     // 获取积分请求列表
     getjifen: function getjifen() {var _this3 = this;
+      var self = this;
       var pram = {
-        url: 'agent/integral/request/list',
-        methods: 'POST',
+        url: "agent/integral/request/list",
+        methods: "POST",
         data: {
           pageNo: 1,
           length: 10,
@@ -606,24 +739,46 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('积分列表:', res);
+        console.log("积分列表:", res);
         res.data.forEach(function (val) {
           val.tims = _this3.$utils.formatDate(val.createdTime);
         });
         _this3.jifenlist = res.data;
+        if (_this3.jifenlist.length > 0) {
+          _this3.playAudio();
+          if (_this3.audioFlag) {
+            return;
+          }
+          _this3.audioFlag = setInterval(function () {
+            self.getjifen();
+          }, 10000);
+        }
+      });
+    },
+    // 播放提示音
+    playAudio: function playAudio() {
+      var innerAudioContext = uni.createInnerAudioContext();
+      innerAudioContext.autoplay = true;
+      innerAudioContext.src = "../../static/didi.mp3";
+      innerAudioContext.onPlay(function () {
+        console.log("开始播放");
+      });
+      innerAudioContext.onError(function (res) {
+        console.log(res);
+        // console.log(res.errCode);
       });
     },
     // 获取玩家列表
     getwanjia: function getwanjia() {var _this4 = this;
       this.$utils.getRequest(this.reqdata, function (res) {
-        console.log('玩家列表:', res);
+        console.log("玩家列表:", res);
         uni.stopPullDownRefresh();
         var data = res.data || [];
         data.forEach(function (val) {
           val.checked = false;
         });
         for (var i = 0; i < data.length; i++) {
-          if (data[i].userType == 'Mock') {
+          if (data[i].userType == "Mock") {
             _this4.notpeos.push(data[i]);
           } else {
             if (data[i].flyOrder == 1) {
@@ -634,7 +789,6 @@ __webpack_require__.r(__webpack_exports__);
             _this4.lastlists.push(data[i]);
           }
         }
-
       });
     },
     // 同意拒绝
@@ -645,7 +799,11 @@ __webpack_require__.r(__webpack_exports__);
       if (num == 0) {
         //同意 agent/integral/request/{requestId}/{status}   Success, Failed
         pram = {
-          url: 'agent/integral/request/' + this.jifenlist[nuns].id + '/' + 'Success',
+          url:
+          "agent/integral/request/" +
+          this.jifenlist[nuns].id +
+          "/" +
+          "Success",
           // methods:"POST",
           data: {
             sid: this.$utils.tokens } };
@@ -653,7 +811,11 @@ __webpack_require__.r(__webpack_exports__);
 
       } else {
         pram = {
-          url: 'agent/integral/request/' + this.jifenlist[nuns].id + '/' + 'Failed',
+          url:
+          "agent/integral/request/" +
+          this.jifenlist[nuns].id +
+          "/" +
+          "Failed",
           data: {
             sid: this.$utils.tokens } };
 
@@ -662,22 +824,24 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$utils.getRequest(pram, function (res) {
         _this5.getjifen();
-        console.log('>>>>>>>>>>>', res);
+        console.log(">>>>>>>>>>>", res);
       });
     },
     // 获取下注监控列表
-    getxiazhu: function getxiazhu() {
+    getxiazhu: function getxiazhu() {var _this6 = this;
       var pram = {
-        url: 'agent/user/bet/list',
+        url: "agent/user/bet/list",
+        methods: "POST",
         data: {
           pageNo: 1,
           length: 10,
-          period: 1, //期号
+          //   period: 1, //期号
           sid: this.$utils.tokens } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('下注监控列表:', res);
+        console.log("下注监控列表:", res);
+        _this6.betList = res.data;
       });
     },
     // 顶部切换
@@ -691,16 +855,16 @@ __webpack_require__.r(__webpack_exports__);
       var status;
       switch (this.topstatus) {
         case 0:
-          status = uni.getStorageSync('accountone');
+          status = uni.getStorageSync("accountone");
           break;
         case 1:
-          status = uni.getStorageSync('accountwo');
+          status = uni.getStorageSync("accountwo");
           break;
         case 2:
-          status = uni.getStorageSync('accounthree');
+          status = uni.getStorageSync("accounthree");
           break;
         case 3:
-          status = uni.getStorageSync('accountfour');
+          status = uni.getStorageSync("accountfour");
           break;}
 
       if (status) {
@@ -709,25 +873,24 @@ __webpack_require__.r(__webpack_exports__);
         this.show = false;
       }
     },
-    switchs: function switchs(num) {var _this6 = this;
+    switchs: function switchs(num) {var _this7 = this;
       var flyOrder = this.lastlists[num].checked ? 1 : 0;
-      // this.lastlists[num].checked = this.lastlists[num].checked?false:true;
       // 是否飞单
       this.userid = this.lastlists[num].id;
       var pram = {
-        url: 'agent/user/update/' + this.userid,
+        url: "agent/user/update/" + this.userid,
         data: {
           flyOrder: flyOrder,
           sid: this.$utils.tokens } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('修改信息:', res);
+        console.log("修改信息:", res);
         if (res.succeeded) {
-          _this6.showuser = false;
-          _this6.$refs.uToast.show({
-            title: '修改成功!',
-            type: 'success' });
+          _this7.showuser = false;
+          _this7.$refs.uToast.show({
+            title: "修改成功!",
+            type: "success" });
 
           // this.reqdata.data.pageNo = 1;
           // this.lastlists.splice(0);
@@ -756,7 +919,7 @@ __webpack_require__.r(__webpack_exports__);
         case 0:
           this.showuser = true;
           this.usersnum = 0;
-          this.usertile = '上下分';
+          this.usertile = "上下分";
           if (this.current == 0) {
             this.userid = this.lastlists[num].id;
           } else if (this.current == 1) {
@@ -766,32 +929,64 @@ __webpack_require__.r(__webpack_exports__);
         case 1:
           this.showuser = true;
           this.usersnum = 1;
-          this.usertile = '资料修改';
+          this.usertile = "资料修改";
           var su = Math.ceil(Math.random() * 10);
-          this.suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+          this.suijimg = this.lastlists[num].thumb;
+          this.xiugaizi = this.lastlists[num].name;
           if (this.current == 0) {
             this.userid = this.lastlists[num].id;
           } else if (this.current == 1) {
-            // this.userid = this.notpeos[num].id
+            this.suijimg = this.notpeos[num].thumb;
+            this.xiugaizi = this.notpeos[num].name;
+            this.userid = this.notpeos[num].id;
           }
           break;
         case 2:
-          uni.navigateTo({
-            url: '../report_form/report_form' });
+          this.$refs.uToast.show({
+            title: "建设中!",
+            type: "success" });
 
+          // 二期
+          // uni.navigateTo({
+          //     url: '../report_form/report_form'
+          // });
           console.log(this.lastlists[num].id);
           break;
         case 3:
-          this.showuser = true;
-          this.usersnum = 2;
-          this.usertile = '反水';
-          console.log(this.lastlists[num].id);
+          // 二期
+          // this.showuser = true;
+          // this.usersnum = 2;
+          // this.usertile = '反水';
+          // console.log(this.lastlists[num].id);
+          this.$refs.uToast.show({
+            title: "建设中!",
+            type: "success" });
+
           break;
         case 4:
           uni.navigateTo({
-            url: 'record_list' });
+            url: "record_list" });
 
           console.log(this.lastlists[num].id);
+          break;
+        case 5:
+          // 二期 拉黑
+          // console.log(this.lastlists[num].id);
+          this.$refs.uToast.show({
+            title: "建设中!",
+            type: "success" });
+
+          break;
+        case 6:
+          // 二期 链接
+          // this.showuser = true;
+          // this.usersnum = 2;
+          // this.usertile = '反水';
+          // console.log(this.lastlists[num].id);
+          this.$refs.uToast.show({
+            title: "建设中!",
+            type: "success" });
+
           break;
         case 7:
           if (this.current == 0) {
@@ -807,34 +1002,36 @@ __webpack_require__.r(__webpack_exports__);
     },
     suijic: function suijic() {
       var su = Math.ceil(Math.random() * 10);
-      this.suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+      // this.suijimg = 'https://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+      this.suijimg =
+      "http://qd.tskp1i6.cn/static/img/thumb/pic-" + su * su * su + ".jpg";
     },
-    suSanchu: function suSanchu() {var _this7 = this;
+    suSanchu: function suSanchu() {var _this8 = this;
       var pram = {
-        url: 'agent/user/updateStatus/' + this.userid + '/Delete',
+        url: "agent/user/updateStatus/" + this.userid + "/Delete",
         data: {
           sid: this.$utils.tokens } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('删除玩家:', res);
+        console.log("删除玩家:", res);
         if (res.succeeded) {
-          _this7.$refs.uToast.show({
-            title: '删除成功!',
-            type: 'success' });
+          _this8.$refs.uToast.show({
+            title: "删除成功!",
+            type: "success" });
 
           setTimeout(function () {
-            _this7.reqdata.data.pageNo = 1;
-            _this7.lastlists.splice(0);
-            _this7.notpeos.splice(0);
-            _this7.getwanjia();
+            _this8.reqdata.data.pageNo = 1;
+            _this8.lastlists.splice(0);
+            _this8.notpeos.splice(0);
+            _this8.getwanjia();
           }, 500);
         }
       });
     },
-    surxiugai: function surxiugai() {var _this8 = this;
+    surxiugai: function surxiugai() {var _this9 = this;
       var pram = {
-        url: 'agent/user/update/' + this.userid,
+        url: "agent/user/update/" + this.userid,
         data: {
           name: this.xiugaizi,
           thumb: this.suijimg,
@@ -842,17 +1039,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('修改信息:', res);
+        console.log("修改信息:", res);
         if (res.succeeded) {
-          _this8.showuser = false;
-          _this8.$refs.uToast.show({
-            title: '修改成功!',
-            type: 'success' });
+          _this9.showuser = false;
+          _this9.$refs.uToast.show({
+            title: "修改成功!",
+            type: "success" });
 
-          _this8.reqdata.data.pageNo = 1;
-          _this8.lastlists.splice(0);
-          _this8.notpeos.splice(0);
-          _this8.getwanjia();
+          _this9.reqdata.data.pageNo = 1;
+          _this9.lastlists.splice(0);
+          _this9.notpeos.splice(0);
+          _this9.getwanjia();
         }
       });
     },
@@ -861,57 +1058,93 @@ __webpack_require__.r(__webpack_exports__);
       this.upfen = index;
     },
     // 上下分确定
-    makeupdown: function makeupdown() {var _this9 = this;
+    makeupdown: function makeupdown() {var _this10 = this;
       var pram = {
-        url: 'agent/integral',
-        methods: 'POST',
+        url: "agent/integral",
+        methods: "POST",
         data: {
           userId: this.userid,
-          opType: this.upfen == 0 ? 'Add' : 'Reduce', //Add, Reduce
+          opType: this.upfen == 0 ? "Add" : "Reduce", //Add, Reduce
           integral: this.downfen,
           sid: this.$utils.tokens } };
 
 
       this.$utils.getRequest(pram, function (res) {
-        console.log('上下分:', res);
+        console.log("上下分:", res);
         if (res.succeeded) {
-          _this9.downfen = '';
-          _this9.showuser = false;
-          _this9.$refs.uToast.show({
-            title: '操作成功!',
-            type: 'success' });
+          _this10.downfen = "";
+          _this10.showuser = false;
+          // 刷新页面
+          _this10.reqdata.data.pageNo = 1;
+          _this10.lastlists.splice(0);
+          _this10.notpeos.splice(0);
+          _this10.getwanjia();
+          _this10.$refs.uToast.show({
+            title: "操作成功!",
+            type: "success" });
 
         }
       });
     },
     // 添加账号
-    addadmin: function addadmin() {
+    addadmin: function addadmin() {var _this11 = this;
       this.showpops = true;
       this.showone = true;
-      this.poptile = '二维码登录';
+      this.poptile = "二维码登录";
       var reqConfig = {
-        methods: 'POST',
-        url: 'agent/account/getQrCodeUrl',
-        sid: this.$utils.tokens };
+        methods: "POST",
+        url: "agent/account/getQrCodeUrl",
+        data: {
+          sid: this.$utils.tokens } };
+
 
       this.$utils.getRequest(reqConfig, function (res) {
-        console.log('二维码信息:', res);
-        debugger;
-        uni.stopPullDownRefresh();
-        // this.lists = res.data;
+        console.log("二维码信息:", res);
+        _this11.qrUrl = res.qrUrl;
+        _this11.uuid = res.uuid;
+        _this11.wxTime = res.expiredTime;
+        _this11.refreshIsLogin();
       });
+    },
+    hideWxLoadingFlag: function hideWxLoadingFlag() {
+      this.wxLoadingFlag = false;
+    },
+    // 检查二维码是否已经登录
+    refreshIsLogin: function refreshIsLogin() {var _this12 = this;
+      var reqConfig = {
+        methods: "POST",
+        url: "agent/account/checkQrCode",
+        data: {
+          uuid: this.uuid,
+          sid: this.$utils.tokens } };
+
+
+      var self = this;
+      this.checkFlag = setInterval(function () {
+        _this12.$utils.getRequest(reqConfig, function (res) {
+          console.log("二维码信息:", res);
+          if (res.succeeded && res.wxId) {
+            clearInterval(self.checkFlag);
+            self.$refs.uToast.show({
+              title: "登录成功!",
+              type: "success" });
+
+            _this12.showpops = false;
+          }
+        });
+      }, 2000);
     },
     // 网盘登录
     wanglogin: function wanglogin() {
-      uni.setStorageSync('topcheck', this.topstatus);
+      uni.setStorageSync("topcheck", this.topstatus);
       uni.switchTab({
-        url: '../handicap/handicap' });
+        url: "../handicap/handicap" });
 
     },
     // 绑定群聊
     binds: function binds() {
       uni.navigateTo({
-        url: '../bindqun/bindqun' });
+        url: "../bindqun/bindqun" });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
