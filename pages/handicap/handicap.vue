@@ -168,7 +168,7 @@ export default {
 			var userinfo={
 				thirdPartyUserName:this.pho,
 				thirdPartyPassward:this.pwd,
-                thirdPartyUrl:this.address
+        thirdPartyUrl:this.address
 			}
 			// 记住密码
 			if(this.reminpw){
@@ -189,8 +189,9 @@ export default {
 			}
             var pram = {
                 methods:'POST',
-                url: 'agent/updateRoomStatus/1',
+                url: 'agent/pankou/login',
                 data: {
+                    agentRoomId:"盘口登录",
                     thirdPartyUserName:this.pho,
                     thirdPartyPassward:this.pwd,
                     thirdPartyUrl:this.address,
