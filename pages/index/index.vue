@@ -111,8 +111,8 @@
                         <view class="topleft dis-fw">
                             <view>{{ item.name }}</view>
                             <view class="flys" v-show="item.checked">飞</view>
-                            <view class="updow">今日上分:33</view>
-                            <view class="updow">今日下分:45</view>
+                            <view class="updow">今日上分:{{item.todayAddIntegral}}</view>
+                            <view class="updow">今日下分:{{item.todayReduceIntegral}}</view>
                         </view>
                         <view class="uswitchs">
                             <u-switch size="40" v-model="item.checked" @change="switchs(index)" active-color="#B199F7" inactive-color="#F3F3F3"></u-switch>
@@ -141,6 +141,7 @@
                     <image :src="item.thumb"></image>
 
                     <view class="flatsbox dis-alicen" v-show="index == longtapeo">
+                        <view @tap="listtap(1, index)">资料</view>
                         <view @tap="listtap(0, index)">上下分</view>
                         <view style="color:#FF8383">删除</view>
                     </view>
@@ -149,8 +150,8 @@
                     <view class="onetop dis-jasc">
                         <view class="topleft dis-fw">
                             <view>{{ item.name }}</view>
-                            <view class="updow">今日上分:33</view>
-                            <view class="updow">今日下分:45</view>
+                            <view class="updow">今日上分:{{item.todayAddIntegral}}</view>
+                            <view class="updow">今日下分:{{item.todayReduceIntegral}}</view>
                         </view>
                     </view>
                     <view class="onebot dis-jasc">
@@ -171,6 +172,9 @@
         <!-- 下注监控 -->
         <view v-if="current == 2">
             <view class="lists">
+                <view style="text-align: center;" v-show="betList.length == 0">
+                    暂无数据
+                </view>
                 <view class="listone dis-pl" v-for="(item, index) in betList" :key="index">
                     <view class="timg"><image src="../../static/linshi/casour.jpg"></image></view>
                     <view class="onerig">
@@ -525,6 +529,7 @@ export default {
             };
             this.$utils.getRequest(pram, res => {
                 console.log('下注监控列表:', res);
+                this.betList = res.data
             });
         },
         // 顶部切换
@@ -620,7 +625,9 @@ export default {
                     if (this.current == 0) {
                         this.userid = this.lastlists[num].id;
                     } else if (this.current == 1) {
-                        // this.userid = this.notpeos[num].id
+                        this.suijimg = this.notpeos[num].thumb
+                        this.xiugaizi = this.notpeos[num].name
+                        this.userid = this.notpeos[num].id
                     }
                     break;
                 case 2:
@@ -755,6 +762,11 @@ export default {
                 if (res.succeeded) {
                     this.downfen = '';
                     this.showuser = false;
+                    // 刷新页面
+                    this.reqdata.data.pageNo = 1;
+                    this.lastlists.splice(0);
+                    this.notpeos.splice(0);
+                    this.getwanjia();
                     this.$refs.uToast.show({
                         title: '操作成功!',
                         type: 'success'

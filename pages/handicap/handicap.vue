@@ -3,11 +3,15 @@
 		<!-- 未登录 -->
 		<view class="notlogin" v-show="show">
 			<view class="logos">LOGO</view>
-			<view class="inputs dis-alicen">
+            <view class="inputs dis-alicen">
+            	<image src="../../static/phc.png"></image>
+            	<input type="number" placeholder="请输入网址" v-model="address"/>
+            </view>
+			<view class="inputs dis-alicen" style="margin-top: 40rpx;">
 				<image src="../../static/phc.png"></image>
 				<input type="number" placeholder="请输入账号" v-model="pho"/>
 			</view>
-			<view class="inputs dis-alicen" style="margin-top: 70rpx;">
+			<view class="inputs dis-alicen" style="margin-top: 40rpx;">
 				<image src="../../static/pwc.png"></image>
 				<input type="text" password placeholder="请输入密码" v-model="pwd"/>
 			</view>
@@ -75,7 +79,8 @@
 				current: 0,
 				checked:true,
 				pho:"",
-				pwd:""
+				pwd:"",
+                address:""
 			};
 		},
 		onShow() {

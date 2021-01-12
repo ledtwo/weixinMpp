@@ -14,7 +14,7 @@
         </view>
 
         <view class="lists">
-            <view class="listone dis-pl" v-for="(item, index) in 8" :key="index">
+            <view class="listone dis-pl" v-for="(item, index) in lists" :key="index">
                 <view class="timg"><image src="../../static/linshi/casour.jpg"></image></view>
                 <view class="onerig">
                     <view class="rigtop dis-jasc">
@@ -71,8 +71,6 @@ export default {
             debugger
             this.$utils.getRequest(this.reqdata, res => {
                 console.log('下注列表:', res);
-                debugger
-                uni.stopPullDownRefresh();
                 this.lists = res.data;
             });
         }
