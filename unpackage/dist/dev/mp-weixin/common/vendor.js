@@ -10596,7 +10596,7 @@ var validation = function validation(num, str) {
   return rex.test(str);
 };
 
-var formatDate = function formatDate(time) {
+var formatDate = function formatDate(time, flag) {
   var date = new Date(time);
   var y = date.getFullYear();
   var m = date.getMonth() + 1;
@@ -10609,8 +10609,10 @@ var formatDate = function formatDate(time) {
   var second = date.getSeconds();
   minute = minute < 10 ? '0' + minute : minute;
   second = second < 10 ? '0' + second : second;
-  // var timeStr = y + '-' + m + '-' + d + '　' + h + ':' + minute + ':' + second;
   var timeStr = y + '-' + m + '-' + d;
+  if (flag) {
+    timeStr = y + '-' + m + '-' + d + '　' + h + ':' + minute + ':' + second;
+  }
   return timeStr;
 };var _default =
 

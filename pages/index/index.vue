@@ -33,21 +33,25 @@
       </view>
 
       <view class="bindsqun" v-if="showmore">
-        <view class="bindsone dis-jasc" v-for="(item, index) in 2" :key="index">
+        <view
+          class="bindsone dis-jasc"
+          v-for="(item, index) in userList"
+          :key="index"
+        >
           <view class="onelist dis-alicen">
             <view class="listimg dis-jacc"
-              ><image src="../../static/linshi/aaaa.jpg"></image
+              ><image :src="item.thumb"></image
             ></view>
 
             <view class="listmsg dis-fdjcac">
               <view class="listop dis-alicen">
-                <view>JHB654545</view>
+                <view>{{ item.nickName }}</view>
                 <view class="bindbtn" @click="binds">绑定群聊</view>
               </view>
-              <view class="listbo">账号：156</view>
+              <view class="listbo">账号：{{ item.account }}</view>
             </view>
           </view>
-          <view class="oncerig"
+          <view class="oncerig" @click="loginOut(item)"
             ><image src="../../static/tui.png"></image
           ></view>
         </view>
@@ -221,9 +225,9 @@
     <!-- 下注监控 -->
     <view v-if="current == 2">
       <view class="lists">
-        <view style="text-align: center" v-show="betList.length == 0">
-          暂无数据
-        </view>
+        <view style="text-align: center" v-show="betList.length == 0"
+          >暂无数据</view
+        >
         <view
           class="listone dis-pl"
           v-for="(item, index) in betList"
@@ -234,21 +238,41 @@
           ></view>
           <view class="onerig">
             <view class="rigtop dis-jasc">
-              <view class="rtlest" style="max-width: 80%;">
+              <view class="rtlest" style="max-width: 80%">
                 <view class="rnotime dis-alicen">
-                  <view class="" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 20%;">
-                      <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap">{{ item.userName }}</p>
+                  <view
+                    class=""
+                    style="
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                      width: 20%;
+                    "
+                  >
+                    <p
+                      style="
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                      "
+                    >
+                      {{ item.userName }}
+                    </p>
                   </view>
                   <view class="">已开奖</view>
                   <view class="">{{ item.period }}</view>
                 </view>
-                <view class="rigtime">{{$utils.formatDate(item.createdTime)}}</view>
+                <view class="rigtime">{{
+                  $utils.formatDate(item.createdTime)
+                }}</view>
               </view>
               <view class="btn" @click="showxia = true">号码明细</view>
             </view>
             <view class="rigbot">
               <u-collapse :accordion="false" arrow-color="#D4D4D4">
-                <u-collapse-item :title="item.content">{{ item.content }}</u-collapse-item>
+                <u-collapse-item :title="item.content">{{
+                  item.content
+                }}</u-collapse-item>
               </u-collapse>
             </view>
           </view>
@@ -391,6 +415,7 @@ export default {
   },
   data() {
     return {
+      userList: [],
       uuid: "",
       qrUrl: "",
       wxTime: "", //超时时间
@@ -498,8 +523,41 @@ export default {
     this.isntlogin();
     this.getwanjia(); //获取玩家列表
     this.getjifen(); // 获取积分请求列表
+    this.getWxUserList();
+    // this.getPankouTotal() //获取盘口数据
   },
   methods: {
+    // 退出
+    loginOut(item) {
+      var pram = {
+        url: "gent/account/logout",
+        methods: "POST",
+        data: {
+          agentAccountId: item.id,
+          sid: this.$utils.tokens,
+        },
+      };
+      this.$utils.getRequest(pram, (res) => {
+          debugger
+        // this.userList = res.data;
+      });
+    },
+    // 查询微信用户
+    getWxUserList() {
+      var pram = {
+        url: "agent/account/list",
+        methods: "GET",
+        data: {
+          pageNo: 1,
+          length: 30,
+          sid: this.$utils.tokens,
+        },
+      };
+      this.$utils.getRequest(pram, (res) => {
+        debugger;
+        this.userList = res.data;
+      });
+    },
     //代理积分统计
     getBetTotal() {
       var pram = {
@@ -517,13 +575,16 @@ export default {
     },
     //代理盘口积分统计
     getPankouTotal() {
+      let agentRoomId = uni.getStorageSync("agentId");
       var pram = {
         url: "agent/user/bet/pankou/total",
         methods: "GET",
         data: {
           sid: this.$utils.tokens,
+          agentRoomId: agentRoomId,
         },
       };
+      debugger;
       this.$utils.getRequest(pram, (res) => {
         this.twomun[0].mon = res.leftAmount;
         this.twomun[1].mon = res.periodTotalIntegral;
@@ -551,10 +612,10 @@ export default {
         if (this.jifenlist.length > 0) {
           this.playAudio();
           if (this.audioFlag) {
-            return
+            return;
           }
           this.audioFlag = setInterval(() => {
-              self.getjifen()
+            self.getjifen();
           }, 10000);
         }
       });
@@ -639,7 +700,7 @@ export default {
         data: {
           pageNo: 1,
           length: 10,
-        //   period: 1, //期号
+          //   period: 1, //期号
           sid: this.$utils.tokens,
         },
       };
@@ -673,6 +734,7 @@ export default {
       }
       if (status) {
         this.show = true;
+        this.getPankouTotal();
       } else {
         this.show = false;
       }
@@ -933,7 +995,8 @@ export default {
               title: "登录成功!",
               type: "success",
             });
-            this.showpops = false;
+            self.showpops = false;
+            self.getWxUserList();
           }
         });
       }, 2000);

@@ -107,6 +107,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 =
+    !_vm.show && _vm.detail
+      ? _vm.$utils.formatDate(_vm.detail.openTime, true)
+      : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -208,55 +220,90 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
     return {
+      detail: {},
+      agentId: '',
       show: true,
       reminpw: true, //记住密码
-      reminimg: "../../static/remenbc.png",
+      reminimg: '../../static/remenbc.png',
       list: [
       {
         name: '幸运' },
+
       {
         name: '重庆' },
+
       {
         name: '新疆' },
+
       {
         name: '快乐8' }],
 
 
       current: 0,
       checked: true,
-      pho: "",
-      pwd: "",
-      address: "" };
+      pho: '',
+      pwd: '',
+      address: '' };
 
   },
   onShow: function onShow() {
-    this.current = uni.getStorageSync('topcheck');
+    // this.current = uni.getStorageSync('topcheck');
     this.isntlogin();
+    this.getRoomList();
   },
   methods: {
+    // 获取房间信息
+    getRoomList: function getRoomList() {var _this = this;
+      var pram = {
+        url: 'agent/agentRoom',
+        data: {
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        debugger;
+        if (res.length) {
+          _this.agentId = res[0].agentId ? res[0].agentId : res[0].id;
+          uni.setStorageSync('agentId', JSON.stringify(_this.agentId));
+          _this.detail = res[0].roomVO;
+        }
+      });
+    },
     // 顶部切换判断是否登录
     isntlogin: function isntlogin() {
       // accountone幸运  accountwo重庆  accounthree新疆  accountfour快乐8
       var status;
       switch (this.current) {
         case 0:
-          status = uni.getStorageSync("accountone");
+          status = uni.getStorageSync('accountone');
           break;
         case 1:
-          status = uni.getStorageSync("accountwo");
+          this.$refs.uToast.show({
+            title: '建设中!',
+            type: 'warning' });
+
+          status = uni.getStorageSync('accountwo');
           break;
         case 2:
-          status = uni.getStorageSync("accounthree");
+          this.$refs.uToast.show({
+            title: '建设中!',
+            type: 'warning' });
+
+          status = uni.getStorageSync('accounthree');
           break;
         case 3:
-          status = uni.getStorageSync("accountfour");
+          this.$refs.uToast.show({
+            title: '建设中!',
+            type: 'warning' });
+
+          status = uni.getStorageSync('accountfour');
           break;}
 
+      debugger;
       if (status) {
         this.show = false;
       } else {
@@ -267,10 +314,10 @@ var _default =
     remind: function remind() {
       if (this.reminpw) {
         this.reminpw = false;
-        this.reminimg = "../../static/remenc.png";
+        this.reminimg = '../../static/remenc.png';
       } else {
         this.reminpw = true;
-        this.reminimg = "../../static/remenbc.png";
+        this.reminimg = '../../static/remenbc.png';
       }
     },
     // 导航切换
@@ -290,8 +337,15 @@ var _default =
 
       }
     },
-    logins: function logins() {var _this = this;
-      if (this.pho == "" || this.pho == " ") {
+    logins: function logins() {var _this2 = this;
+      if (this.address == '' || this.address == ' ') {
+        this.$refs.uToast.show({
+          title: '请输入网址!',
+          type: 'warning' });
+
+        return;
+      }
+      if (this.pho == '' || this.pho == ' ') {
         this.$refs.uToast.show({
           title: '请输入账号!',
           type: 'warning' });
@@ -299,7 +353,7 @@ var _default =
         return;
       }
 
-      if (this.pwd == "" || this.pwd == " ") {
+      if (this.pwd == '' || this.pwd == ' ') {
         this.$refs.uToast.show({
           title: '请输入密码!',
           type: 'warning' });
@@ -312,26 +366,10 @@ var _default =
         thirdPartyPassward: this.pwd,
         thirdPartyUrl: this.address };
 
-      // 记住密码
-      if (this.reminpw) {
-        switch (this.current) {
-          case 0:
-            uni.setStorageSync('accountone', JSON.stringify(userinfo));
-            break;
-          case 1:
-            uni.setStorageSync('accountwo', JSON.stringify(userinfo));
-            break;
-          case 2:
-            uni.setStorageSync('accounthree', JSON.stringify(userinfo));
-            break;
-          case 3:
-            uni.setStorageSync('accountfour', JSON.stringify(userinfo));
-            break;}
 
-      }
       var pram = {
         methods: 'POST',
-        url: 'agent/updateRoomStatus/1',
+        url: 'agent/updateRoomStatus/' + this.agentId,
         data: {
           thirdPartyUserName: this.pho,
           thirdPartyPassward: this.pwd,
@@ -343,9 +381,25 @@ var _default =
         console.log('盘口登录:', res);
         debugger;
         if (res.succeeded) {
-          // this.showuser = false;
-          _this.show = false;
-          _this.$refs.uToast.show({
+          _this2.show = false;
+          // 记住密码
+          if (_this2.reminpw) {
+            switch (_this2.current) {
+              case 0:
+                uni.setStorageSync('accountone', JSON.stringify(userinfo));
+                break;
+              case 1:
+                uni.setStorageSync('accountwo', JSON.stringify(userinfo));
+                break;
+              case 2:
+                uni.setStorageSync('accounthree', JSON.stringify(userinfo));
+                break;
+              case 3:
+                uni.setStorageSync('accountfour', JSON.stringify(userinfo));
+                break;}
+
+          }
+          _this2.$refs.uToast.show({
             title: '操作成功!',
             type: 'success' });
 

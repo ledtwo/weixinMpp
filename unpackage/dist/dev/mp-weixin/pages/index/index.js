@@ -581,12 +581,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   components: {
     topsNav: topsNav },
 
   data: function data() {
     return {
+      userList: [],
       uuid: "",
       qrUrl: "",
       wxTime: "", //超时时间
@@ -694,10 +719,43 @@ __webpack_require__.r(__webpack_exports__);
     this.isntlogin();
     this.getwanjia(); //获取玩家列表
     this.getjifen(); // 获取积分请求列表
+    this.getWxUserList();
+    // this.getPankouTotal() //获取盘口数据
   },
   methods: {
+    // 退出
+    loginOut: function loginOut(item) {
+      var pram = {
+        url: "gent/account/logout",
+        methods: "POST",
+        data: {
+          agentAccountId: item.id,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        debugger;
+        // this.userList = res.data;
+      });
+    },
+    // 查询微信用户
+    getWxUserList: function getWxUserList() {var _this = this;
+      var pram = {
+        url: "agent/account/list",
+        methods: "GET",
+        data: {
+          pageNo: 1,
+          length: 30,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        debugger;
+        _this.userList = res.data;
+      });
+    },
     //代理积分统计
-    getBetTotal: function getBetTotal() {var _this = this;
+    getBetTotal: function getBetTotal() {var _this2 = this;
       var pram = {
         url: "agent/user/bet/total",
         methods: "GET",
@@ -706,28 +764,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        _this.somemun[0].mon = res.totalIntegral;
-        _this.somemun[1].mon = res.costTotalIntegral;
-        _this.somemun[2].mon = res.obtainTotalIntegral;
+        _this2.somemun[0].mon = res.totalIntegral;
+        _this2.somemun[1].mon = res.costTotalIntegral;
+        _this2.somemun[2].mon = res.obtainTotalIntegral;
       });
     },
     //代理盘口积分统计
-    getPankouTotal: function getPankouTotal() {var _this2 = this;
+    getPankouTotal: function getPankouTotal() {var _this3 = this;
+      var agentRoomId = uni.getStorageSync("agentId");
       var pram = {
         url: "agent/user/bet/pankou/total",
         methods: "GET",
         data: {
-          sid: this.$utils.tokens } };
+          sid: this.$utils.tokens,
+          agentRoomId: agentRoomId } };
 
 
+      debugger;
       this.$utils.getRequest(pram, function (res) {
-        _this2.twomun[0].mon = res.leftAmount;
-        _this2.twomun[1].mon = res.periodTotalIntegral;
-        _this2.twomun[2].mon = res.todayTotalIntegral;
+        _this3.twomun[0].mon = res.leftAmount;
+        _this3.twomun[1].mon = res.periodTotalIntegral;
+        _this3.twomun[2].mon = res.todayTotalIntegral;
       });
     },
     // 获取积分请求列表
-    getjifen: function getjifen() {var _this3 = this;
+    getjifen: function getjifen() {var _this4 = this;
       var self = this;
       var pram = {
         url: "agent/integral/request/list",
@@ -741,15 +802,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("积分列表:", res);
         res.data.forEach(function (val) {
-          val.tims = _this3.$utils.formatDate(val.createdTime);
+          val.tims = _this4.$utils.formatDate(val.createdTime);
         });
-        _this3.jifenlist = res.data;
-        if (_this3.jifenlist.length > 0) {
-          _this3.playAudio();
-          if (_this3.audioFlag) {
+        _this4.jifenlist = res.data;
+        if (_this4.jifenlist.length > 0) {
+          _this4.playAudio();
+          if (_this4.audioFlag) {
             return;
           }
-          _this3.audioFlag = setInterval(function () {
+          _this4.audioFlag = setInterval(function () {
             self.getjifen();
           }, 10000);
         }
@@ -769,7 +830,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // 获取玩家列表
-    getwanjia: function getwanjia() {var _this4 = this;
+    getwanjia: function getwanjia() {var _this5 = this;
       this.$utils.getRequest(this.reqdata, function (res) {
         console.log("玩家列表:", res);
         uni.stopPullDownRefresh();
@@ -779,20 +840,20 @@ __webpack_require__.r(__webpack_exports__);
         });
         for (var i = 0; i < data.length; i++) {
           if (data[i].userType == "Mock") {
-            _this4.notpeos.push(data[i]);
+            _this5.notpeos.push(data[i]);
           } else {
             if (data[i].flyOrder == 1) {
               data[i].checked = true;
             } else {
               data[i].checked = false;
             }
-            _this4.lastlists.push(data[i]);
+            _this5.lastlists.push(data[i]);
           }
         }
       });
     },
     // 同意拒绝
-    agree: function agree(num, nuns) {var _this5 = this;
+    agree: function agree(num, nuns) {var _this6 = this;
       // 嗯，更新请求状态表(/agent/{requestId}/{status} （
       // Success, Failed）)这个是同意还是拒绝
       var pram;
@@ -823,12 +884,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.$utils.getRequest(pram, function (res) {
-        _this5.getjifen();
+        _this6.getjifen();
         console.log(">>>>>>>>>>>", res);
       });
     },
     // 获取下注监控列表
-    getxiazhu: function getxiazhu() {var _this6 = this;
+    getxiazhu: function getxiazhu() {var _this7 = this;
       var pram = {
         url: "agent/user/bet/list",
         methods: "POST",
@@ -841,7 +902,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$utils.getRequest(pram, function (res) {
         console.log("下注监控列表:", res);
-        _this6.betList = res.data;
+        _this7.betList = res.data;
       });
     },
     // 顶部切换
@@ -869,11 +930,12 @@ __webpack_require__.r(__webpack_exports__);
 
       if (status) {
         this.show = true;
+        this.getPankouTotal();
       } else {
         this.show = false;
       }
     },
-    switchs: function switchs(num) {var _this7 = this;
+    switchs: function switchs(num) {var _this8 = this;
       var flyOrder = this.lastlists[num].checked ? 1 : 0;
       // 是否飞单
       this.userid = this.lastlists[num].id;
@@ -887,8 +949,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("修改信息:", res);
         if (res.succeeded) {
-          _this7.showuser = false;
-          _this7.$refs.uToast.show({
+          _this8.showuser = false;
+          _this8.$refs.uToast.show({
             title: "修改成功!",
             type: "success" });
 
@@ -1006,7 +1068,7 @@ __webpack_require__.r(__webpack_exports__);
       this.suijimg =
       "http://qd.tskp1i6.cn/static/img/thumb/pic-" + su * su * su + ".jpg";
     },
-    suSanchu: function suSanchu() {var _this8 = this;
+    suSanchu: function suSanchu() {var _this9 = this;
       var pram = {
         url: "agent/user/updateStatus/" + this.userid + "/Delete",
         data: {
@@ -1016,20 +1078,20 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("删除玩家:", res);
         if (res.succeeded) {
-          _this8.$refs.uToast.show({
+          _this9.$refs.uToast.show({
             title: "删除成功!",
             type: "success" });
 
           setTimeout(function () {
-            _this8.reqdata.data.pageNo = 1;
-            _this8.lastlists.splice(0);
-            _this8.notpeos.splice(0);
-            _this8.getwanjia();
+            _this9.reqdata.data.pageNo = 1;
+            _this9.lastlists.splice(0);
+            _this9.notpeos.splice(0);
+            _this9.getwanjia();
           }, 500);
         }
       });
     },
-    surxiugai: function surxiugai() {var _this9 = this;
+    surxiugai: function surxiugai() {var _this10 = this;
       var pram = {
         url: "agent/user/update/" + this.userid,
         data: {
@@ -1041,15 +1103,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("修改信息:", res);
         if (res.succeeded) {
-          _this9.showuser = false;
-          _this9.$refs.uToast.show({
+          _this10.showuser = false;
+          _this10.$refs.uToast.show({
             title: "修改成功!",
             type: "success" });
 
-          _this9.reqdata.data.pageNo = 1;
-          _this9.lastlists.splice(0);
-          _this9.notpeos.splice(0);
-          _this9.getwanjia();
+          _this10.reqdata.data.pageNo = 1;
+          _this10.lastlists.splice(0);
+          _this10.notpeos.splice(0);
+          _this10.getwanjia();
         }
       });
     },
@@ -1058,7 +1120,7 @@ __webpack_require__.r(__webpack_exports__);
       this.upfen = index;
     },
     // 上下分确定
-    makeupdown: function makeupdown() {var _this10 = this;
+    makeupdown: function makeupdown() {var _this11 = this;
       var pram = {
         url: "agent/integral",
         methods: "POST",
@@ -1072,14 +1134,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("上下分:", res);
         if (res.succeeded) {
-          _this10.downfen = "";
-          _this10.showuser = false;
+          _this11.downfen = "";
+          _this11.showuser = false;
           // 刷新页面
-          _this10.reqdata.data.pageNo = 1;
-          _this10.lastlists.splice(0);
-          _this10.notpeos.splice(0);
-          _this10.getwanjia();
-          _this10.$refs.uToast.show({
+          _this11.reqdata.data.pageNo = 1;
+          _this11.lastlists.splice(0);
+          _this11.notpeos.splice(0);
+          _this11.getwanjia();
+          _this11.$refs.uToast.show({
             title: "操作成功!",
             type: "success" });
 
@@ -1087,7 +1149,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // 添加账号
-    addadmin: function addadmin() {var _this11 = this;
+    addadmin: function addadmin() {var _this12 = this;
       this.showpops = true;
       this.showone = true;
       this.poptile = "二维码登录";
@@ -1100,17 +1162,17 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$utils.getRequest(reqConfig, function (res) {
         console.log("二维码信息:", res);
-        _this11.qrUrl = res.qrUrl;
-        _this11.uuid = res.uuid;
-        _this11.wxTime = res.expiredTime;
-        _this11.refreshIsLogin();
+        _this12.qrUrl = res.qrUrl;
+        _this12.uuid = res.uuid;
+        _this12.wxTime = res.expiredTime;
+        _this12.refreshIsLogin();
       });
     },
     hideWxLoadingFlag: function hideWxLoadingFlag() {
       this.wxLoadingFlag = false;
     },
     // 检查二维码是否已经登录
-    refreshIsLogin: function refreshIsLogin() {var _this12 = this;
+    refreshIsLogin: function refreshIsLogin() {var _this13 = this;
       var reqConfig = {
         methods: "POST",
         url: "agent/account/checkQrCode",
@@ -1121,7 +1183,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var self = this;
       this.checkFlag = setInterval(function () {
-        _this12.$utils.getRequest(reqConfig, function (res) {
+        _this13.$utils.getRequest(reqConfig, function (res) {
           console.log("二维码信息:", res);
           if (res.succeeded && res.wxId) {
             clearInterval(self.checkFlag);
@@ -1129,7 +1191,8 @@ __webpack_require__.r(__webpack_exports__);
               title: "登录成功!",
               type: "success" });
 
-            _this12.showpops = false;
+            self.showpops = false;
+            self.getWxUserList();
           }
         });
       }, 2000);
