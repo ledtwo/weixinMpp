@@ -171,7 +171,7 @@
         <!-- 下注监控 -->
         <view v-if="current == 2">
             <view class="lists">
-                <view class="listone dis-pl" v-for="(item, index) in 8" :key="index">
+                <view class="listone dis-pl" v-for="(item, index) in betList" :key="index">
                     <view class="timg"><image src="../../static/linshi/casour.jpg"></image></view>
                     <view class="onerig">
                         <view class="rigtop dis-jasc">
@@ -313,6 +313,7 @@ export default {
             show: false,
             showmore: false,
             showxia: false, //下注监控号码明细
+			betList:[],//下注监控列表
             somemun: [
                 {
                     til: '合计',
@@ -371,6 +372,7 @@ export default {
     onLoad() {
         this.getBetTotal(); //获取代理积分统计
         this.getwanjia(); // 获取玩家列表
+		this.getxiazhu();
     },
     onReachBottom() {
         this.reqdata.data.pageNo++;
@@ -495,6 +497,7 @@ export default {
         getxiazhu() {
             var pram = {
                 url: 'agent/user/bet/list',
+				methods:"POST",
                 data: {
                     pageNo: 1,
                     length: 10,

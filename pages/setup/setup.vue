@@ -165,24 +165,31 @@ export default {
     },
     onLoad() {
         this.getinfo();
+		this.getRoomList();
     },
     methods: {
         // 获取房间信息
         getRoomList() {
             var pram = {
-                url: 'agent/agentInfo',
+                url: 'agent/agentRoom',
                 data: {
                     sid: this.$utils.tokens
                 }
             };
             this.$utils.getRequest(pram, res => {
-                this.account = res.account;
-                this.effectiveEndTime = this.$utils.formatDate(res.effectiveEndTime);
-                if (res.permitPrivateChat == 1) {
-                    this.checked = true;
-                } else {
-                    this.checked = false;
-                }
+                var roomList=[];
+				if(res){
+					res.forEach(item=>{
+						roomList.push({
+							tiles:item.roomVO.name,
+							flag:item.status=="Opened"?true:false,
+							chose:item.roomVO.status=="Valid"?true:false,
+							text:item.roomVO.title,
+						})
+					})
+				}
+				this.roomlist=roomList
+				
             });
         },
         // 获取用户信息
@@ -272,11 +279,14 @@ export default {
                 methods: 'POST',
                 data: {
                     userName: this.userName,
-                    thumb: suijimg
+                    thumb: suijimg,
+					sid:this.$utils.tokens
                 }
             };
             this.$utils.getRequest(pram, res => {
                 console.log('添加假人:', res);
+				this.showpops=false;
+				this.userName='';
                 this.$refs.uToast.show({
                     title: '添加成功!',
                     type: 'success'

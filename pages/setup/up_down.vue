@@ -4,14 +4,14 @@
             <view class="center-v" v-show="lists.length == 0">暂无数据</view>
             <view class="listone" v-for="(item, index) in lists" :key="index">
                 <view class="onetop dis-jasc">
-                    <text>2020-09-19 15:15:20</text>
+                    <text>{{modifiedTime}}</text>
                     <text class="foncor">{{ item.updown }}</text>
                 </view>
                 <view class="ontbot dis-jasc">
                     <view class="botlef dis-alicen">
-                        <image src="../../static/linshi/casour.jpg"></image>
+                        <image :src="item.thumb"></image>
                         <view class="anthimg">
-                            <view>张三</view>
+                            <view>{{item.name}}</view>
                             <text>积分类型</text>
                         </view>
                     </view>
@@ -73,9 +73,18 @@ export default {
     methods: {
         getAllList() {
             this.$utils.getRequest(this.reqdata, res => {
-                console.log('玩家列表:', res);
                 uni.stopPullDownRefresh();
-                this.lists = res.data;
+				var list=[]
+				res.data.forEach(item=>{
+					list.push({
+						updown:item.source=="Add"?"上分":"下分",
+						num:item.userVO.integral,
+						thumb:item.userVO.thumb,
+						name:item.userVO.name,
+						modifiedTime:this.$utils.formatDate(item.userVO.modifiedTime)
+					})
+				})
+                this.lists = list;
             });
         }
     },

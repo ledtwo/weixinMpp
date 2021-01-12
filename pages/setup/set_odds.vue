@@ -8,15 +8,15 @@
 		<view class="lists">
 			<view class="listone" v-for="(item,index) in listarr" :key="index">
 				<view class="onetop dis-jasc">
-					<view class="fonts">{{item.til}}</view>
-					<input type="text" placeholder="请输入" v-model="item.vmodelo" />
-					<view class="btn">保存</view>
+					<view class="fonts">{{item.name}}</view>
+					<input type="text" placeholder="请输入" v-model="item.odds" />
+					<view class="btn" @click="updateOdds(item)">保存</view>
 				</view>
 				<view class="onebot dis-jasc">
 					<view class="">最大限额</view>
-					<input type="number" placeholder="请输入" v-model="item.vmodelt" />
+					<input type="number" placeholder="请输入" v-model="item.max" />
 					<view class="">最小限额</view>
-					<input type="number" placeholder="请输入" v-model="item.vmodelf" />
+					<input type="number" placeholder="请输入" v-model="item.min" />
 				</view>
 			</view>
 		</view>
@@ -71,7 +71,73 @@
 						vmodelt:"",
 						vmodelf:""
 					}
+				],
+				oddName:[{
+					code:"Three_Show",
+					name:"三字现"
+				},{
+					code:"Four_Decide",
+					name:"四字定"
+				},
+				{
+					code:"Two_Show",
+					name:"二字现"
+				},{
+					code:"Two_Decide",
+					name:"二字定"
+				},{
+					code:"Five_Two_Decide",
+					name:"五位二定"
+				},{
+					code:"Four_Show",
+					name:"四字现"
+				},{
+					code:"Three_Decide",
+					name:"三字定"
+				},{
+					code:"One_Decide",
+					name:"一字定"
+				},
 				]
+			}
+		},
+		onShow() {
+			
+		},
+		onLoad() {
+			this.getOddsList();
+		},
+		methods:{
+			getOddsList(){
+				var pram={
+					url:"agent/odds/1",
+					methods:"GET",
+					data:{
+						sid:this.$utils.tokens
+					}
+				}
+				this.$utils.getRequest(pram,res=>{
+					var list=[];
+					for(let i in res){
+						this.oddName.forEach(item=>{
+							if(item.code==res[i].modeType){
+								res[i].name=item.name
+							}
+						})
+						list.push(res[i])
+					}
+					this.listarr=list
+				})
+			},
+			updateOdds(item){
+				var pram={
+					url:"agent/oddsUpdate/1",
+					methods:"POST",
+					data:{
+						sid:this.$utils.tokens,
+						// odds:item.
+					}
+				}
 			}
 		}
 	}
