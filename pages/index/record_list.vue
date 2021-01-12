@@ -1,6 +1,6 @@
 <template>
     <view>
-        <view class="utoptab">
+        <!-- <view class="utoptab">
             <u-subsection
                 :list="list"
                 :current="current"
@@ -11,27 +11,27 @@
                 font-size="30"
                 height="96"
             ></u-subsection>
-        </view>
+        </view> -->
 
         <view class="lists">
             <view class="listone dis-pl" v-for="(item, index) in lists" :key="index">
-                <view class="timg"><image src="../../static/linshi/casour.jpg"></image></view>
+                <view class="timg"><image :src="item.thumb"></image></view>
                 <view class="onerig">
                     <view class="rigtop dis-jasc">
                         <view class="rtlest">
                             <view class="rnotime dis-alicen">
-                                <view class="">张三</view>
-                                <view class="">已开奖</view>
-                                <view class="">20200256018</view>
+                                <view class="">{{item.userName}}</view>
+                                <view class="">{{item.status=="Completed"?"已开奖":"未开奖"}}</view>
+                                <view class="">{{item.period}}</view>
                             </view>
-                            <view class="rigtime">2020-09-19</view>
+                            <view class="rigtime">{{item.modifiedTime}}</view>
                         </view>
-                        <view class="btn" @click="show = true">号码明细</view>
+                        <view class="btn" @click="getNumDetail(item.id)">号码明细</view>
                     </view>
                     <view class="rigbot">
                         <u-collapse :accordion="false" arrow-color="#D4D4D4">
-                            <u-collapse-item title="只要我们正确择取一个合适的参照物乃至稍降一格去看待他人，值得赏识的东西便会扑面而来">
-                                只要我们正确择取一个合适的参照物乃至稍降一格去看待他人，值得赏识的东西便会扑面而来
+                            <u-collapse-item :title="item.content">
+                                {{item.content}}
                             </u-collapse-item>
                         </u-collapse>
                     </view>
@@ -42,9 +42,11 @@
         <u-popup v-model="show" mode="center" border-radius="20" :closeable="true" close-icon-color="#fff">
             <view class="showpop">
                 <view class="toptile">号码明细</view>
-                <scroll-view scroll-y="true"><view v-for="(item, index) in 56" :key="index">2XX6</view></scroll-view>
+                <scroll-view scroll-y="true" @scrolltolower="loadMore" lower-threshold="10"><view v-for="(item, index) in numList" :key="index">{{item}}</view></scroll-view>
             </view>
         </u-popup>
+
+        <u-toast ref="uToast" />
     </view>
 </template>
 
@@ -52,28 +54,75 @@
 export default {
     data() {
         return {
-            reqdata: {
-                url: '/agent/user/bet/list',
-                data: {
-                    pageNo: 1,
-                    length: 30,
-                    sid: this.$utils.tokens
-                }
-            },
             show: false,
-            lists: [
-            ],
-            current: 0
+            lists: [],
+            current: 0,
+            userId:null,
+            numList:[],
+            id: 0,
+            pageNo:1,
+            pageNoNum:1,
+            flag:true,
         };
+    },
+    onLoad(option){
+      this.userId=option.id
+    },
+    onReachBottom() {
+      this.pageNo++;
+      this.getAllList();
     },
     methods: {
         getAllList() {
-            debugger
-            this.$utils.getRequest(this.reqdata, res => {
-                console.log('下注列表:', res);
+            var pram = {
+              url: 'agent/user/bet/list',
+              methods:"POST",
+              data: {
+                  pageNo: this.pageNo,
+                  length: 30,
+                  userId:this.userId,
+                  sid: this.$utils.tokens
+              }
+            }
+            this.$utils.getRequest(pram, res => {
+                res.data.forEach(item=>{
+                  item.modifiedTime=this.$utils.formatDate(item.modifiedTime)
+                })
                 this.lists = res.data;
             });
-        }
+        },
+        getNumDetail(id){
+          this.show = true
+          this.id=id
+          var pram = {
+            url:'agent/user/bet/numListByBetId',
+            data:{
+                pageNo: this.pageNoNum,
+                length: 52,
+                betId: this.id,
+                sid: this.$utils.tokens
+            }
+          }
+          this.$utils.getRequest(pram,res=>{
+            if(res.data.length!=0){
+              this.flag=true
+              this.numList.push(...res.data)
+            }else{
+              this.flag=false
+            }
+          })
+        },
+        loadMore(){
+          if(this.flag){
+            this.pageNoNum++;
+            this.getNumDetail(this.id);
+          }else{
+            this.$refs.uToast.show({
+            title: "已经到底啦!",
+            type: "warning",
+          });
+          }
+        },
     },
     mounted(){
         this.getAllList()

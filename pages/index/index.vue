@@ -769,7 +769,7 @@ export default {
           break;
         case 4:
           uni.navigateTo({
-            url: "record_list",
+            url: `record_list?id=${this.lastlists[num].id}`,
           });
           console.log(this.lastlists[num].id);
           break;

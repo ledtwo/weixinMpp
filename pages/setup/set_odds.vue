@@ -93,8 +93,7 @@ export default {
     },
     onShow() {},
     onLoad() {
-        this.getOddsList();
-        this.getRoomList()
+        this.getRoomList();
     },
     methods: {
         // 获取房间信息
@@ -111,18 +110,20 @@ export default {
                     res.forEach(item => {
                         roomlist.push({
                             name: item.roomVO.name,
-                            id:item.roomVO.id
+                            id:item.id
                         });
                     });
                 }
                 this.roomlist = roomlist;
+                this.roomId = roomlist[this.current].id;
+                this.getOddsList();
             });
         },
         sectionChange(index) {
             if (index == 0) {
                 this.current = index;
-                this.roomId = this.roomlist[index]
-                this.getOddsList(index);
+                this.roomId = this.roomlist[index].id
+                this.getOddsList();
             } else {
                 this.current = 0;
                 this.$refs.uToast.show({
@@ -131,7 +132,7 @@ export default {
                 });
             }
         },
-        getOddsList(index) {
+        getOddsList() {
             var pram = {
                 url: 'agent/odds/'+this.roomId,
                 methods: 'GET',
