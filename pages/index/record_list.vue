@@ -14,6 +14,9 @@
         </view> -->
 
         <view class="lists">
+            <view style="text-align: center" v-show="lists.length == 0">
+            暂无数据
+            </view>
             <view class="listone dis-pl" v-for="(item, index) in lists" :key="index">
                 <view class="timg"><image :src="item.thumb"></image></view>
                 <view class="onerig">
@@ -24,7 +27,7 @@
                                 <view class="">{{item.status=="Completed"?"已开奖":"未开奖"}}</view>
                                 <view class="">{{item.period}}</view>
                             </view>
-                            <view class="rigtime">{{item.modifiedTime}}</view>
+                            <view class="rigtime">{{$utils.formatDate(item.modifiedTime)}}</view>
                         </view>
                         <view class="btn" @click="getNumDetail(item.id)">号码明细</view>
                     </view>
@@ -85,9 +88,6 @@ export default {
               }
             }
             this.$utils.getRequest(pram, res => {
-                res.data.forEach(item=>{
-                  item.modifiedTime=this.$utils.formatDate(item.modifiedTime)
-                })
                 this.lists = res.data;
             });
         },
@@ -118,9 +118,9 @@ export default {
             this.getNumDetail(this.id);
           }else{
             this.$refs.uToast.show({
-            title: "已经到底啦!",
-            type: "warning",
-          });
+              title: "已经到底啦!",
+              type: "warning",
+            });
           }
         },
     },
