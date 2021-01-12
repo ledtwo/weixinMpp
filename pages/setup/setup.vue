@@ -69,8 +69,8 @@
 
                 <!-- 添加假人 -->
                 <view class="addpeo" v-show="!addpwd">
-                    <view class="addimg dis-jacc"><image src="../../static/linshi/aaaa.jpg"></image></view>
-                    <view class="addbtn">随机更换头像</view>
+                    <view class="addimg dis-jacc"><image :src="suijimg"></image></view>
+                    <view class="addbtn" @click="suijic">随机更换头像</view>
                     <view class="addinput dis-jasc">
                         <text>假人昵称</text>
                         <input type="text" placeholder="请输入假人名称" v-model="userName" />
@@ -91,6 +91,7 @@
 export default {
     data() {
         return {
+            suijimg: '',
             account: '',
             effectiveEndTime: '', //到期时间
             showselect: false, //单选
@@ -165,6 +166,7 @@ export default {
     },
     onLoad() {
         this.getinfo();
+        this.suijic()
     },
     methods: {
         // 获取房间信息
@@ -266,22 +268,30 @@ export default {
         // 添加假人
         addjiaren() {
             var su = Math.ceil(Math.random() * 10);
-            var suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+            var suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
             var pram = {
                 url: 'agent/user/addMockUser',
                 methods: 'POST',
                 data: {
                     userName: this.userName,
-                    thumb: suijimg
+                    thumb: suijimg,
+                    sid: this.$utils.tokens
                 }
             };
             this.$utils.getRequest(pram, res => {
-                console.log('添加假人:', res);
-                this.$refs.uToast.show({
-                    title: '添加成功!',
-                    type: 'success'
-                });
+                if (res.succeeded) {
+                    console.log('添加假人:', res);
+                    this.$refs.uToast.show({
+                        title: '添加成功!',
+                        type: 'success'
+                    });
+                    this.showpops = false;
+                }
             });
+        },
+        suijic() {
+            var su = Math.ceil(Math.random() * 10);
+            this.suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
         },
         switchs(e) {
             var permitPrivateChat;

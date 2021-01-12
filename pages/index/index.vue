@@ -380,10 +380,10 @@ export default {
             xiugaizi: ''
         };
     },
-    watch:{
-        showpops(newVal){
-            if(!newVal){
-                clearInterval(this.checkFlag)
+    watch: {
+        showpops(newVal) {
+            if (!newVal) {
+                clearInterval(this.checkFlag);
             }
         }
     },
@@ -612,7 +612,8 @@ export default {
                     this.usersnum = 1;
                     this.usertile = '资料修改';
                     var su = Math.ceil(Math.random() * 10);
-                    this.suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+                    this.suijimg = this.lastlists[num].thumb
+                    this.xiugaizi = this.lastlists[num].name
                     if (this.current == 0) {
                         this.userid = this.lastlists[num].id;
                     } else if (this.current == 1) {
@@ -620,22 +621,51 @@ export default {
                     }
                     break;
                 case 2:
-                    uni.navigateTo({
-                        url: '../report_form/report_form'
+                    this.$refs.uToast.show({
+                        title: '建设中!',
+                        type: 'success'
                     });
+                    // 二期
+                    // uni.navigateTo({
+                    //     url: '../report_form/report_form'
+                    // });
                     console.log(this.lastlists[num].id);
                     break;
                 case 3:
-                    this.showuser = true;
-                    this.usersnum = 2;
-                    this.usertile = '反水';
-                    console.log(this.lastlists[num].id);
+                    // 二期
+                    // this.showuser = true;
+                    // this.usersnum = 2;
+                    // this.usertile = '反水';
+                    // console.log(this.lastlists[num].id);
+                    this.$refs.uToast.show({
+                        title: '建设中!',
+                        type: 'success'
+                    });
                     break;
                 case 4:
                     uni.navigateTo({
                         url: 'record_list'
                     });
                     console.log(this.lastlists[num].id);
+                    break;
+                case 5:
+                    // 二期 拉黑
+                    // console.log(this.lastlists[num].id);
+                    this.$refs.uToast.show({
+                        title: '建设中!',
+                        type: 'success'
+                    });
+                    break;
+                case 6:
+                    // 二期 链接
+                    // this.showuser = true;
+                    // this.usersnum = 2;
+                    // this.usertile = '反水';
+                    // console.log(this.lastlists[num].id);
+                    this.$refs.uToast.show({
+                        title: '建设中!',
+                        type: 'success'
+                    });
                     break;
                 case 7:
                     if (this.current == 0) {
@@ -651,7 +681,8 @@ export default {
         },
         suijic() {
             var su = Math.ceil(Math.random() * 10);
-            this.suijimg = 'http://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+            // this.suijimg = 'https://my.fxfskhx.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+            this.suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
         },
         suSanchu() {
             var pram = {
@@ -761,17 +792,17 @@ export default {
                     sid: this.$utils.tokens
                 }
             };
-            let self = this
+            let self = this;
             this.checkFlag = setInterval(() => {
                 this.$utils.getRequest(reqConfig, res => {
                     console.log('二维码信息:', res);
-                    if(res.succeeded && res.uuid){
-                        clearInterval(self.checkFlag)
+                    if (res.succeeded && res.wxId) {
+                        clearInterval(self.checkFlag);
                         self.$refs.uToast.show({
                             title: '登录成功!',
                             type: 'success'
                         });
-                        this.showpops = false
+                        this.showpops = false;
                     }
                 });
             }, 2000);
