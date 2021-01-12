@@ -234,7 +234,7 @@
           :key="index"
         >
           <view class="timg"
-            ><image src="../../static/linshi/casour.jpg"></image
+            ><image :src="item.thumb"></image
           ></view>
           <view class="onerig">
             <view class="rigtop dis-jasc">
@@ -259,14 +259,12 @@
                       {{ item.userName }}
                     </p>
                   </view>
-                  <view class="">已开奖</view>
+                  <view class="">{{item.status=="Completed"?"已开奖":"未开奖"}}</view>
                   <view class="">{{ item.period }}</view>
                 </view>
-                <view class="rigtime">{{
-                  $utils.formatDate(item.createdTime)
-                }}</view>
+                <view class="rigtime">{{$utils.formatDate(item.modifiedTime)}}</view>
               </view>
-              <view class="btn" @click="showxia = true">号码明细</view>
+              <view class="btn" @click="getNumDetail(item.id)">号码明细</view>
             </view>
             <view class="rigbot">
               <u-collapse :accordion="false" arrow-color="#D4D4D4">
@@ -289,9 +287,9 @@
       >
         <view class="showpop">
           <view class="toptile">号码明细</view>
-          <scroll-view scroll-y="true"
-            ><view v-for="(item, index) in 56" :key="index"
-              >2XX6</view
+          <scroll-view scroll-y="true" @scrolltolower="loadMore" lower-threshold="10"
+            ><view v-for="(item, index) in numList" :key="index"
+              >{{item}}</view
             ></scroll-view
           >
         </view>
@@ -440,6 +438,10 @@ export default {
       showmore: false,
       showxia: false, //下注监控号码明细
       betList: [], //下注监控列表
+      id:0,//下注监控获取号码明细使用
+      numList:[],
+      pageNoNum:1,
+      flag:true,
       somemun: [
         {
           til: "合计",
@@ -709,6 +711,39 @@ export default {
         this.betList = res.data;
       });
     },
+    //下注监控号码明细
+    getNumDetail(id){
+          this.showxia = true
+          this.id=id
+          var pram = {
+            url:'agent/user/bet/numListByBetId',
+            data:{
+                pageNo: this.pageNoNum,
+                length: 52,
+                betId: this.id,
+                sid: this.$utils.tokens
+            }
+          }
+          this.$utils.getRequest(pram,res=>{
+            if(res.data.length!=0){
+              this.flag=true
+              this.numList.push(...res.data)
+            }else{
+              this.flag=false
+            }
+          })
+        },
+        loadMore(){
+          if(this.flag){
+            this.pageNoNum++;
+            this.getNumDetail(this.id);
+          }else{
+            this.$refs.uToast.show({
+              title: "已经到底啦!",
+              type: "warning",
+            });
+          }
+        },
     // 顶部切换
     usemethod(e) {
       this.topstatus = e;
@@ -831,7 +866,7 @@ export default {
           break;
         case 4:
           uni.navigateTo({
-            url: "record_list",
+            url: `record_list?id=${this.lastlists[num].id}`,
           });
           console.log(this.lastlists[num].id);
           break;

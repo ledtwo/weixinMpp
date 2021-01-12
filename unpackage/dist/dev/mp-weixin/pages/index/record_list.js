@@ -93,9 +93,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
-  uSubsection: function() {
-    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 192))
-  },
   uCollapse: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-collapse/u-collapse */ "node-modules/uview-ui/components/u-collapse/u-collapse").then(__webpack_require__.bind(null, /*! uview-ui/components/u-collapse/u-collapse.vue */ 164))
   },
@@ -104,17 +101,33 @@ var components = {
   },
   uPopup: function() {
     return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 178))
+  },
+  uToast: function() {
+    return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 129))
   }
 }
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.show = true
+  var l0 = _vm.__map(_vm.lists, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = _vm.$utils.formatDate(item.modifiedTime)
+    return {
+      $orig: $orig,
+      g0: g0
     }
-  }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -148,7 +161,12 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
+//
+//
 //
 //
 //
@@ -202,27 +220,71 @@ var _default =
 {
   data: function data() {
     return {
-      reqdata: {
-        url: '/agent/user/bet/list',
-        data: {
-          pageNo: 1,
-          length: 30,
-          sid: this.$utils.tokens } },
-
-
       show: false,
       lists: [],
+      current: 0,
+      userId: null,
+      numList: [],
+      id: 0,
+      pageNo: 1,
+      pageNoNum: 1,
+      flag: true };
 
-      current: 0 };
-
+  },
+  onLoad: function onLoad(option) {
+    this.userId = option.id;
+  },
+  onReachBottom: function onReachBottom() {
+    this.pageNo++;
+    this.getAllList();
   },
   methods: {
     getAllList: function getAllList() {var _this = this;
-      debugger;
-      this.$utils.getRequest(this.reqdata, function (res) {
-        console.log('下注列表:', res);
+      var pram = {
+        url: 'agent/user/bet/list',
+        methods: "POST",
+        data: {
+          pageNo: this.pageNo,
+          length: 30,
+          userId: this.userId,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
         _this.lists = res.data;
       });
+    },
+    getNumDetail: function getNumDetail(id) {var _this2 = this;
+      this.show = true;
+      this.id = id;
+      var pram = {
+        url: 'agent/user/bet/numListByBetId',
+        data: {
+          pageNo: this.pageNoNum,
+          length: 52,
+          betId: this.id,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        if (res.data.length != 0) {var _this2$numList;
+          _this2.flag = true;
+          (_this2$numList = _this2.numList).push.apply(_this2$numList, _toConsumableArray(res.data));
+        } else {
+          _this2.flag = false;
+        }
+      });
+    },
+    loadMore: function loadMore() {
+      if (this.flag) {
+        this.pageNoNum++;
+        this.getNumDetail(this.id);
+      } else {
+        this.$refs.uToast.show({
+          title: "已经到底啦!",
+          type: "warning" });
+
+      }
     } },
 
   mounted: function mounted() {

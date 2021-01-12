@@ -232,7 +232,6 @@ var _default =
   },
   onShow: function onShow() {},
   onLoad: function onLoad() {
-    this.getOddsList();
     this.getRoomList();
   },
   methods: {
@@ -250,18 +249,20 @@ var _default =
           res.forEach(function (item) {
             roomlist.push({
               name: item.roomVO.name,
-              id: item.roomVO.id });
+              id: item.id });
 
           });
         }
         _this.roomlist = roomlist;
+        _this.roomId = roomlist[_this.current].id;
+        _this.getOddsList();
       });
     },
     sectionChange: function sectionChange(index) {
       if (index == 0) {
         this.current = index;
-        this.roomId = this.roomlist[index];
-        this.getOddsList(index);
+        this.roomId = this.roomlist[index].id;
+        this.getOddsList();
       } else {
         this.current = 0;
         this.$refs.uToast.show({
@@ -270,7 +271,7 @@ var _default =
 
       }
     },
-    getOddsList: function getOddsList(index) {var _this2 = this;
+    getOddsList: function getOddsList() {var _this2 = this;
       var pram = {
         url: 'agent/odds/' + this.roomId,
         methods: 'GET',

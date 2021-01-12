@@ -127,7 +127,7 @@ var render = function() {
       ? _vm.__map(_vm.betList, function(item, index) {
           var $orig = _vm.__get_orig(item)
 
-          var g0 = _vm.$utils.formatDate(item.createdTime)
+          var g0 = _vm.$utils.formatDate(item.modifiedTime)
           return {
             $orig: $orig,
             g0: g0
@@ -146,10 +146,6 @@ var render = function() {
 
     _vm.e2 = function($event) {
       _vm.longtapeo = -1
-    }
-
-    _vm.e3 = function($event) {
-      _vm.showxia = true
     }
   }
 
@@ -194,9 +190,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var topsNav = function topsNav() {__webpack_require__.e(/*! require.ensure | components/main_nav */ "components/main_nav").then((function () {return resolve(__webpack_require__(/*! ../../components/main_nav.vue */ 185));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}var topsNav = function topsNav() {__webpack_require__.e(/*! require.ensure | components/main_nav */ "components/main_nav").then((function () {return resolve(__webpack_require__(/*! ../../components/main_nav.vue */ 185));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -636,6 +630,10 @@ __webpack_require__.r(__webpack_exports__);
       showmore: false,
       showxia: false, //下注监控号码明细
       betList: [], //下注监控列表
+      id: 0, //下注监控获取号码明细使用
+      numList: [],
+      pageNoNum: 1,
+      flag: true,
       somemun: [
       {
         til: "合计",
@@ -905,6 +903,39 @@ __webpack_require__.r(__webpack_exports__);
         _this7.betList = res.data;
       });
     },
+    //下注监控号码明细
+    getNumDetail: function getNumDetail(id) {var _this8 = this;
+      this.showxia = true;
+      this.id = id;
+      var pram = {
+        url: 'agent/user/bet/numListByBetId',
+        data: {
+          pageNo: this.pageNoNum,
+          length: 52,
+          betId: this.id,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        if (res.data.length != 0) {var _this8$numList;
+          _this8.flag = true;
+          (_this8$numList = _this8.numList).push.apply(_this8$numList, _toConsumableArray(res.data));
+        } else {
+          _this8.flag = false;
+        }
+      });
+    },
+    loadMore: function loadMore() {
+      if (this.flag) {
+        this.pageNoNum++;
+        this.getNumDetail(this.id);
+      } else {
+        this.$refs.uToast.show({
+          title: "已经到底啦!",
+          type: "warning" });
+
+      }
+    },
     // 顶部切换
     usemethod: function usemethod(e) {
       this.topstatus = e;
@@ -935,7 +966,7 @@ __webpack_require__.r(__webpack_exports__);
         this.show = false;
       }
     },
-    switchs: function switchs(num) {var _this8 = this;
+    switchs: function switchs(num) {var _this9 = this;
       var flyOrder = this.lastlists[num].checked ? 1 : 0;
       // 是否飞单
       this.userid = this.lastlists[num].id;
@@ -949,8 +980,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("修改信息:", res);
         if (res.succeeded) {
-          _this8.showuser = false;
-          _this8.$refs.uToast.show({
+          _this9.showuser = false;
+          _this9.$refs.uToast.show({
             title: "修改成功!",
             type: "success" });
 
@@ -1027,7 +1058,7 @@ __webpack_require__.r(__webpack_exports__);
           break;
         case 4:
           uni.navigateTo({
-            url: "record_list" });
+            url: "record_list?id=".concat(this.lastlists[num].id) });
 
           console.log(this.lastlists[num].id);
           break;
@@ -1068,7 +1099,7 @@ __webpack_require__.r(__webpack_exports__);
       this.suijimg =
       "http://qd.tskp1i6.cn/static/img/thumb/pic-" + su * su * su + ".jpg";
     },
-    suSanchu: function suSanchu() {var _this9 = this;
+    suSanchu: function suSanchu() {var _this10 = this;
       var pram = {
         url: "agent/user/updateStatus/" + this.userid + "/Delete",
         data: {
@@ -1078,20 +1109,20 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("删除玩家:", res);
         if (res.succeeded) {
-          _this9.$refs.uToast.show({
+          _this10.$refs.uToast.show({
             title: "删除成功!",
             type: "success" });
 
           setTimeout(function () {
-            _this9.reqdata.data.pageNo = 1;
-            _this9.lastlists.splice(0);
-            _this9.notpeos.splice(0);
-            _this9.getwanjia();
+            _this10.reqdata.data.pageNo = 1;
+            _this10.lastlists.splice(0);
+            _this10.notpeos.splice(0);
+            _this10.getwanjia();
           }, 500);
         }
       });
     },
-    surxiugai: function surxiugai() {var _this10 = this;
+    surxiugai: function surxiugai() {var _this11 = this;
       var pram = {
         url: "agent/user/update/" + this.userid,
         data: {
@@ -1103,15 +1134,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("修改信息:", res);
         if (res.succeeded) {
-          _this10.showuser = false;
-          _this10.$refs.uToast.show({
+          _this11.showuser = false;
+          _this11.$refs.uToast.show({
             title: "修改成功!",
             type: "success" });
 
-          _this10.reqdata.data.pageNo = 1;
-          _this10.lastlists.splice(0);
-          _this10.notpeos.splice(0);
-          _this10.getwanjia();
+          _this11.reqdata.data.pageNo = 1;
+          _this11.lastlists.splice(0);
+          _this11.notpeos.splice(0);
+          _this11.getwanjia();
         }
       });
     },
@@ -1120,7 +1151,7 @@ __webpack_require__.r(__webpack_exports__);
       this.upfen = index;
     },
     // 上下分确定
-    makeupdown: function makeupdown() {var _this11 = this;
+    makeupdown: function makeupdown() {var _this12 = this;
       var pram = {
         url: "agent/integral",
         methods: "POST",
@@ -1134,14 +1165,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("上下分:", res);
         if (res.succeeded) {
-          _this11.downfen = "";
-          _this11.showuser = false;
+          _this12.downfen = "";
+          _this12.showuser = false;
           // 刷新页面
-          _this11.reqdata.data.pageNo = 1;
-          _this11.lastlists.splice(0);
-          _this11.notpeos.splice(0);
-          _this11.getwanjia();
-          _this11.$refs.uToast.show({
+          _this12.reqdata.data.pageNo = 1;
+          _this12.lastlists.splice(0);
+          _this12.notpeos.splice(0);
+          _this12.getwanjia();
+          _this12.$refs.uToast.show({
             title: "操作成功!",
             type: "success" });
 
@@ -1149,7 +1180,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // 添加账号
-    addadmin: function addadmin() {var _this12 = this;
+    addadmin: function addadmin() {var _this13 = this;
       this.showpops = true;
       this.showone = true;
       this.poptile = "二维码登录";
@@ -1162,17 +1193,17 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$utils.getRequest(reqConfig, function (res) {
         console.log("二维码信息:", res);
-        _this12.qrUrl = res.qrUrl;
-        _this12.uuid = res.uuid;
-        _this12.wxTime = res.expiredTime;
-        _this12.refreshIsLogin();
+        _this13.qrUrl = res.qrUrl;
+        _this13.uuid = res.uuid;
+        _this13.wxTime = res.expiredTime;
+        _this13.refreshIsLogin();
       });
     },
     hideWxLoadingFlag: function hideWxLoadingFlag() {
       this.wxLoadingFlag = false;
     },
     // 检查二维码是否已经登录
-    refreshIsLogin: function refreshIsLogin() {var _this13 = this;
+    refreshIsLogin: function refreshIsLogin() {var _this14 = this;
       var reqConfig = {
         methods: "POST",
         url: "agent/account/checkQrCode",
@@ -1183,7 +1214,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var self = this;
       this.checkFlag = setInterval(function () {
-        _this13.$utils.getRequest(reqConfig, function (res) {
+        _this14.$utils.getRequest(reqConfig, function (res) {
           console.log("二维码信息:", res);
           if (res.succeeded && res.wxId) {
             clearInterval(self.checkFlag);
