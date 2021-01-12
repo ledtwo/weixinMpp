@@ -213,7 +213,11 @@
                 <view class="ercode" v-show="showone">
                     <view>1.请用另一台设备（可让身边好友帮忙）拍摄二维码</view>
                     <view class="codtwo">2.再用微信“扫一扫”对着另一台设备拍摄的二维码扫码</view>
-                    <view class="codimg"><image src="../../static/code.png"></image></view>
+                    <view class="codimg">
+                        <view class="warn" v-show="wxLoadingFlag">{{ warningText }}</view>
+                        <image :src="qrUrl"></image>
+                    </view>
+
                     <view class="codtil dis-alicen">
                         <u-icon name="warning-fill" color="#FF7900" size="32"></u-icon>
                         <text>不支持微信内截图/长按识别扫码</text>
@@ -298,6 +302,14 @@ export default {
     },
     data() {
         return {
+            uuid: '',
+            qrUrl: '',
+            wxTime: '', //超时时间
+            wxLoadingFlag: true,
+            warningText: '正在加载...',
+            // 定时器
+            checkFlag: '',
+            // 分割线
             userid: '',
             topstatus: 0, //0幸运  1重庆  2新疆   3快乐8
             upfen: 0, //
@@ -367,6 +379,13 @@ export default {
             suijimg: '',
             xiugaizi: ''
         };
+    },
+    watch:{
+        showpops(newVal){
+            if(!newVal){
+                clearInterval(this.checkFlag)
+            }
+        }
     },
     onLoad() {
         this.getBetTotal(); //获取代理积分统计
@@ -452,15 +471,14 @@ export default {
                     if (data[i].userType == 'Mock') {
                         this.notpeos.push(data[i]);
                     } else {
-                        if(data[i].flyOrder == 1){
-                            data[i].checked = true
-                        }else{
-                            data[i].checked = false
+                        if (data[i].flyOrder == 1) {
+                            data[i].checked = true;
+                        } else {
+                            data[i].checked = false;
                         }
                         this.lastlists.push(data[i]);
                     }
                 }
-                
             });
         },
         // 同意拒绝
@@ -654,7 +672,7 @@ export default {
                         this.lastlists.splice(0);
                         this.notpeos.splice(0);
                         this.getwanjia();
-                    },500);
+                    }, 500);
                 }
             });
         },
@@ -718,14 +736,45 @@ export default {
             let reqConfig = {
                 methods: 'POST',
                 url: 'agent/account/getQrCodeUrl',
-                sid: this.$utils.tokens
+                data: {
+                    sid: this.$utils.tokens
+                }
             };
             this.$utils.getRequest(reqConfig, res => {
                 console.log('二维码信息:', res);
-                debugger;
-                uni.stopPullDownRefresh();
-                // this.lists = res.data;
+                this.qrUrl = res.qrUrl;
+                this.uuid = res.uuid;
+                this.wxTime = res.expiredTime;
+                this.refreshIsLogin();
             });
+        },
+        hideWxLoadingFlag() {
+            this.wxLoadingFlag = false;
+        },
+        // 检查二维码是否已经登录
+        refreshIsLogin() {
+            let reqConfig = {
+                methods: 'POST',
+                url: 'agent/account/checkQrCode',
+                data: {
+                    uuid: this.uuid,
+                    sid: this.$utils.tokens
+                }
+            };
+            let self = this
+            this.checkFlag = setInterval(() => {
+                this.$utils.getRequest(reqConfig, res => {
+                    console.log('二维码信息:', res);
+                    if(res.succeeded && res.uuid){
+                        clearInterval(self.checkFlag)
+                        self.$refs.uToast.show({
+                            title: '登录成功!',
+                            type: 'success'
+                        });
+                        this.showpops = false
+                    }
+                });
+            }, 2000);
         },
         // 网盘登录
         wanglogin() {
@@ -1118,7 +1167,19 @@ page {
         }
 
         .codimg {
+            position: relative;
             margin: 10rpx 0;
+            .warn {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 236rpx;
+                height: 236rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #808080a3;
+            }
             image {
                 width: 236rpx;
                 height: 236rpx;
