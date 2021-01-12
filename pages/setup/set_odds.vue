@@ -2,7 +2,7 @@
 	<view>
 		<view class="utoptab">
 			<u-subsection :list="list" :current="current" active-color="#fff" inactive-color="#333" bg-color="#fff"
-				button-color="#A897ED" font-size="30" height="96"></u-subsection>
+				button-color="#A897ED" font-size="30" height="96" @change="sectionChange"></u-subsection>
 		</view>
 		
 		<view class="lists">
@@ -20,6 +20,7 @@
 				</view>
 			</view>
 		</view>
+		<u-toast ref="uToast" />
 	</view>
 </template>
 
@@ -39,39 +40,7 @@
 					}
 				],
 				current: 0,
-				listarr:[
-					{
-						til:"一字定",
-						vmodelo:"",
-						vmodelt:"",
-						vmodelf:""
-					},{
-						til:"二字定",
-						vmodelo:"",
-						vmodelt:"",
-						vmodelf:""
-					},{
-						til:"三字定",
-						vmodelo:"",
-						vmodelt:"",
-						vmodelf:""
-					},{
-						til:"二字现",
-						vmodelo:"",
-						vmodelt:"",
-						vmodelf:""
-					},{
-						til:"三字现",
-						vmodelo:"",
-						vmodelt:"",
-						vmodelf:""
-					},{
-						til:"五位二定",
-						vmodelo:"",
-						vmodelt:"",
-						vmodelf:""
-					}
-				],
+				listarr:[],
 				oddName:[{
 					code:"Three_Show",
 					name:"三字现"
@@ -108,7 +77,19 @@
 			this.getOddsList();
 		},
 		methods:{
-			getOddsList(){
+			sectionChange(index){
+				if (index == 0) {
+					this.current = index;
+					this.getOddsList(index);
+				} else {
+					this.current = 0;
+					this.$refs.uToast.show({
+						title: '功能未开放!',
+						type: 'warning'
+					});
+				}
+			},
+			getOddsList(index){
 				var pram={
 					url:"agent/odds/1",
 					methods:"GET",
@@ -135,9 +116,26 @@
 					methods:"POST",
 					data:{
 						sid:this.$utils.tokens,
-						// odds:item.
+						odds:item.odds,
+						min:item.min,
+						max:item.max,
+						modeType:item.modeType
 					}
 				}
+				this.$utils.getRequest(pram,res=>{
+					if(res.succeeded){
+						this.$refs.uToast.show({
+							title: '赔率更新成功!',
+							type: 'success'
+                    	});
+					}else{
+						this.$refs.uToast.show({
+							title: '赔率更新失败!',
+							type: 'error'
+                    	});
+					}
+					this.getOddsList();
+				})
 			}
 		}
 	}
