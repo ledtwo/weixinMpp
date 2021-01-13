@@ -265,7 +265,7 @@ var _default =
 
 
       this.$utils.getRequest(pram, function (res) {
-        debugger;
+        // debugger;
         if (res.length) {
           _this.agentId = res[0].agentId ? res[0].agentId : res[0].id;
           uni.setStorageSync('agentId', JSON.stringify(_this.agentId));
@@ -303,7 +303,6 @@ var _default =
           status = uni.getStorageSync('accountfour');
           break;}
 
-      debugger;
       if (status) {
         this.show = false;
       } else {
@@ -379,7 +378,7 @@ var _default =
 
       this.$utils.getRequest(pram, function (res) {
         console.log('盘口登录:', res);
-        debugger;
+        // debugger;
         if (res.succeeded) {
           _this2.show = false;
           // 记住密码

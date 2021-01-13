@@ -722,9 +722,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     // 退出
-    loginOut: function loginOut(item) {
+    loginOut: function loginOut(item) {var _this = this;
       var pram = {
-        url: "gent/account/logout",
+        url: "agent/account/logout",
         methods: "POST",
         data: {
           agentAccountId: item.id,
@@ -732,12 +732,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        debugger;
+        // if(res.scuu)
+        _this.getWxUserList();
         // this.userList = res.data;
       });
     },
     // 查询微信用户
-    getWxUserList: function getWxUserList() {var _this = this;
+    getWxUserList: function getWxUserList() {var _this2 = this;
       var pram = {
         url: "agent/account/list",
         methods: "GET",
@@ -748,12 +749,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        debugger;
-        _this.userList = res.data;
+        _this2.userList = res.data;
       });
     },
     //代理积分统计
-    getBetTotal: function getBetTotal() {var _this2 = this;
+    getBetTotal: function getBetTotal() {var _this3 = this;
       var pram = {
         url: "agent/user/bet/total",
         methods: "GET",
@@ -762,13 +762,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        _this2.somemun[0].mon = res.totalIntegral;
-        _this2.somemun[1].mon = res.costTotalIntegral;
-        _this2.somemun[2].mon = res.obtainTotalIntegral;
+        _this3.somemun[0].mon = res.totalIntegral;
+        _this3.somemun[1].mon = res.costTotalIntegral;
+        _this3.somemun[2].mon = res.obtainTotalIntegral;
       });
     },
     //代理盘口积分统计
-    getPankouTotal: function getPankouTotal() {var _this3 = this;
+    getPankouTotal: function getPankouTotal() {var _this4 = this;
       var agentRoomId = uni.getStorageSync("agentId");
       var pram = {
         url: "agent/user/bet/pankou/total",
@@ -778,15 +778,15 @@ __webpack_require__.r(__webpack_exports__);
           agentRoomId: agentRoomId } };
 
 
-      debugger;
+      // debugger;
       this.$utils.getRequest(pram, function (res) {
-        _this3.twomun[0].mon = res.leftAmount;
-        _this3.twomun[1].mon = res.periodTotalIntegral;
-        _this3.twomun[2].mon = res.todayTotalIntegral;
+        _this4.twomun[0].mon = res.leftAmount;
+        _this4.twomun[1].mon = res.periodTotalIntegral;
+        _this4.twomun[2].mon = res.todayTotalIntegral;
       });
     },
     // 获取积分请求列表
-    getjifen: function getjifen() {var _this4 = this;
+    getjifen: function getjifen() {var _this5 = this;
       var self = this;
       var pram = {
         url: "agent/integral/request/list",
@@ -800,15 +800,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("积分列表:", res);
         res.data.forEach(function (val) {
-          val.tims = _this4.$utils.formatDate(val.createdTime);
+          val.tims = _this5.$utils.formatDate(val.createdTime);
         });
-        _this4.jifenlist = res.data;
-        if (_this4.jifenlist.length > 0) {
-          _this4.playAudio();
-          if (_this4.audioFlag) {
+        _this5.jifenlist = res.data;
+        if (_this5.jifenlist.length > 0) {
+          _this5.playAudio();
+          if (_this5.audioFlag) {
             return;
           }
-          _this4.audioFlag = setInterval(function () {
+          _this5.audioFlag = setInterval(function () {
             self.getjifen();
           }, 10000);
         }
@@ -828,7 +828,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // 获取玩家列表
-    getwanjia: function getwanjia() {var _this5 = this;
+    getwanjia: function getwanjia() {var _this6 = this;
       this.$utils.getRequest(this.reqdata, function (res) {
         console.log("玩家列表:", res);
         uni.stopPullDownRefresh();
@@ -838,20 +838,20 @@ __webpack_require__.r(__webpack_exports__);
         });
         for (var i = 0; i < data.length; i++) {
           if (data[i].userType == "Mock") {
-            _this5.notpeos.push(data[i]);
+            _this6.notpeos.push(data[i]);
           } else {
             if (data[i].flyOrder == 1) {
               data[i].checked = true;
             } else {
               data[i].checked = false;
             }
-            _this5.lastlists.push(data[i]);
+            _this6.lastlists.push(data[i]);
           }
         }
       });
     },
     // 同意拒绝
-    agree: function agree(num, nuns) {var _this6 = this;
+    agree: function agree(num, nuns) {var _this7 = this;
       // 嗯，更新请求状态表(/agent/{requestId}/{status} （
       // Success, Failed）)这个是同意还是拒绝
       var pram;
@@ -882,12 +882,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.$utils.getRequest(pram, function (res) {
-        _this6.getjifen();
+        _this7.getjifen();
         console.log(">>>>>>>>>>>", res);
       });
     },
     // 获取下注监控列表
-    getxiazhu: function getxiazhu() {var _this7 = this;
+    getxiazhu: function getxiazhu() {var _this8 = this;
       var pram = {
         url: "agent/user/bet/list",
         methods: "POST",
@@ -900,11 +900,11 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$utils.getRequest(pram, function (res) {
         console.log("下注监控列表:", res);
-        _this7.betList = res.data;
+        _this8.betList = res.data;
       });
     },
     //下注监控号码明细
-    getNumDetail: function getNumDetail(id) {var _this8 = this;
+    getNumDetail: function getNumDetail(id) {var _this9 = this;
       this.showxia = true;
       this.id = id;
       var pram = {
@@ -917,11 +917,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        if (res.data.length != 0) {var _this8$numList;
-          _this8.flag = true;
-          (_this8$numList = _this8.numList).push.apply(_this8$numList, _toConsumableArray(res.data));
+        if (res.data.length != 0) {var _this9$numList;
+          _this9.flag = true;
+          (_this9$numList = _this9.numList).push.apply(_this9$numList, _toConsumableArray(res.data));
         } else {
-          _this8.flag = false;
+          _this9.flag = false;
         }
       });
     },
@@ -966,7 +966,7 @@ __webpack_require__.r(__webpack_exports__);
         this.show = false;
       }
     },
-    switchs: function switchs(num) {var _this9 = this;
+    switchs: function switchs(num) {var _this10 = this;
       var flyOrder = this.lastlists[num].checked ? 1 : 0;
       // 是否飞单
       this.userid = this.lastlists[num].id;
@@ -980,8 +980,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("修改信息:", res);
         if (res.succeeded) {
-          _this9.showuser = false;
-          _this9.$refs.uToast.show({
+          _this10.showuser = false;
+          _this10.$refs.uToast.show({
             title: "修改成功!",
             type: "success" });
 
@@ -1099,7 +1099,7 @@ __webpack_require__.r(__webpack_exports__);
       this.suijimg =
       "http://qd.tskp1i6.cn/static/img/thumb/pic-" + su * su * su + ".jpg";
     },
-    suSanchu: function suSanchu() {var _this10 = this;
+    suSanchu: function suSanchu() {var _this11 = this;
       var pram = {
         url: "agent/user/updateStatus/" + this.userid + "/Delete",
         data: {
@@ -1109,20 +1109,20 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("删除玩家:", res);
         if (res.succeeded) {
-          _this10.$refs.uToast.show({
+          _this11.$refs.uToast.show({
             title: "删除成功!",
             type: "success" });
 
           setTimeout(function () {
-            _this10.reqdata.data.pageNo = 1;
-            _this10.lastlists.splice(0);
-            _this10.notpeos.splice(0);
-            _this10.getwanjia();
+            _this11.reqdata.data.pageNo = 1;
+            _this11.lastlists.splice(0);
+            _this11.notpeos.splice(0);
+            _this11.getwanjia();
           }, 500);
         }
       });
     },
-    surxiugai: function surxiugai() {var _this11 = this;
+    surxiugai: function surxiugai() {var _this12 = this;
       var pram = {
         url: "agent/user/update/" + this.userid,
         data: {
@@ -1134,15 +1134,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("修改信息:", res);
         if (res.succeeded) {
-          _this11.showuser = false;
-          _this11.$refs.uToast.show({
+          _this12.showuser = false;
+          _this12.$refs.uToast.show({
             title: "修改成功!",
             type: "success" });
 
-          _this11.reqdata.data.pageNo = 1;
-          _this11.lastlists.splice(0);
-          _this11.notpeos.splice(0);
-          _this11.getwanjia();
+          _this12.reqdata.data.pageNo = 1;
+          _this12.lastlists.splice(0);
+          _this12.notpeos.splice(0);
+          _this12.getwanjia();
         }
       });
     },
@@ -1151,7 +1151,7 @@ __webpack_require__.r(__webpack_exports__);
       this.upfen = index;
     },
     // 上下分确定
-    makeupdown: function makeupdown() {var _this12 = this;
+    makeupdown: function makeupdown() {var _this13 = this;
       var pram = {
         url: "agent/integral",
         methods: "POST",
@@ -1165,14 +1165,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$utils.getRequest(pram, function (res) {
         console.log("上下分:", res);
         if (res.succeeded) {
-          _this12.downfen = "";
-          _this12.showuser = false;
+          _this13.downfen = "";
+          _this13.showuser = false;
           // 刷新页面
-          _this12.reqdata.data.pageNo = 1;
-          _this12.lastlists.splice(0);
-          _this12.notpeos.splice(0);
-          _this12.getwanjia();
-          _this12.$refs.uToast.show({
+          _this13.reqdata.data.pageNo = 1;
+          _this13.lastlists.splice(0);
+          _this13.notpeos.splice(0);
+          _this13.getwanjia();
+          _this13.$refs.uToast.show({
             title: "操作成功!",
             type: "success" });
 
@@ -1180,7 +1180,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     // 添加账号
-    addadmin: function addadmin() {var _this13 = this;
+    addadmin: function addadmin() {var _this14 = this;
       this.showpops = true;
       this.showone = true;
       this.poptile = "二维码登录";
@@ -1193,17 +1193,17 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$utils.getRequest(reqConfig, function (res) {
         console.log("二维码信息:", res);
-        _this13.qrUrl = res.qrUrl;
-        _this13.uuid = res.uuid;
-        _this13.wxTime = res.expiredTime;
-        _this13.refreshIsLogin();
+        _this14.qrUrl = res.qrUrl;
+        _this14.uuid = res.uuid;
+        _this14.wxTime = res.expiredTime;
+        _this14.refreshIsLogin();
       });
     },
     hideWxLoadingFlag: function hideWxLoadingFlag() {
       this.wxLoadingFlag = false;
     },
     // 检查二维码是否已经登录
-    refreshIsLogin: function refreshIsLogin() {var _this14 = this;
+    refreshIsLogin: function refreshIsLogin() {var _this15 = this;
       var reqConfig = {
         methods: "POST",
         url: "agent/account/checkQrCode",
@@ -1214,7 +1214,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var self = this;
       this.checkFlag = setInterval(function () {
-        _this14.$utils.getRequest(reqConfig, function (res) {
+        _this15.$utils.getRequest(reqConfig, function (res) {
           console.log("二维码信息:", res);
           if (res.succeeded && res.wxId) {
             clearInterval(self.checkFlag);

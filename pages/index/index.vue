@@ -532,7 +532,7 @@ export default {
     // 退出
     loginOut(item) {
       var pram = {
-        url: "gent/account/logout",
+        url: "agent/account/logout",
         methods: "POST",
         data: {
           agentAccountId: item.id,
@@ -540,7 +540,8 @@ export default {
         },
       };
       this.$utils.getRequest(pram, (res) => {
-          debugger
+          // if(res.scuu)
+          this.getWxUserList()
         // this.userList = res.data;
       });
     },
@@ -556,7 +557,6 @@ export default {
         },
       };
       this.$utils.getRequest(pram, (res) => {
-        debugger;
         this.userList = res.data;
       });
     },
@@ -586,7 +586,7 @@ export default {
           agentRoomId: agentRoomId,
         },
       };
-      debugger;
+      // debugger;
       this.$utils.getRequest(pram, (res) => {
         this.twomun[0].mon = res.leftAmount;
         this.twomun[1].mon = res.periodTotalIntegral;
