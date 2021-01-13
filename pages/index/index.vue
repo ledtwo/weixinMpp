@@ -557,7 +557,15 @@ export default {
         },
       };
       this.$utils.getRequest(pram, (res) => {
-        this.userList = res.data;
+          if(res.data){
+              let userList = []
+              res.data.forEach((item,index)=>{
+                  if(item.loginStatus != "No_Login"){
+                      userList.push(item)
+                  }
+              })
+              this.userList = userList;
+          }
       });
     },
     //代理积分统计
@@ -804,6 +812,9 @@ export default {
       this.current = e;
       this.longtap = -1;
       this.longtapeo = -1;
+      if(this.current == 2){
+          this.getxiazhu()
+      }
     },
     // 显示弹出框
     showalert(index) {

@@ -749,7 +749,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
       this.$utils.getRequest(pram, function (res) {
-        _this2.userList = res.data;
+        if (res.data) {
+          var userList = [];
+          res.data.forEach(function (item, index) {
+            if (item.loginStatus != "No_Login") {
+              userList.push(item);
+            }
+          });
+          _this2.userList = userList;
+        }
       });
     },
     //代理积分统计
@@ -996,6 +1004,9 @@ __webpack_require__.r(__webpack_exports__);
       this.current = e;
       this.longtap = -1;
       this.longtapeo = -1;
+      if (this.current == 2) {
+        this.getxiazhu();
+      }
     },
     // 显示弹出框
     showalert: function showalert(index) {
