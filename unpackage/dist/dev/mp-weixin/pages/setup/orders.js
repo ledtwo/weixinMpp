@@ -117,12 +117,6 @@ var render = function() {
     }
   })
 
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.show = true
-    }
-  }
-
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -164,7 +158,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
+//
+//
+//
 //
 //
 //
@@ -242,9 +239,13 @@ var _default =
         data: {
           pageNo: 1,
           length: 30,
-          sid: this.$utils.tokens } } };
+          sid: this.$utils.tokens } },
 
 
+      numList: [],
+      id: 0,
+      pageNoNum: 1,
+      flag: true };
 
   },
   onReachBottom: function onReachBottom() {
@@ -257,6 +258,38 @@ var _default =
         console.log('下注列表:', res);
         _this.list = res.data;
       });
+    },
+    getNumDetail: function getNumDetail(id) {var _this2 = this;
+      this.show = true;
+      this.id = id;
+      var pram = {
+        url: 'agent/user/bet/numListByBetId',
+        data: {
+          pageNo: this.pageNoNum,
+          length: 52,
+          betId: this.id,
+          sid: this.$utils.tokens } };
+
+
+      this.$utils.getRequest(pram, function (res) {
+        if (res.data.length != 0) {var _this2$numList;
+          _this2.flag = true;
+          (_this2$numList = _this2.numList).push.apply(_this2$numList, _toConsumableArray(res.data));
+        } else {
+          _this2.flag = false;
+        }
+      });
+    },
+    loadMore: function loadMore() {
+      if (this.flag) {
+        this.pageNoNum++;
+        this.getNumDetail(this.id);
+      } else {
+        this.$refs.uToast.show({
+          title: "已经到底啦!",
+          type: "warning" });
+
+      }
     } },
 
   mounted: function mounted() {
