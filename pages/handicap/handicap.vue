@@ -9,7 +9,7 @@
             </view>
             <view class="inputs dis-alicen" style="margin-top: 40rpx">
                 <image src="../../static/phc.png"></image>
-                <input type="number" placeholder="请输入账号" v-model="pho" />
+                <input type="text" placeholder="请输入账号" v-model="pho" />
             </view>
             <view class="inputs dis-alicen" style="margin-top: 40rpx">
                 <image src="../../static/pwc.png"></image>
@@ -217,7 +217,7 @@ export default {
                 // url: 'agent/updateRoomStatus/' + this.agentId,
                 url:"agent/pankou/login",
                 data: {
-                    agentRoomId:"盘口登录",
+                    agentRoomId:this.agentId,
                     thirdPartyUserName: this.pho,
                     thirdPartyPassward: this.pwd,
                     thirdPartyUrl: this.address,

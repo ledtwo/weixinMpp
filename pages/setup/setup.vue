@@ -182,12 +182,29 @@ export default {
                 var roomList = [];
                 if (res) {
                     res.forEach(item => {
+                        let text='';
+                        if(item.startHour&&item.endHour){
+                            if(item.startHour==0&&item.endHour==24){
+                                text="24小时模式"
+                            }else if(item.startHour==9&&item.endHour==4){
+                                text="9点-4点模式"
+                            }else{
+                                text="24小时模式"
+                            }
+                        }else{
+                            text="24小时模式"
+                        }
                         roomList.push({
                             tiles: item.roomVO.name,
                             flag: item.status == 'Opened' ? true : false,
-                            chose: item.roomVO.status == 'Valid' ? true : false,
-                            text: item.roomVO.title,
-                            id: item.id
+                            chose: true,
+                            text: text,
+                            id: item.id,
+                            flyOrder:item.flyOrder,
+                            thirdPartyUserName:item.thirdPartyUserName,
+                            thirdPartyPassward:item.thirdPartyPassward,
+                            thirdPartyUrl:item.thirdPartyUrl,
+                            status:item.status
                         });
                     });
                 }
@@ -385,13 +402,53 @@ export default {
         },
         // 房间列表是否选中
         roomchose(index) {
-            if (this.roomlist[index].chose) {
-                this.roomlist[index].chose = false;
-            } else {
-                this.roomlist[index].chose = true;
-            }
+            // if (this.roomlist[index].chose) {
+            //     this.roomlist[index].chose = false;
+            // } else {
+            //     this.roomlist[index].chose = true;
+            // }
         },
         selecs(e) {
+            let startHour,endHour;
+            // let flyOrder=this.roomList[this.roomenum].flyOrder;
+            // let thirdPartyUserName=this.roomList[this.roomenum].thirdPartyUserName;
+            // let thirdPartyPassward=this.roomList[this.roomenum].thirdPartyPassward;
+            // let thirdPartyUrl=this.roomList[this.roomenum].thirdPartyUrl;
+            // let status=this.roomList[this.roomenum].status;
+            if(e[0].value==1){
+                startHour=0;
+                endHour=24;
+            }else{
+                startHour=9;
+                endHour=4
+            }
+            var pram = {
+                url:"agent/updateRoomStatus/"+this.roomlist[this.roomenum].id,
+                methods:"POST",
+                data:{
+                    sid:this.$utils.tokens,
+                    startHour:startHour,
+                    endHour:endHour,
+                    // flyOrder:flyOrder,
+                    // thirdPartyUserName:thirdPartyUserName,
+                    // thirdPartyPassward:thirdPartyPassward,
+                    // thirdPartyUrl:thirdPartyUrl,
+                    // status:status
+                }
+            }
+            this.$utils.getRequest(pram,res=>{
+                if(res.succeeded){
+                    this.$refs.uToast.show({
+                        title: '更新成功!',
+                        type: 'success'
+                    });
+                }else{
+                    this.$refs.uToast.show({
+                        title: '更新失败!',
+                        type: 'error'
+                    });
+                }
+            })
             this.roomlist[this.roomenum].text = e[0].label;
         },
         // 点击第几个单列
