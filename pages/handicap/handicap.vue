@@ -214,8 +214,10 @@ export default {
 
             var pram = {
                 methods: 'POST',
-                url: 'agent/updateRoomStatus/' + this.agentId,
+                // url: 'agent/updateRoomStatus/' + this.agentId,
+                url:"agent/pankou/login",
                 data: {
+                    agentRoomId:"盘口登录",
                     thirdPartyUserName: this.pho,
                     thirdPartyPassward: this.pwd,
                     thirdPartyUrl: this.address,
