@@ -80,7 +80,7 @@
             </view>
         </u-popup>
 
-        <u-modal v-model="show" title="提示" show-cancel-button content="是否清空流水?" @confirm="surebtn" @cancel="show = false"></u-modal>
+        <u-modal v-model="show" title="提示" show-cancel-button content="更新数据可能会延迟,是否清空流水?" @confirm="surebtn" @cancel="show = false"></u-modal>
 
         <u-select v-model="showselect" :list="seleclist" value-name="value" label-name="label" @confirm="selecs" @cancel="showselect = false"></u-select>
         <u-toast ref="uToast" />

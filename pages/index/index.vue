@@ -322,6 +322,7 @@ export default {
     },
     data() {
         return {
+            refreshXiaZhu: '',
             userList: [],
             uuid: '',
             qrUrl: '',
@@ -434,10 +435,22 @@ export default {
     onShow() {
         // accountone幸运  accountwo重庆  accounthree新疆  accountfour快乐8
         this.isntlogin();
+        this.getxiazhu();
+        if (this.refreshXiaZhu) {
+            clearInterval(this.refreshXiaZhu);
+        }
+        this.refreshXiaZhu = setInterval(() => {
+            this.getxiazhu();
+        }, 3000);
         // this.getwanjia(); //获取玩家列表
         this.getjifen(); // 获取积分请求列表
         this.getWxUserList();
         // this.getPankouTotal() //获取盘口数据
+    },
+    onHide() {
+        if (this.refreshXiaZhu) {
+            clearInterval(this.refreshXiaZhu);
+        }
     },
     methods: {
         // 退出
@@ -613,7 +626,7 @@ export default {
                 methods: 'POST',
                 data: {
                     pageNo: 1,
-                    length: 10,
+                    length: 1000,
                     //   period: 1, //期号
                     sid: this.$utils.tokens
                 }
@@ -973,9 +986,13 @@ export default {
         },
         // 绑定群聊
         binds() {
-            uni.navigateTo({
-                url: '../bindqun/bindqun'
+            this.$refs.uToast.show({
+                title: '请前往PC端操作!',
+                type: 'warning'
             });
+            // uni.navigateTo({
+            //     url: '../bindqun/bindqun'
+            // });
         }
     }
 };
