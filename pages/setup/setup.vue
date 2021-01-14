@@ -307,6 +307,13 @@ export default {
         addjiaren() {
             var su = Math.ceil(Math.random() * 10);
             var suijimg = 'http://qd.tskp1i6.cn/static/img/thumb/pic-' + su * su * su + '.jpg';
+            if(this.userName == ''){
+                this.$refs.uToast.show({
+                    title: '请输入假人名称!',
+                    type: 'warning'
+                });
+                return
+            }
             var pram = {
                 url: 'agent/user/addMockUser',
                 methods: 'POST',

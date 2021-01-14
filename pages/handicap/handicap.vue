@@ -46,13 +46,13 @@
                             <image src="../../static/tuic.png"></image>
                         </view>
                         <view class="toptil">幸运</view>
-                        <view class="topnum">{{detail.currentNum}}</view>
-                        <view class="toplast dis-jasc">
-                            <text>{{$utils.formatDate(detail.openTime,true)}}</text>
-                        </view>
+                        <view class="topnum">{{ detail.currentNum }}</view>
+                        <!-- <view class="toplast dis-jasc">
+                            <text>{{ $utils.formatDate(detail.openTime, true) }}</text>
+                        </view> -->
                     </view>
                     <view class="onebot dis-jasc">
-                        <view class="botime">更新时间：08/18 15:25:06</view>
+                        <view class="botime">更新时间：{{$utils.formatDate(detail.openTime, true)}}</view>
                         <view class="botrig dis-alicen">
                             <text>开启飞单</text>
                             <u-switch size="40" v-model="checked" @change="switchs" active-color="#B199F7" inactive-color="#F3F3F3"></u-switch>
@@ -70,7 +70,7 @@
 export default {
     data() {
         return {
-            detail:{},
+            detail: {},
             agentId: '',
             show: true,
             reminpw: true, //记住密码
@@ -78,16 +78,16 @@ export default {
             list: [
                 {
                     name: '幸运'
-                },
-                {
-                    name: '重庆'
-                },
-                {
-                    name: '新疆'
-                },
-                {
-                    name: '快乐8'
                 }
+                // {
+                //     name: '重庆'
+                // },
+                // {
+                //     name: '新疆'
+                // },
+                // {
+                //     name: '快乐8'
+                // }
             ],
             current: 0,
             checked: true,
@@ -115,7 +115,7 @@ export default {
                 if (res.length) {
                     this.agentId = res[0].agentId ? res[0].agentId : res[0].id;
                     uni.setStorageSync('agentId', JSON.stringify(this.agentId));
-                    this.detail=res[0].roomVO
+                    this.detail = res[0].roomVO;
                 }
             });
         },
@@ -172,15 +172,27 @@ export default {
             this.isntlogin();
         },
         switchs(num) {
-            if (this.lists[num].checked) {
-                this.$set(this.lists, num, {
-                    checked: true
-                });
-            } else {
-                this.$set(this.lists, num, {
-                    checked: false
-                });
-            }
+            let flyOrder = this.checked ? 1 : 0
+            // 是否关闭房间
+            // let roomId = this.roomlist[num].id;
+            var pram = {
+                methods: 'POST',
+                url: 'agent/updateRoomStatus/' + this.agentId,
+                data: {
+                    flyOrder: flyOrder,
+                    sid: this.$utils.tokens
+                }
+            };
+            this.$utils.getRequest(pram, res => {
+                console.log('房间操作:', res);
+                if (res.succeeded) {
+                    this.getRoomList()
+                    this.$refs.uToast.show({
+                        title: '操作成功!',
+                        type: 'success'
+                    });
+                }
+            });
         },
         logins() {
             if (this.address == '' || this.address == ' ') {
@@ -205,7 +217,7 @@ export default {
                 });
                 return;
             }
-            
+
             var userinfo = {
                 thirdPartyUserName: this.pho,
                 thirdPartyPassward: this.pwd,
@@ -215,9 +227,9 @@ export default {
             var pram = {
                 methods: 'POST',
                 // url: 'agent/updateRoomStatus/' + this.agentId,
-                url:"agent/pankou/login",
+                url: 'agent/pankou/login',
                 data: {
-                    agentRoomId:this.agentId,
+                    agentRoomId: this.agentId,
                     thirdPartyUserName: this.pho,
                     thirdPartyPassward: this.pwd,
                     thirdPartyUrl: this.address,
@@ -247,8 +259,13 @@ export default {
                         }
                     }
                     this.$refs.uToast.show({
-                        title: '操作成功!',
+                        title: '登录成功!',
                         type: 'success'
+                    });
+                } else {
+                    this.$refs.uToast.show({
+                        title: '登录失败!',
+                        type: 'warning'
                     });
                 }
             });

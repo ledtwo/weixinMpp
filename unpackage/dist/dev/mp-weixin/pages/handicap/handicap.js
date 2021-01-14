@@ -371,7 +371,7 @@ var _default =
         // url: 'agent/updateRoomStatus/' + this.agentId,
         url: "agent/pankou/login",
         data: {
-          agentRoomId: "盘口登录",
+          agentRoomId: this.agentId,
           thirdPartyUserName: this.pho,
           thirdPartyPassward: this.pwd,
           thirdPartyUrl: this.address,

@@ -57,7 +57,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxa2500dad7c564a85",
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
@@ -76,5 +76,9 @@
     },
     "uniStatistics" : {
         "enable" : false
+    },
+    "h5" : {
+        "title" : "打工人",
+        "domain" : "demo.epochy.cn"
     }
 }

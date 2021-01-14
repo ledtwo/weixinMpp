@@ -81,7 +81,7 @@
 							url:"../index/index"
 						})
 					}
-                    if(res = {}){
+                    if(res == {}){
                         this.$refs.uToast.show({
                         	title: '账号已过期!',
                         	type: 'warning'

@@ -77,9 +77,11 @@ const formatDate=function (time,flag) {
 	  var second = date.getSeconds();
 	  minute = minute < 10 ? ('0' + minute) : minute;
 	  second = second < 10 ? ('0' + second) : second;
-	  var timeStr = y + '-' + m + '-' + d
+      let timeStr
       if(flag){
           timeStr = y + '-' + m + '-' + d + '　' + h + ':' + minute + ':' + second;
+      }else{
+          timeStr = y + '-' + m + '-' + d
       }
 	  return timeStr;
   }
